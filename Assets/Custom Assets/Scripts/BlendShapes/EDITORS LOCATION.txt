@@ -1,0 +1,1 @@
+The 2 editors i created for the blendshapes are in Assets -> Editor, because they needed to be there for build to work
