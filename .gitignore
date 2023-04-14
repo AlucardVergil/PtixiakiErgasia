@@ -365,3 +365,9 @@ FodyWeavers.xsd
 /Temp/FSTimeGet-e871e77deff96fd47b0d2e429a714367
 /Temp/FSTimeGet-9ef0c6380149ccc4ba67981490c0eb85
 /Temp/FSTimeGet-7e7853ffbcf086242b9bbb76efdacc9d
+
+
+#Ignore large Unity-generated files
+Library/ArtifactDB
+Library/PackageCache/com.unity.burst@1.6.4/.Runtime/hostmac/lld
+Library/PlayerDataCache/Win64/Data/*.assets.resS
