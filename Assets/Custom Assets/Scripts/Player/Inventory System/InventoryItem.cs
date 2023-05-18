@@ -1,28 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 [System.Serializable]
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : ItemDrop
 {
-    public string name;
-    public ItemType itemType;
-    public Sprite icon;
-    public int quantity;
-    public int maxStack;
-    public List<Item> ingredients; // List of items required to craft this item
+    [HideInInspector] public int inventoryIndex;
+    //public string name;
+    //public ItemType itemType;
+    //public Sprite icon;
+    //public GameObject itemDropPrefab;
+    //public int quantity;
+    //public int maxStack;
+    //public List<Item> ingredients; // List of items required to craft this item
 
-    // Additional properties specific to certain item types
-    public int attackPower; // For weapons
-    public int defensePower; // For armor
-    public bool isConsumable; // For consumable items
+    //// Additional properties specific to certain item types
+    //public int attackPower; // For weapons
+    //public int defensePower; // For armor
+    //public bool isConsumable; // For consumable items
 
-    // Enum to define the item type
-    public enum ItemType
+    //// Enum to define the item type
+    //public enum ItemType
+    //{
+    //    Resource,
+    //    Consumable,
+    //    Equipment,
+    //    Craftable
+    //}
+
+
+    public void SetInventoryIndex()
     {
-        Resource,
-        Consumable,
-        Equipment,
-        Craftable
+        inventoryIndex = transform.GetSiblingIndex();
+    }
+
+
+    public void DisplayIconInInventory()
+    {        
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).GetComponent<Image>().sprite = icon;        
+    }
+
+    public void ShowDescription()
+    {
+
     }
 }

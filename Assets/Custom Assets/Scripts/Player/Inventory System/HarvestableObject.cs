@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HarvestableObject : MonoBehaviour
+public class HarvestableObject : ItemDrop
 {
-    public Item item; // The item to be dropped when harvested
     [SerializeField] private float hp;
 
     private bool isHarvested = false;
@@ -17,11 +16,7 @@ public class HarvestableObject : MonoBehaviour
             isHarvested = true;
 
             // Instantiate the item drop at the gatherable object's position
-            GameObject itemDrop = Instantiate(item.itemDropPrefab, transform.position, Quaternion.identity);
-
-            // Pass the item data to the item drop script
-            ItemDrop itemDropScript = itemDrop.GetComponent<ItemDrop>();
-            itemDropScript.Initialize(item);
+            GameObject itemDrop = Instantiate(itemDropPrefab, transform.position, Quaternion.identity);
 
             // Destroy the gatherable object
             Destroy(gameObject);

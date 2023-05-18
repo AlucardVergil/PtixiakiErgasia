@@ -32,7 +32,7 @@ namespace StarterAssets
 		public bool lockOnRightInput;
 		public bool lockOnLeftInput;
 
-		GameObject menu;
+		[HideInInspector] public GameObject menu;
 
 		public PlayerControls playerControls;
 

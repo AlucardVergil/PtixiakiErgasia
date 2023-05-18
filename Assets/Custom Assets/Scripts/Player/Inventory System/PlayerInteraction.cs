@@ -7,6 +7,7 @@ public class PlayerInteraction : MonoBehaviour
     public float interactionDistance = 2f;
     public LayerMask interactionLayer;
     public Transform crosshair;
+    public Camera cam;
 
     private bool isInteracting = false;
     private HarvestableObject currentHarvestable;
@@ -32,10 +33,12 @@ public class PlayerInteraction : MonoBehaviour
     private void StartInteraction()
     {
         // Raycast from the crosshair position forward
-        Ray ray = new Ray(crosshair.position, crosshair.forward);
+        //Ray ray = new Ray(crosshair.position, crosshair.forward);
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.51f, 0.5f, 0));
 
         if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayer))
         {
+            Debug.Log("HIT");
             // Check if the raycast hit a harvestable resource            
             if (hit.collider.TryGetComponent<HarvestableObject>(out var harvestable))
             {

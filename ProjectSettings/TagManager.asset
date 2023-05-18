@@ -17,6 +17,7 @@ TagManager:
   - PlayerStaminaFill
   - PlayerStaminaDrainFill
   - MenuTabPanels
+  - Inventory
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Items
   - 
   - 
   - 
