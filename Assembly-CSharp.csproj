@@ -72,6 +72,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\Game Menus\UpgradeManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\TabGroup.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\SwitchArmorEquipment.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\ItemDrop.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Doors\CircularLerp.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Custom Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\WindSwaySimple.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\CustomizeCharacterParts\UtilSetPartsTransform.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\HarvestableObject.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpellsManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\FreezeSpellAOE\FreezeSpellShooter.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Weapon\WeaponCollider.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\CustomizeCharacterParts\CustomizeCharacterColors.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\CsDestroyEffect.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Doors\Door.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\Inventory.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\ShootProjectile\Projectile.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Weapon\SheathWeapon.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\ArmorButtonGroup.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\BlendShapes\BlendShapeSlider.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SecondaryCustomizationHelper.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsGroupManager.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItem.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Game Menus\InventoryManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\EnemyAI\IdleState.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Culling\TriggerArea.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\PlayerInteraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
