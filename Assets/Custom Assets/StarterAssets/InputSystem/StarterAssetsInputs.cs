@@ -33,8 +33,9 @@ namespace StarterAssets
 		public bool lockOnLeftInput;
 
 		[HideInInspector] public GameObject menu;
+        [HideInInspector] public GameObject inventory;
 
-		public PlayerControls playerControls;
+        public PlayerControls playerControls;
 
 
 
@@ -42,7 +43,10 @@ namespace StarterAssets
         {
 			//for upgrades menu
 			menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
-			menu.SetActive(false);			
+			inventory = GameObject.FindGameObjectWithTag("Inventory");
+
+            inventory.SetActive(false);
+            menu.SetActive(false);			
 		}
 
 
@@ -82,11 +86,13 @@ namespace StarterAssets
 
 			playerControls.Player.OpenGameMenu.performed += i => OpenGameMenu();
 
+            playerControls.Player.OpenInventory.performed += i => ToggleInventory();
+
             #endregion
 
             #region GameMenuUI Action Map
 
-            playerControls.GameMenuUI.OpenGameMenu.performed += i => OpenGameMenu();
+            playerControls.GameMenuUI.CloseInventory.performed += i => ToggleInventory();
 
             #endregion
 
@@ -306,14 +312,37 @@ namespace StarterAssets
 		}
 
 
+		public void ToggleInventory()
+		{
+            if (inventory.activeSelf)
+            {
+                inventory.SetActive(false);
+                //GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                playerControls.Player.Enable();
+                playerControls.GameMenuUI.Disable();
+            }
+            else
+            {
+                inventory.SetActive(true);
+                //GetComponent<PlayerInput>().SwitchCurrentActionMap("GameMenuUI");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                playerControls.Player.Disable();
+                playerControls.GameMenuUI.Enable();
+            }
+        }
 
 
-		//Function that is called as an event from within the sword slash animation asset, at the end of the sword swing frame
-		//in order for the enemy to take damage only when collider hits AND the player has swang the sword.
-		//Also attack animation starts when you click left mouse button. Transition back from attack animation is set
-		//to on exit time so it exits after the animation finishes. This line is to set the attack boolean variable to
-		//false right after it finishes the swing in the attack animation so that it won't play again.
-		public void CanAttackHit(AnimationEvent animationEvent)
+
+
+        //Function that is called as an event from within the sword slash animation asset, at the end of the sword swing frame
+        //in order for the enemy to take damage only when collider hits AND the player has swang the sword.
+        //Also attack animation starts when you click left mouse button. Transition back from attack animation is set
+        //to on exit time so it exits after the animation finishes. This line is to set the attack boolean variable to
+        //false right after it finishes the swing in the attack animation so that it won't play again.
+        public void CanAttackHit(AnimationEvent animationEvent)
         {
 			if (animationEvent.intParameter == 0)
             {

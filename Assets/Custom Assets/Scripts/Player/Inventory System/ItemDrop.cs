@@ -2,18 +2,17 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemDrop : MonoBehaviour
 {
     private Inventory inventory;
 
-    public string name;
+    public string itemName;
     public ItemType itemType;
     public Sprite icon;    
     public int quantity;
     public int maxStack;
-    public List<Item> ingredients; // List of items required to craft this item
+    public List<InventoryItem> ingredients; // List of items required to craft this item
     public GameObject itemDropPrefab;
 
     // Additional properties specific to certain item types
@@ -30,10 +29,6 @@ public class ItemDrop : MonoBehaviour
         Craftable
     }
 
-    private void OnEnable()
-    {
-        
-    }
 
     private void Start()
     {
@@ -43,7 +38,7 @@ public class ItemDrop : MonoBehaviour
 
     public void Initialize(InventoryItem item)
     {
-        name = item.name;
+        itemName = item.itemName;
         itemType = item.itemType;
         icon = item.icon;
         itemDropPrefab = item.itemDropPrefab;

@@ -27,12 +27,12 @@ public class Inventory : MonoBehaviour
         for (int j = 0; j < items.Count; j++)
         {
             InventoryItem inventoryItem = inventoryUI.transform.GetChild(items[j].inventoryIndex).gameObject.AddComponent<InventoryItem>();
-            inventoryItem = items[j];
+            inventoryItem.Initialize(items[j]);
 
             inventoryItem.DisplayIconInInventory();
         }        
     }
-
+    
 
 
     // Function to add an item to the inventory
@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
         // Check if the item can be stacked with an existing item
         foreach (InventoryItem existingItem in items)
         {
-            if (existingItem.name == item.name && existingItem.quantity < existingItem.maxStack)
+            if (existingItem.itemName == item.itemName && existingItem.quantity < existingItem.maxStack)
             {
                 int remainingStackSpace = existingItem.maxStack - existingItem.quantity;
                 //checks which is lower, the quantity that was picked up or the remaining space so that it won't exceed the MaxStack size
@@ -57,10 +57,9 @@ public class Inventory : MonoBehaviour
         // Check if the inventory has space for the item
         while (items.Count < GetTotalCapacity() && item.quantity > 0)
         {
-            GameObject emptyInventorySlot = FindFirstEmptyInventorySlot();
-            InventoryItem newItem = emptyInventorySlot.AddComponent<InventoryItem>();
+            InventoryItem newItem = new InventoryItem();
 
-            newItem.name = item.name;
+            newItem.itemName = item.itemName;
             newItem.itemType = item.itemType;
             newItem.icon = item.icon;
             newItem.itemDropPrefab = item.itemDropPrefab;
@@ -70,9 +69,6 @@ public class Inventory : MonoBehaviour
             newItem.attackPower = item.attackPower;
             newItem.defensePower = item.defensePower;
             newItem.isConsumable = item.isConsumable;
-
-            newItem.SetInventoryIndex();
-            newItem.DisplayIconInInventory();
 
             items.Add(newItem);
 
@@ -131,20 +127,6 @@ public class Inventory : MonoBehaviour
     public int GetTotalCapacity()
     {
         return baseCapacity;
-    }
-
-
-    private GameObject FindFirstEmptyInventorySlot()
-    {
-        for (int i = 0; i < inventoryUI.transform.childCount; i++)
-        {
-            Transform child = inventoryUI.transform.GetChild(i);
-
-            // Check if the child does not have InventoryItem component
-            if (!child.TryGetComponent<InventoryItem>(out _))   // "out _" is used to indicate that i am not interested in the actual output. It is just to check if component exists. 
-                return child.gameObject;            
-        }
-        return null; //in case there is no empty slot, but that will never happen here because there is another if that checks that before this function executes
     }
 
 

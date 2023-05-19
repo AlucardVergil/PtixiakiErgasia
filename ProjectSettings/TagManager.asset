@@ -18,6 +18,7 @@ TagManager:
   - PlayerStaminaDrainFill
   - MenuTabPanels
   - Inventory
+  - PlayerCanvas
   layers:
   - Default
   - TransparentFX

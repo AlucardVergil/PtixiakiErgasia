@@ -110,11 +110,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be52e2ba4e1af45438a1129d9d174775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: cube
+  itemName: cube
   itemType: 0
   icon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
   quantity: 5
   maxStack: 2
+  ingredients: []
   itemDropPrefab: {fileID: 814934791436195049}
   attackPower: 0
   defensePower: 0
