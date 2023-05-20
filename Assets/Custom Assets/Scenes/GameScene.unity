@@ -15325,7 +15325,7 @@ MonoBehaviour:
   lockOnLeftInput: 0
   menu: {fileID: 0}
   inventory: {fileID: 0}
-  interactionDistance: 5
+  interactionDistance: 15
   interactionLayer:
     serializedVersion: 2
     m_Bits: 64

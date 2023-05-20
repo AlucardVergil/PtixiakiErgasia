@@ -373,3 +373,4 @@ Library/PackageCache/com.unity.burst@1.6.4/.Runtime/hostmac/lld
 Library/PlayerDataCache/Win64/Data/*.assets.resS
 
 Temp/
+Builds/
