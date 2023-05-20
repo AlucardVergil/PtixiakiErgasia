@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Drawing;
+using System.Windows.Forms.DataVisualization.Charting;
 
 
 //Set this editor in the inspector as the editor for ItemDrop class. So when i add the ItemDrop script as
@@ -9,9 +11,7 @@ using UnityEditor;
 [CustomEditor(typeof(ItemDrop))] 
 public class ItemDropEditor : Editor
 {
-    private ItemDrop itemDrop;
-
-    
+    private ItemDrop itemDrop;  
 
     //Function that overrides the OnInspectorGUI() from the base Editor class that ItemDropEditor inherits
     public override void OnInspectorGUI()
@@ -20,6 +20,9 @@ public class ItemDropEditor : Editor
         itemDrop = (ItemDrop)target;
 
         base.OnInspectorGUI();
+
+        //Three spaces between the base.OnInspectorGUI() fields and the overriden OnInspectorGUI() fields
+        EditorGUILayout.Space(); EditorGUILayout.Space(); EditorGUILayout.Space();
 
         switch (itemDrop.itemType)
         {
@@ -42,6 +45,9 @@ public class ItemDropEditor : Editor
 
     private void GUI_Consumable()
     {
+        EditorGUILayout.LabelField("Consumable Specific Options", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
+
         string[] effects = new string[]
         {
             "Restores Health",
@@ -58,12 +64,16 @@ public class ItemDropEditor : Editor
 
     private void GUI_Resource()
     {
-        
+        EditorGUILayout.LabelField("Resource Specific Options", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
     }
 
 
     private void GUI_Equipment()
     {
+        EditorGUILayout.LabelField("Equipment Specific Options", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
+
         itemDrop.attackPower = EditorGUILayout.IntField("Attack Power", itemDrop.attackPower);
         itemDrop.defensePower = EditorGUILayout.IntField("Defense Power", itemDrop.defensePower);
     }
@@ -71,7 +81,8 @@ public class ItemDropEditor : Editor
 
     private void GUI_Craftable()
     {
-
+        EditorGUILayout.LabelField("Craftable Specific Options", EditorStyles.boldLabel);
+        EditorGUILayout.Space();
     }
 
 
