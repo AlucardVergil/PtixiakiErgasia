@@ -116,7 +116,7 @@ MonoBehaviour:
   quantity: 5
   maxStack: 2
   ingredients: []
-  itemDropPrefab: {fileID: 814934791436195049}
+  itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
   attackPower: 0
   defensePower: 0
   isConsumable: 0

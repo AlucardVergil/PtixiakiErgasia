@@ -50,6 +50,35 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
             MovePanelIfHidden(itemSlotCorners[1]);
 
             ButtonListener();
+            
+            
+            switch (itemType)
+            {
+                case ItemType.Equipment:
+                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(true);
+                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(true);
+                    break;
+                case ItemType.Consumable:
+                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(true);
+                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case ItemType.Resource:
+                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case ItemType.Craftable:
+                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                default:
+                    Debug.Log("Invalid option selected.");
+                    break;
+
+            }
         }
     }
 

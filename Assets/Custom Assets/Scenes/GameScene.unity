@@ -3019,7 +3019,7 @@ MonoBehaviour:
   quantity: 0
   maxStack: 0
   ingredients: []
-  itemDropPrefab: {fileID: 814934791436195049, guid: aab6addd9f563ed42bc8bfb2df140ceb, type: 3}
+  itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
   attackPower: 0
   defensePower: 0
   isConsumable: 0
@@ -33952,7 +33952,7 @@ MonoBehaviour:
   quantity: 0
   maxStack: 0
   ingredients: []
-  itemDropPrefab: {fileID: 814934791436195049, guid: aab6addd9f563ed42bc8bfb2df140ceb, type: 3}
+  itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
   attackPower: 0
   defensePower: 0
   isConsumable: 0
