@@ -68,6 +68,7 @@ public class Inventory : MonoBehaviour
                 quantity = Mathf.Min(item.quantity, item.maxStack),
                 maxStack = item.maxStack,
                 ingredients = item.ingredients,
+                itemDescription = item.itemDescription,
 
                 attackPower = item.attackPower,
                 defensePower = item.defensePower,

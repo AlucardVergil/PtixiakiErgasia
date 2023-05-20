@@ -55,12 +55,13 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
             Vector3[] itemSlotCorners = new Vector3[4];
             panelRectTransform.GetWorldCorners(itemSlotCorners);
 
-            // Check if the panel is outside the viewport and move it up if necessary
-            MovePanelIfHidden(itemSlotCorners[1]);
+            // Check if the panel is outside the viewport and move it if necessary
+            if (itemDetailsPanelInstance != null)            
+                MovePanelIfHidden(itemSlotCorners[1]);
 
             ButtonListener();
             
-            
+            // Display different buttons in the item options menu based on item type
             switch (itemType)
             {
                 case ItemType.Equipment:
@@ -92,6 +93,7 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     }
 
 
+    // Function to add unity event listeners for the item options menu buttons
     public void ButtonListener()
     {
         Button btn;
@@ -127,7 +129,8 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
         itemDetailsPanelInstance.GetComponentInChildren<TMP_Text>().text = itemName;
 
         // Check if the panel is outside the viewport and move it up if necessary
-        MovePanelIfHidden(Input.mousePosition);
+        if (itemDetailsPanelInstance != null)
+            MovePanelIfHidden(Input.mousePosition);
 
         ShowItemDetails();
     }
@@ -142,40 +145,41 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     }
 
 
-
+    // Function to move panel if the panel goes outside of the canvas bounds
     private void MovePanelIfHidden(Vector3 targetPosition)
     {
         // Get the panel's RectTransform component
-        RectTransform panelRectTransform = itemDetailsPanelInstance.GetComponent<RectTransform>();
-
-        // Check if the panel goes outside the bounds of the canvas and adjust its pivot if necessary
-        Vector3[] panelCorners = new Vector3[4];
-        panelRectTransform.GetWorldCorners(panelCorners);
-
-        float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
-        float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;      
-
-
-        if (panelCorners[3].x > canvasWidth)
+        if (itemDetailsPanelInstance.TryGetComponent<RectTransform>(out var panelRectTransform))
         {
-            panelRectTransform.pivot = new Vector2(1f, panelRectTransform.pivot.y);
-        }
-        else if (panelCorners[1].x < 0f)
-        {
-            panelRectTransform.pivot = new Vector2(0f, panelRectTransform.pivot.y);
-        }
+            // Check if the panel goes outside the bounds of the canvas and adjust its pivot if necessary
+            Vector3[] panelCorners = new Vector3[4];
+            panelRectTransform.GetWorldCorners(panelCorners);
 
-        if (panelCorners[3].y > canvasHeight)
-        {
-            panelRectTransform.pivot = new Vector2(panelRectTransform.pivot.x, 1f);
-        }
-        else if (panelCorners[0].y < 0f)
-        {
-            panelRectTransform.pivot = new Vector2(panelRectTransform.pivot.x, 0f);
-        }
+            float canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+            float canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
 
-        // Set the position of the panel relative to the canvas or parent object
-        panelRectTransform.position = targetPosition;
+
+            if (panelCorners[3].x > canvasWidth)
+            {
+                panelRectTransform.pivot = new Vector2(1f, panelRectTransform.pivot.y);
+            }
+            else if (panelCorners[1].x < 0f)
+            {
+                panelRectTransform.pivot = new Vector2(0f, panelRectTransform.pivot.y);
+            }
+
+            if (panelCorners[3].y > canvasHeight)
+            {
+                panelRectTransform.pivot = new Vector2(panelRectTransform.pivot.x, 1f);
+            }
+            else if (panelCorners[0].y < 0f)
+            {
+                panelRectTransform.pivot = new Vector2(panelRectTransform.pivot.x, 0f);
+            }
+
+            // Set the position of the panel relative to the canvas or parent object
+            panelRectTransform.position = targetPosition;
+        }        
     }
 
 
@@ -185,7 +189,7 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
 
         inventoryUI.itemDetailsPanel.transform.GetChild(0).GetComponent<Image>().sprite = icon;
         inventoryUI.itemDetailsPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = itemName;
-        inventoryUI.itemDetailsPanel.transform.GetChild(2).GetComponent<TMP_Text>().text = "description";
+        inventoryUI.itemDetailsPanel.transform.GetChild(2).GetComponent<TMP_Text>().text = itemDescription.ToString();
         inventoryUI.itemDetailsPanel.transform.GetChild(3).GetComponent<TMP_Text>().text = "";
     }
 
@@ -207,10 +211,5 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     {
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(1).GetComponent<TMP_Text>().text = quantity.ToString();
-    }
-
-    public void ShowDescription()
-    {
-
     }
 }

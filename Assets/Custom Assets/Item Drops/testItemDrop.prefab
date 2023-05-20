@@ -117,6 +117,7 @@ MonoBehaviour:
   maxStack: 2
   ingredients: []
   itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
+  itemDescription: An apple that restores 20 hp.
   onConsumeItem:
     m_PersistentCalls:
       m_Calls: []

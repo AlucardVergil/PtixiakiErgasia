@@ -19,11 +19,12 @@ public class ItemDropEditor : Editor
         //target derives from Editor class and is the current object that is being inspected, meaning the selected ItemDrop object
         itemDrop = (ItemDrop)target;
 
-        base.OnInspectorGUI();
+        base.OnInspectorGUI(); //call original Inspector GUI
 
         //Three spaces between the base.OnInspectorGUI() fields and the overriden OnInspectorGUI() fields
         EditorGUILayout.Space(); EditorGUILayout.Space(); EditorGUILayout.Space();
 
+        // Display different fields based on the itemType
         switch (itemDrop.itemType)
         {
             case ItemDrop.ItemType.Resource: 

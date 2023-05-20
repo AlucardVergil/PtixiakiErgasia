@@ -20,6 +20,7 @@ public class ItemDrop : MonoBehaviour
     public int maxStack;
     public List<InventoryItem> ingredients; // List of items required to craft this item
     public GameObject itemDropPrefab;
+    public string itemDescription;
         
 
     // Enum to define the item type
@@ -83,6 +84,7 @@ public class ItemDrop : MonoBehaviour
         quantity = item.quantity;
         maxStack = item.maxStack;
         ingredients = item.ingredients;
+        itemDescription = item.itemDescription;
 
         attackPower = item.attackPower;
         defensePower = item.defensePower;
