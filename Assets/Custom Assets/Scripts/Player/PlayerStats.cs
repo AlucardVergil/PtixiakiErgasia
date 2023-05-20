@@ -161,4 +161,12 @@ public class PlayerStats : MonoBehaviour
         PlayerHPbar.maxValue += health;
         hp = (int)PlayerHPbar.maxValue;
     }
+
+
+    //Function called when player's weapon hits the enemy in order for the enemy to take damage
+    public void RestoreHealth(int hpValue)
+    {
+        hp += hpValue;//Decrease player health based on the damage dealt by the enemy
+        hp = Mathf.Clamp(hp, 0, (int)PlayerHPbar.maxValue); //clamp hp between 0 and maxHp so that i won't go below 0
+    }
 }

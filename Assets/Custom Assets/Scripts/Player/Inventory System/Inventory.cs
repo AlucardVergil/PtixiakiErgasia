@@ -90,14 +90,77 @@ public class Inventory : MonoBehaviour
     }
 
 
-    // Function to remove an item from the inventory
-    public void RemoveItem(InventoryItem item)
+    public void ConsumeItem(InventoryItem item)
     {
+        item.DestroyOptionsMenuAndItemNamePanel();
+
         if (items.Contains(item.inventoryItemData))
         {
-            GameObject itemDrop = Instantiate(item.itemDropPrefab, transform.position, Quaternion.identity);
+            int index = items.IndexOf(item.inventoryItemData);
+            items[index].quantity--; //decrease quantity from inventoryItemData list (non-monobehaviour)
+            item.quantity--; //decrease quantity from inventoryItem component
+            item.transform.GetChild(1).GetComponent<TMP_Text>().text = items[index].quantity.ToString();
+
+
+            //Each consumable item can have different effects so i invoke a unity event here and depending on each item prefab's event it does something different
+            if (item.onConsumeItem != null)
+            {
+                item.onConsumeItem.Invoke(); //Runs all registered scripts inside this unity event. The onConsumeItem is in ItemDrop script
+            }
+
+
+            if (item.quantity <= 0)
+            {
+                item.transform.GetChild(0).gameObject.SetActive(false);
+                item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+                items.Remove(item.inventoryItemData);
+                Destroy(item); //remove only the component not the whole gameobject 
+            }                       
+        }
+    }
+
+
+
+    // Function to drop an item from the inventory
+    public void DropItem(InventoryItem item)
+    {
+        item.DestroyOptionsMenuAndItemNamePanel();
+
+        if (items.Contains(item.inventoryItemData))
+        {
+            GameObject itemDrop = Instantiate(item.itemDropPrefab, SpawnItemPosition(), transform.rotation); //Quaternion.identity
             itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
 
+            item.transform.GetChild(0).gameObject.SetActive(false);
+            item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+            items.Remove(item.inventoryItemData);
+            Destroy(item); //remove only the component not the whole gameobject            
+        }
+    }
+
+
+    private Vector3 SpawnItemPosition()
+    {
+        // Calculate the spawn position slightly in front of the character
+        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust the multiplier as needed
+
+        // Raycast to determine the ground height        
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+        {
+            // Add an offset above the ground level
+            spawnPosition.y = hit.point.y + 3f;
+        }
+        return spawnPosition;
+    }
+
+
+    // Function to completely erase an item from the inventory
+    public void TrashItem(InventoryItem item)
+    {
+        item.DestroyOptionsMenuAndItemNamePanel();
+
+        if (items.Contains(item.inventoryItemData))
+        {
             item.transform.GetChild(0).gameObject.SetActive(false);
             item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             items.Remove(item.inventoryItemData);

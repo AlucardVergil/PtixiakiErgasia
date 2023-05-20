@@ -27,6 +27,15 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     }
 
 
+    public void DestroyOptionsMenuAndItemNamePanel()
+    {
+        if (itemOptionsInstance != null)
+            Destroy(itemOptionsInstance);
+        if (itemDetailsPanelInstance != null)
+            Destroy(itemDetailsPanelInstance);
+    }
+
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (itemOptionsInstance != null)
@@ -85,8 +94,22 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
 
     public void ButtonListener()
     {
-        Button btn = itemOptionsInstance.transform.GetChild(3).GetComponent<Button>();
-        btn.onClick.AddListener(() => inventory.RemoveItem(this));
+        Button btn;
+
+        btn = itemOptionsInstance.transform.GetChild(0).GetComponent<Button>();
+        btn.onClick.AddListener(() => inventory.ConsumeItem(this));
+
+        //btn = itemOptionsInstance.transform.GetChild(1).GetComponent<Button>();
+        //btn.onClick.AddListener(() => inventory.EquipItem(this));
+
+        //btn = itemOptionsInstance.transform.GetChild(2).GetComponent<Button>();
+        //btn.onClick.AddListener(() => inventory.RepairItem(this));
+
+        btn = itemOptionsInstance.transform.GetChild(3).GetComponent<Button>();
+        btn.onClick.AddListener(() => inventory.DropItem(this));
+
+        btn = itemOptionsInstance.transform.GetChild(4).GetComponent<Button>();
+        btn.onClick.AddListener(() => inventory.TrashItem(this));
     }
 
 

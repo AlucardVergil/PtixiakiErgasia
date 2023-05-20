@@ -1,6 +1,7 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
 #endif
 
 namespace StarterAssets
@@ -319,6 +320,12 @@ namespace StarterAssets
 		{
             if (inventory.activeSelf)
             {
+				//Close inventory item menu panel and item name panel when closing inventory
+				InventoryItem item = inventory.GetComponent<InventoryUI>().GetComponentInChildren<InventoryItem>();
+				if (item != null)	
+					item.DestroyOptionsMenuAndItemNamePanel();
+
+
                 inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
                 inventory.SetActive(false);
                 //GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");

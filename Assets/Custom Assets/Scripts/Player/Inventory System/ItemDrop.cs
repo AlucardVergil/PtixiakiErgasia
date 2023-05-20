@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class ItemDrop : MonoBehaviour
 {
+    private GameObject player;
     private Inventory inventory;
 
     public InventoryItemData inventoryItemData;
@@ -32,10 +35,22 @@ public class ItemDrop : MonoBehaviour
         Craftable
     }
 
+    public UnityEvent onConsumeItem;
+
+
 
     private void Start()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();        
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        inventory = player.GetComponent<Inventory>();
+
+        onConsumeItem = new UnityEvent();
+
+        if (itemType == ItemType.Consumable)                 
+            onConsumeItem.AddListener(() => player.GetComponent<PlayerStats>().RestoreHealth(20));
+        
+        
     }
 
 
@@ -69,4 +84,5 @@ public class ItemDrop : MonoBehaviour
             }
         }
     }
+
 }
