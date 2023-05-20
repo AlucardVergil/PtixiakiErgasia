@@ -123,3 +123,5 @@ MonoBehaviour:
   onConsumeItem:
     m_PersistentCalls:
       m_Calls: []
+  effectsDropdownIndex: 0
+  effectsValue: 0
