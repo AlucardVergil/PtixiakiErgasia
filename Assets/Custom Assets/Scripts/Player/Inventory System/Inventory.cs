@@ -68,9 +68,12 @@ public class Inventory : MonoBehaviour
                 quantity = Mathf.Min(item.quantity, item.maxStack),
                 maxStack = item.maxStack,
                 ingredients = item.ingredients,
+
                 attackPower = item.attackPower,
                 defensePower = item.defensePower,
-                isConsumable = item.isConsumable
+
+                effectsDropdownIndex = item.effectsDropdownIndex,
+                effectsValue = item.effectsValue
             };
 
             items.Add(newItem);

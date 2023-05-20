@@ -21,7 +21,6 @@ public class ItemDrop : MonoBehaviour
     public List<InventoryItem> ingredients; // List of items required to craft this item
     public GameObject itemDropPrefab;
         
-    public bool isConsumable; // For consumable items
 
     // Enum to define the item type
     public enum ItemType
@@ -32,13 +31,13 @@ public class ItemDrop : MonoBehaviour
         Craftable
     }
 
-    public UnityEvent onConsumeItem;
+    [HideInInspector] public UnityEvent onConsumeItem;
 
 
     // Additional properties specific to certain item types
     #region Equipment Variables
-    [HideInInspector] public int attackPower; // For weapons
-    [HideInInspector] public int defensePower; // For armor
+    [HideInInspector] public int attackPower = 0; // For weapons
+    [HideInInspector] public int defensePower = 0; // For armor
     #endregion
 
     #region Consumable Variables
@@ -61,10 +60,14 @@ public class ItemDrop : MonoBehaviour
 
         onConsumeItem = new UnityEvent();
 
-        if (itemType == ItemType.Consumable)                 
-            onConsumeItem.AddListener(() => player.GetComponent<PlayerStats>().RestoreHealth(20));
-        
-        
+        AddUnityEvents();
+    }
+
+
+    public void AddUnityEvents()
+    {
+        if (itemType == ItemType.Consumable && effectsDropdownIndex == 0)
+            onConsumeItem.AddListener(() => player.GetComponent<PlayerStats>().RestoreHealth(effectsValue));
     }
 
 
@@ -79,9 +82,14 @@ public class ItemDrop : MonoBehaviour
         quantity = item.quantity;
         maxStack = item.maxStack;
         ingredients = item.ingredients;
+
         attackPower = item.attackPower;
         defensePower = item.defensePower;
-        isConsumable = item.isConsumable;
+
+        effectsDropdownIndex = item.effectsDropdownIndex;
+        effectsValue = item.effectsValue;
+
+        
     }
 
 
