@@ -139,6 +139,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "a44201a5-240e-4cc2-8541-ea6631b62315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -460,6 +469,17 @@
                     "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8aec0473-7043-438d-a8d5-5e1efe01f675",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -480,15 +500,6 @@
                     "name": "CloseInventory",
                     "type": "Button",
                     "id": "6dbd1c2f-7968-42cc-b97a-d203dc148470",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "InventoryItemOptions",
-                    "type": "Button",
-                    "id": "df0d24dd-22cb-44db-bbb1-71981616cc12",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -515,17 +526,6 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "CloseInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e556f147-8141-489d-af5a-2e5387177b94",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "InventoryItemOptions",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

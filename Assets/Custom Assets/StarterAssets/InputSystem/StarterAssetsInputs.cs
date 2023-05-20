@@ -20,15 +20,17 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+        [Space]
+        [Space]
+        [Space]
 
-
-
-		public bool attack; //Variable for checking when player is attacking
+        [Header("Variables for player attacking")]
+        public bool attack; //Variable for checking when player is attacking
 		public bool attackCanHit;
 		[HideInInspector] public int damageValue;
 
-		//lock on
-		public bool lockOnFlag;
+        [Header("Variables For Lock On Target")]
+        public bool lockOnFlag;
 		public bool lockOnInput;
 		public bool lockOnRightInput;
 		public bool lockOnLeftInput;
@@ -38,9 +40,15 @@ namespace StarterAssets
 
         public PlayerControls playerControls;
 
+        [Header("Variables For Interaction")]
+        public float interactionDistance = 5f;
+        public LayerMask interactionLayer;
+        public Transform crosshair;
+        public Camera cam;
 
 
-		private void Start()
+
+        private void Start()
         {
 			//for upgrades menu
 			menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
@@ -89,6 +97,8 @@ namespace StarterAssets
 			playerControls.Player.OpenGameMenu.performed += i => OpenGameMenu();
 
             playerControls.Player.OpenInventory.performed += i => ToggleInventory();
+
+            playerControls.Player.Interact.performed += i => InteractWithObject();
 
             #endregion
 
@@ -344,6 +354,40 @@ namespace StarterAssets
                 playerControls.GameMenuUI.Enable();
             }
         }
+
+
+		public void InteractWithObject()
+		{
+            // Raycast from the crosshair position forward
+            //Ray ray = new Ray(crosshair.position, crosshair.forward);
+            Ray ray = cam.ViewportPointToRay(new Vector3(0.51f, 0.5f, 0));
+
+            if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayer))
+            {
+                Debug.Log("HIT");
+                // Check if the raycast hit a harvestable resource            
+                if (hit.collider.TryGetComponent<HarvestableObject>(out var harvestable))
+                {
+                    harvestable.DamageHarvestable(30);
+
+                    // Highlight the harvestable resource or provide visual feedback
+
+                    // Perform any other actions or effects related to starting the interaction
+                }
+                else
+                {
+                    // Check if the raycast hit an item drop
+                    if (hit.collider.TryGetComponent<ItemDrop>(out var itemDrop))
+                    {
+                        itemDrop.PickUp();
+
+                        // Highlight the item drop or provide visual feedback
+
+                        // Perform any other actions or effects related to starting the interaction
+                    }
+                }
+            }
+        }	
 
 
 

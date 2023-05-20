@@ -3020,9 +3020,14 @@ MonoBehaviour:
   maxStack: 0
   ingredients: []
   itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
+  itemDescription: 
+  onConsumeItem:
+    m_PersistentCalls:
+      m_Calls: []
   attackPower: 0
   defensePower: 0
-  isConsumable: 0
+  effectsDropdownIndex: 0
+  effectsValue: 0
   hp: 100
 --- !u!1 &237926295
 GameObject:
@@ -15134,7 +15139,6 @@ GameObject:
   - component: {fileID: 1023666196}
   - component: {fileID: 1023666197}
   - component: {fileID: 1023666198}
-  - component: {fileID: 1023666199}
   - component: {fileID: 1023666200}
   m_Layer: 8
   m_Name: PlayerArmature
@@ -15321,6 +15325,12 @@ MonoBehaviour:
   lockOnLeftInput: 0
   menu: {fileID: 0}
   inventory: {fileID: 0}
+  interactionDistance: 5
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  crosshair: {fileID: 347402438}
+  cam: {fileID: 391661344}
 --- !u!114 &1023666185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15757,24 +15767,6 @@ MonoBehaviour:
   _playerNoiseLevels: {fileID: 0}
   _playerWeaponsManager: {fileID: 0}
   _playerWeaponAttacks: {fileID: 0}
---- !u!114 &1023666199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023666182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399c1dcf6448007488c6e46a3fe31026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 20
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  crosshair: {fileID: 347402438}
-  cam: {fileID: 391661344}
 --- !u!114 &1023666200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33953,9 +33945,14 @@ MonoBehaviour:
   maxStack: 0
   ingredients: []
   itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}
+  itemDescription: 
+  onConsumeItem:
+    m_PersistentCalls:
+      m_Calls: []
   attackPower: 0
   defensePower: 0
-  isConsumable: 0
+  effectsDropdownIndex: 0
+  effectsValue: 0
   hp: 100
 --- !u!1 &1878651101
 GameObject:

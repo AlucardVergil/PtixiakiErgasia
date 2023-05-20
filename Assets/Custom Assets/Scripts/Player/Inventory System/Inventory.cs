@@ -108,9 +108,7 @@ public class Inventory : MonoBehaviour
 
             //Each consumable item can have different effects so i invoke a unity event here and depending on each item prefab's event it does something different
             if (item.onConsumeItem != null)
-            {
-                item.onConsumeItem.Invoke(); //Runs all registered scripts inside this unity event. The onConsumeItem is in ItemDrop script
-            }
+                item.onConsumeItem.Invoke(); //Runs all registered scripts inside this unity event. The onConsumeItem is in ItemDrop script            
 
 
             if (item.quantity <= 0)

@@ -59,14 +59,14 @@ public class ItemDrop : MonoBehaviour
 
         inventory = player.GetComponent<Inventory>();
 
-        onConsumeItem = new UnityEvent();
-
         AddUnityEventListeners(); //the new editor saves the variables directly in the ItemDrop class public variables so i can be called at Start()
     }
 
 
     public void AddUnityEventListeners()
     {
+        onConsumeItem = new UnityEvent();
+
         //effectsDropdownIndex == 0 is for restoring health
         if (itemType == ItemType.Consumable && effectsDropdownIndex == 0)
             onConsumeItem.AddListener(() => player.GetComponent<PlayerStats>().RestoreHealth(effectsValue));

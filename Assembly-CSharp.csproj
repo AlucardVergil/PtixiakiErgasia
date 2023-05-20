@@ -114,7 +114,6 @@
     <Compile Include="Assets\Custom Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\Free UI build package\Script\Togglescript.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\FPSController\CharController_Motor.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\PlayerInteraction.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\EnemyAI\Enemy.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Cooldown\CooldownTimer.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
@@ -153,6 +152,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemData.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemDragHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
