@@ -57,24 +57,25 @@ public class Inventory : MonoBehaviour
         // Check if the inventory has space for the item
         while (items.Count < GetTotalCapacity() && item.quantity > 0)
         {
-            InventoryItem newItem = new InventoryItem();
-
-            newItem.itemName = item.itemName;
-            newItem.itemType = item.itemType;
-            newItem.icon = item.icon;
-            newItem.itemDropPrefab = item.itemDropPrefab;
-            newItem.quantity = Mathf.Min(item.quantity, item.maxStack);
-            newItem.maxStack = item.maxStack;
-            newItem.ingredients = item.ingredients;
-            newItem.attackPower = item.attackPower;
-            newItem.defensePower = item.defensePower;
-            newItem.isConsumable = item.isConsumable;
+            InventoryItem newItem = new InventoryItem
+            {
+                itemName = item.itemName,
+                itemType = item.itemType,
+                icon = item.icon,
+                itemDropPrefab = item.itemDropPrefab,
+                quantity = Mathf.Min(item.quantity, item.maxStack),
+                maxStack = item.maxStack,
+                ingredients = item.ingredients,
+                attackPower = item.attackPower,
+                defensePower = item.defensePower,
+                isConsumable = item.isConsumable
+            };
 
             items.Add(newItem);
 
             item.quantity -= Mathf.Min(item.quantity, item.maxStack);
         }
-
+        Debug.Log("Item Added " + items[0]);
         if (item.quantity <= 0)
         {
             return true;
@@ -90,8 +91,13 @@ public class Inventory : MonoBehaviour
     // Function to remove an item from the inventory
     public void RemoveItem(InventoryItem item)
     {
+        Debug.Log("Item " + item);
+        Debug.Log("Item quantity " + items[0].quantity + " Item 0 " + items[0]);
+
+
         if (items.Contains(item))
         {
+            Debug.Log("Remove " + item.name);
             GameObject itemDrop = Instantiate(item.itemDropPrefab, transform.position, Quaternion.identity);
             itemDrop.GetComponent<ItemDrop>().Initialize(item);
 

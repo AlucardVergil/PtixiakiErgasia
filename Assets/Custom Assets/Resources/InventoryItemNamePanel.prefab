@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4860038957537024043}
   - component: {fileID: 34263310959616688}
   m_Layer: 5
-  m_Name: InventoryItemDetailsPanel
+  m_Name: InventoryItemNamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

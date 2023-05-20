@@ -69,6 +69,7 @@
     <Compile Include="Assets\Sun_Temple\Scripts\Culling\CullDistanceVolume.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Doors\CursorManager.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\MoveToLayer.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryUI.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Game Menus\UpgradeManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\TabGroup.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\SwitchArmorEquipment.cs" />
@@ -151,7 +152,6 @@
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

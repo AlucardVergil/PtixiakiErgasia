@@ -7,9 +7,11 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
 
     [Header("Item name panel prefab that displays the name of the inventory item.")]
-    public GameObject itemDetailsPanelPrefab; // Reference to the item details panel prefab
+    public GameObject itemNamePanelPrefab; // Reference to the item details panel prefab
     [Header("The panel that will display the item details.")]
     public GameObject itemDetailsPanel;
+    [Header("The panel that will display the item options.")]
+    public GameObject itemOptionsPanelPrefab;
 
 
     private void Awake()

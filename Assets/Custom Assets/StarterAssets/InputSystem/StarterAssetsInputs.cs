@@ -45,6 +45,7 @@ namespace StarterAssets
 			menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
 			inventory = GameObject.FindGameObjectWithTag("Inventory");
 
+            inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
             inventory.SetActive(false);
             menu.SetActive(false);			
 		}
@@ -91,6 +92,8 @@ namespace StarterAssets
             #endregion
 
             #region GameMenuUI Action Map
+
+            playerControls.GameMenuUI.OpenGameMenu.performed += i => OpenGameMenu();
 
             playerControls.GameMenuUI.CloseInventory.performed += i => ToggleInventory();
 
@@ -316,6 +319,7 @@ namespace StarterAssets
 		{
             if (inventory.activeSelf)
             {
+                inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
                 inventory.SetActive(false);
                 //GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
                 Cursor.lockState = CursorLockMode.Locked;

@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Custom Assets/Scenes/GameScene.unity
+- path: Assets/Custom Assets/Scenes/RaceSelectionScenes/HumanRaceSelectionScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
