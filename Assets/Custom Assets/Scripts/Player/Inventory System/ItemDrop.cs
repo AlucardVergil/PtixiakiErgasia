@@ -1,11 +1,14 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
     private Inventory inventory;
+
+    public InventoryItemData inventoryItemData;
 
     public string itemName;
     public ItemType itemType;
@@ -32,14 +35,16 @@ public class ItemDrop : MonoBehaviour
 
     private void Start()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();        
     }
 
 
-    public void Initialize(InventoryItem item)
+    public void Initialize(InventoryItemData item)
     {
+        inventoryItemData = item; //this is to save the InventoryItemData object (NON-Monobehaviour) so i can use it to find or remove entries from the list
+
         itemName = item.itemName;
-        itemType = item.itemType;
+        itemType = (ItemType)item.itemType;
         icon = item.icon;
         itemDropPrefab = item.itemDropPrefab;
         quantity = item.quantity;

@@ -152,6 +152,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

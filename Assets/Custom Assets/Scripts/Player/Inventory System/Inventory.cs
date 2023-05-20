@@ -1,5 +1,7 @@
 using StarterAssets;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +9,7 @@ public class Inventory : MonoBehaviour
 {
     public int baseCapacity = 20; // Initial capacity of the inventory
     public int maxCapacity = 50; // Maximum capacity of the inventory
-    public List<InventoryItem> items = new List<InventoryItem>(); // List to store the items
+    public List<InventoryItemData> items = new List<InventoryItemData>(); // List to store the items
     public GameObject inventorySlotPrefab;
 
     private GameObject inventoryUI;
@@ -39,7 +41,7 @@ public class Inventory : MonoBehaviour
     public bool AddItem(ItemDrop item)
     {
         // Check if the item can be stacked with an existing item
-        foreach (InventoryItem existingItem in items)
+        foreach (InventoryItemData existingItem in items)
         {
             if (existingItem.itemName == item.itemName && existingItem.quantity < existingItem.maxStack)
             {
@@ -57,10 +59,10 @@ public class Inventory : MonoBehaviour
         // Check if the inventory has space for the item
         while (items.Count < GetTotalCapacity() && item.quantity > 0)
         {
-            InventoryItem newItem = new InventoryItem
+            InventoryItemData newItem = new InventoryItemData
             {
                 itemName = item.itemName,
-                itemType = item.itemType,
+                itemType = (InventoryItemData.ItemType)item.itemType,
                 icon = item.icon,
                 itemDropPrefab = item.itemDropPrefab,
                 quantity = Mathf.Min(item.quantity, item.maxStack),
@@ -91,17 +93,14 @@ public class Inventory : MonoBehaviour
     // Function to remove an item from the inventory
     public void RemoveItem(InventoryItem item)
     {
-        Debug.Log("Item " + item);
-        Debug.Log("Item quantity " + items[0].quantity + " Item 0 " + items[0]);
-
-
-        if (items.Contains(item))
+        if (items.Contains(item.inventoryItemData))
         {
-            Debug.Log("Remove " + item.name);
             GameObject itemDrop = Instantiate(item.itemDropPrefab, transform.position, Quaternion.identity);
-            itemDrop.GetComponent<ItemDrop>().Initialize(item);
+            itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
 
-            items.Remove(item);
+            item.transform.GetChild(0).gameObject.SetActive(false);
+            item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+            items.Remove(item.inventoryItemData);
             Destroy(item); //remove only the component not the whole gameobject            
         }
     }
