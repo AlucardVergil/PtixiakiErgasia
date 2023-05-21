@@ -60,6 +60,7 @@
     <Compile Include="Assets\Custom Assets\StarterAssets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\Editor\CharacterCustomizationEditor.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Editor\StarterAssetsDeployMenu.cs" />
+    <Compile Include="Assets\Editor\ItemDropEditor.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Editor\ThirdPersonStarterAssetsDeployMenu.cs" />
   </ItemGroup>
   <ItemGroup>
