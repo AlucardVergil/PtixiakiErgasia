@@ -147,10 +147,10 @@ public class Inventory : MonoBehaviour
         Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust the multiplier as needed
 
         // Raycast to determine the ground height        
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+        if (Physics.Raycast(transform.position + transform.up * 2f, Vector3.down, out RaycastHit hit))
         {
             // Add an offset above the ground level
-            spawnPosition.y = hit.point.y + 3f;
+            spawnPosition.y = hit.point.y + 0.5f;
         }
         return spawnPosition;
     }

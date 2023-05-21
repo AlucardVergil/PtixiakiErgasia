@@ -20,6 +20,16 @@ public class InventoryUI : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        // To close inventory item options when clicking anywhere
+        if (Input.GetMouseButtonDown(0) && InventoryItem.itemOptionsStatic != null)
+        {
+            //Destroy(InventoryItem.itemOptionsStatic);
+        }
+    }
+
+
     private void OnEnable()
     {
         for (int i = 0; i < inventory.items.Count; i++)

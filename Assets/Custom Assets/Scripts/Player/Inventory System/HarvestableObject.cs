@@ -16,7 +16,7 @@ public class HarvestableObject : ItemDrop
             isHarvested = true;
 
             // Instantiate the item drop at the gatherable object's position
-            GameObject itemDrop = Instantiate(itemDropPrefab, transform.position, Quaternion.identity);
+            GameObject itemDrop = Instantiate(itemDropPrefab, transform.position + transform.up, Quaternion.identity);
 
             // Destroy the gatherable object
             Destroy(gameObject);

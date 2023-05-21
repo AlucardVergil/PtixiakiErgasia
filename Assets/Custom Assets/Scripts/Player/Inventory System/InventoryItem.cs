@@ -12,8 +12,8 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     [HideInInspector] public int inventoryIndex = -1;
 
     private InventoryUI inventoryUI;
-    private static GameObject itemDetailsPanelInstance; // static variable of the item details panel in order to be the same for all class instances
-    private static GameObject itemOptionsInstance; // static variable of the item options panel in order to be the same for all class instances
+    private static GameObject itemDetailsPanelStatic; // static variable of the item details panel in order to be the same for all class instances
+    public static GameObject itemOptionsStatic; // static variable of the item options panel in order to be the same for all class instances
     private GameObject canvas;
 
     private Inventory inventory;
@@ -29,24 +29,24 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
 
     public void DestroyOptionsMenuAndItemNamePanel()
     {
-        if (itemOptionsInstance != null)
-            Destroy(itemOptionsInstance);
-        if (itemDetailsPanelInstance != null)
-            Destroy(itemDetailsPanelInstance);
+        if (itemOptionsStatic != null)
+            Destroy(itemOptionsStatic);
+        if (itemDetailsPanelStatic != null)
+            Destroy(itemDetailsPanelStatic);
     }
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (itemOptionsInstance != null)
-            Destroy(itemOptionsInstance);
+        if (itemOptionsStatic != null)
+            Destroy(itemOptionsStatic);
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             // Instantiate the item details panel next to the mouse cursor
-            itemOptionsInstance = Instantiate(inventoryUI.itemOptionsPanelPrefab, Input.mousePosition, Quaternion.identity);
+            itemOptionsStatic = Instantiate(inventoryUI.itemOptionsPanelPrefab, Input.mousePosition, Quaternion.identity);
             // Attach the panel to the canvas or UI parent (adjust as needed). It is set to true so that it won't change position when setting the parent
-            itemOptionsInstance.transform.SetParent(canvas.transform, true); //used canvas instead of the current inventoryItem because the panel wasn't showing right (it was hidden at some parts under the other slots)
+            itemOptionsStatic.transform.SetParent(canvas.transform, true); //used canvas instead of the current inventoryItem because the panel wasn't showing right (it was hidden at some parts under the other slots)
 
             // Get the panel's RectTransform component
             RectTransform panelRectTransform = GetComponent<RectTransform>();
@@ -56,7 +56,7 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
             panelRectTransform.GetWorldCorners(itemSlotCorners);
 
             // Check if the panel is outside the viewport and move it if necessary
-            if (itemDetailsPanelInstance != null)            
+            if (itemDetailsPanelStatic != null)            
                 MovePanelIfHidden(itemSlotCorners[1]);
 
             ButtonListener();
@@ -65,24 +65,24 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
             switch (itemType)
             {
                 case ItemType.Equipment:
-                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(true);
-                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(true);
+                    itemOptionsStatic.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(1).gameObject.SetActive(true);
+                    itemOptionsStatic.transform.GetChild(2).gameObject.SetActive(true);
                     break;
                 case ItemType.Consumable:
-                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(true);
-                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(0).gameObject.SetActive(true);
+                    itemOptionsStatic.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(2).gameObject.SetActive(false);
                     break;
                 case ItemType.Resource:
-                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(2).gameObject.SetActive(false);
                     break;
                 case ItemType.Craftable:
-                    itemOptionsInstance.transform.GetChild(0).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(1).gameObject.SetActive(false);
-                    itemOptionsInstance.transform.GetChild(2).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(0).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(1).gameObject.SetActive(false);
+                    itemOptionsStatic.transform.GetChild(2).gameObject.SetActive(false);
                     break;
                 default:
                     Debug.Log("Invalid option selected.");
@@ -98,19 +98,19 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     {
         Button btn;
 
-        btn = itemOptionsInstance.transform.GetChild(0).GetComponent<Button>();
+        btn = itemOptionsStatic.transform.GetChild(0).GetComponent<Button>();
         btn.onClick.AddListener(() => inventory.ConsumeItem(this));
 
-        //btn = itemOptionsInstance.transform.GetChild(1).GetComponent<Button>();
+        //btn = itemOptionsStatic.transform.GetChild(1).GetComponent<Button>();
         //btn.onClick.AddListener(() => inventory.EquipItem(this));
 
-        //btn = itemOptionsInstance.transform.GetChild(2).GetComponent<Button>();
+        //btn = itemOptionsStatic.transform.GetChild(2).GetComponent<Button>();
         //btn.onClick.AddListener(() => inventory.RepairItem(this));
 
-        btn = itemOptionsInstance.transform.GetChild(3).GetComponent<Button>();
+        btn = itemOptionsStatic.transform.GetChild(3).GetComponent<Button>();
         btn.onClick.AddListener(() => inventory.DropItem(this));
 
-        btn = itemOptionsInstance.transform.GetChild(4).GetComponent<Button>();
+        btn = itemOptionsStatic.transform.GetChild(4).GetComponent<Button>();
         btn.onClick.AddListener(() => inventory.TrashItem(this));
     }
 
@@ -118,18 +118,18 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         //to make sure no previous panel remains
-        if (itemDetailsPanelInstance != null)
-            Destroy(itemDetailsPanelInstance); 
+        if (itemDetailsPanelStatic != null)
+            Destroy(itemDetailsPanelStatic); 
 
         // Instantiate the item details panel next to the mouse cursor
-        itemDetailsPanelInstance = Instantiate(inventoryUI.itemNamePanelPrefab, Input.mousePosition, Quaternion.identity);
+        itemDetailsPanelStatic = Instantiate(inventoryUI.itemNamePanelPrefab, Input.mousePosition, Quaternion.identity);
         // Attach the panel to the canvas or UI parent (adjust as needed). It is set to true so that it won't change position when setting the parent
-        itemDetailsPanelInstance.transform.SetParent(canvas.transform, true); //used canvas instead of the current inventoryItem because the panel wasn't showing right (it was hidden at some parts under the other slots)
+        itemDetailsPanelStatic.transform.SetParent(canvas.transform, true); //used canvas instead of the current inventoryItem because the panel wasn't showing right (it was hidden at some parts under the other slots)
 
-        itemDetailsPanelInstance.GetComponentInChildren<TMP_Text>().text = itemName;
+        itemDetailsPanelStatic.GetComponentInChildren<TMP_Text>().text = itemName;
 
         // Check if the panel is outside the viewport and move it up if necessary
-        if (itemDetailsPanelInstance != null)
+        if (itemDetailsPanelStatic != null)
             MovePanelIfHidden(Input.mousePosition);
 
         ShowItemDetails();
@@ -140,8 +140,8 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     {
         inventoryUI.itemDetailsPanel.SetActive(false);
 
-        // Destroy the item details panel instance
-        Destroy(itemDetailsPanelInstance);
+        // Destroy the item details panel Static
+        Destroy(itemDetailsPanelStatic);
     }
 
 
@@ -149,7 +149,7 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
     private void MovePanelIfHidden(Vector3 targetPosition)
     {
         // Get the panel's RectTransform component
-        if (itemDetailsPanelInstance.TryGetComponent<RectTransform>(out var panelRectTransform))
+        if (itemDetailsPanelStatic.TryGetComponent<RectTransform>(out var panelRectTransform))
         {
             // Check if the panel goes outside the bounds of the canvas and adjust its pivot if necessary
             Vector3[] panelCorners = new Vector3[4];
