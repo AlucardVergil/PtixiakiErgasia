@@ -104,6 +104,7 @@
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csAnimationSpin.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\CustomizeCharacterParts\CustomizeCharacterColors.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\CsDestroyEffect.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemDragHandler.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Doors\Door.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\Inventory.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\ShootProjectile\Projectile.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Assets\Custom Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\DissolveEnemies\DissolvingController.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\ShootProjectile\ProjectileShooter.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemData.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\ExposureManager\ExposureArea.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\BlendShapes\CharacterCustomization.cs" />
     <Compile Include="Assets\ParticleEffects.cs" />
@@ -151,8 +153,6 @@
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemData.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItemDragHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

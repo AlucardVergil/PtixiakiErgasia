@@ -224,9 +224,10 @@ namespace StarterAssets
 			}
 		}
 
+
+		//changed this from sprint = !sprint to fix sprint bug when opening and closing menus
 		public void SprintInput(InputAction.CallbackContext context)
 		{
-            Debug.Log("SprintInput = " + context.phase);
             if (context.phase == InputActionPhase.Performed)
             {
                 // Button pressed
