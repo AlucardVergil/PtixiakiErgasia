@@ -363,27 +363,14 @@ namespace StarterAssets
 
             if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayer))
             {
-                Debug.Log("HIT");
-                // Check if the raycast hit a harvestable resource            
-                if (hit.collider.TryGetComponent<HarvestableObject>(out var harvestable))
+                // Check if the raycast hit an item drop
+                if (hit.collider.TryGetComponent<ItemDrop>(out var itemDrop))
                 {
-                    harvestable.DamageHarvestable(30);
+                    itemDrop.PickUp();
 
-                    // Highlight the harvestable resource or provide visual feedback
+                    // Highlight the item drop or provide visual feedback
 
                     // Perform any other actions or effects related to starting the interaction
-                }
-                else
-                {
-                    // Check if the raycast hit an item drop
-                    if (hit.collider.TryGetComponent<ItemDrop>(out var itemDrop))
-                    {
-                        itemDrop.PickUp();
-
-                        // Highlight the item drop or provide visual feedback
-
-                        // Perform any other actions or effects related to starting the interaction
-                    }
                 }
             }
         }	

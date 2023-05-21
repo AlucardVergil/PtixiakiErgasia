@@ -27,7 +27,7 @@ public class ProjectileShooter : MonoBehaviour
 
     public GameObject spellIcon;
 
-    public StarterAssetsInputs starterAssetsInputs;
+    private StarterAssetsInputs _input;
 
     [Space]
     [Header("SHAKE OPTIONS & PP")]
@@ -56,14 +56,14 @@ public class ProjectileShooter : MonoBehaviour
         anim = GetComponent<Animator>();
         crosshair = GameObject.FindGameObjectWithTag("CrossHair");
 
-        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        _input = GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Change to aim camera if right mouse click is held down
-        if (Input.GetMouseButton(1) && starterAssetsInputs.playerControls.Player.enabled)
+        if (Input.GetMouseButton(1) && _input.playerControls.Player.enabled)
         {
             playerFollowCamera.SetActive(false);
             playerAimCamera.SetActive(true);
