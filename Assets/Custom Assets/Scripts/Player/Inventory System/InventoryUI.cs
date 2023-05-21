@@ -25,6 +25,7 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         // To close inventory item options when clicking anywhere
+        //NOTE: Maybe use HashSet if i want to check for more panels
         if (Input.GetMouseButtonDown(0))
         {
             PointerEventData eventData = new PointerEventData(EventSystem.current);
@@ -41,8 +42,7 @@ public class InventoryUI : MonoBehaviour
                 {
                     clickedItemOptionsPanel = true;
                     break;
-                }
-                    
+                }                    
             }
 
             if (!clickedItemOptionsPanel)

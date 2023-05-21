@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1056110889231422312}
   - component: {fileID: 3877420044996863144}
   - component: {fileID: 6287350015282082084}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 4301299710319351081}
   - component: {fileID: 1247484744313867553}
   - component: {fileID: 1449972879440476384}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: ConsumeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 4990466948811951145}
   - component: {fileID: 8832434229302233239}
   - component: {fileID: 4127153791276511925}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 4487938213066025193}
   - component: {fileID: 3760896678499474229}
   - component: {fileID: 8098883430059934309}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: TrashBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 8295574071626427719}
   - component: {fileID: 7596989684344750899}
   - component: {fileID: 6197924107473188480}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 5393412568201473289}
   - component: {fileID: 6423466531646662428}
   - component: {fileID: 6911285987936471581}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: DropBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 369276710096753436}
   - component: {fileID: 4510961628520801795}
   - component: {fileID: 6891570199082748223}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: EquipBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 587072501867941102}
   - component: {fileID: 2098963937265352222}
   - component: {fileID: 8272362561473509073}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: RepairBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1087,7 @@ GameObject:
   - component: {fileID: 4171927289932841347}
   - component: {fileID: 2261881159751651739}
   - component: {fileID: 5476651123007900939}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Inventory Item Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1194,7 +1194,7 @@ GameObject:
   - component: {fileID: 258071532012896555}
   - component: {fileID: 4745768269918004038}
   - component: {fileID: 2158898668292534235}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 1902420678319955733}
   - component: {fileID: 2173830986353564286}
   - component: {fileID: 4704091148393569219}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

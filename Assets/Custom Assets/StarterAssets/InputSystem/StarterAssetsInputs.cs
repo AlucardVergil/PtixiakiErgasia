@@ -226,10 +226,21 @@ namespace StarterAssets
 
 		public void SprintInput(InputAction.CallbackContext context)
 		{
-			sprint = !sprint;
-		}
+            Debug.Log("SprintInput = " + context.phase);
+            if (context.phase == InputActionPhase.Performed)
+            {
+                // Button pressed
+                sprint = true;
+            }
+            else if (context.phase == InputActionPhase.Canceled)
+            {
+                // Button released
+                sprint = false;
+            }
+        }
 
-		/*//function for setting attack state
+
+        /*//function for setting attack state
 		public void AttackInput(bool newAttackState)
 		{
 			//Don't attack with sword when aiming
@@ -238,8 +249,8 @@ namespace StarterAssets
 		}*/
 
 
-		//Lock On
-		public void LockOnInput(InputAction.CallbackContext context)
+        //Lock On
+        public void LockOnInput(InputAction.CallbackContext context)
         {
 			lockOnInput = context.performed; 
 			 var cameraHandler = GetComponent<ThirdPersonController>();
@@ -320,6 +331,7 @@ namespace StarterAssets
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.visible = true;
 				playerControls.Player.Disable();
+				sprint = false;
 				playerControls.GameMenuUI.Enable();
 			}
 		}
@@ -339,7 +351,6 @@ namespace StarterAssets
                 inventory.SetActive(false);
                 //GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
                 Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
                 playerControls.Player.Enable();
                 playerControls.GameMenuUI.Disable();
             }
