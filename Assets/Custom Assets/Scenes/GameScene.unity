@@ -32445,6 +32445,9 @@ MonoBehaviour:
   itemNamePanelPrefab: {fileID: 6027077431095555566, guid: 668363b0474eae44fa5109c9853c0934, type: 3}
   itemDetailsPanel: {fileID: 243832140}
   itemOptionsPanelPrefab: {fileID: 4165910522956666869, guid: 4ffeedd6d974ac84098d9e6cfb4b28ac, type: 3}
+  panelLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1791403800
 GameObject:
   m_ObjectHideFlags: 0

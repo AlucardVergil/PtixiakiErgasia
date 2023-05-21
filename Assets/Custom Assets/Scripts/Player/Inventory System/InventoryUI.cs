@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class InventoryUI : MonoBehaviour
     [Header("The panel that will display the item options.")]
     public GameObject itemOptionsPanelPrefab;
 
+    public LayerMask panelLayerMask;
 
     private void Awake()
     {
@@ -23,9 +25,28 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         // To close inventory item options when clicking anywhere
-        if (Input.GetMouseButtonDown(0) && InventoryItem.itemOptionsStatic != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            //Destroy(InventoryItem.itemOptionsStatic);
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            eventData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            bool clickedItemOptionsPanel = false;
+
+            foreach (var raycastHit in results)
+            {
+                if (raycastHit.gameObject.name == itemOptionsPanelPrefab.name + "(Clone)")
+                {
+                    clickedItemOptionsPanel = true;
+                    break;
+                }
+                    
+            }
+
+            if (!clickedItemOptionsPanel)
+                Destroy(InventoryItem.itemOptionsStatic);
         }
     }
 
