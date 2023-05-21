@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
+using StarterAssets;
 
 public class ProjectileShooter : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class ProjectileShooter : MonoBehaviour
     public List<AudioClip> shootSFX;
 
     public GameObject spellIcon;
+
+    public StarterAssetsInputs starterAssetsInputs;
 
     [Space]
     [Header("SHAKE OPTIONS & PP")]
@@ -52,13 +55,15 @@ public class ProjectileShooter : MonoBehaviour
         //volume.profile.TryGet<ChromaticAberration>(out chromatic);
         anim = GetComponent<Animator>();
         crosshair = GameObject.FindGameObjectWithTag("CrossHair");
+
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Change to aim camera if right mouse click is held down
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && starterAssetsInputs.playerControls.Player.enabled)
         {
             playerFollowCamera.SetActive(false);
             playerAimCamera.SetActive(true);
