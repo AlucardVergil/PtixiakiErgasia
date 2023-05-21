@@ -56,7 +56,7 @@ public class WeaponCollider : MonoBehaviour
             //StarterAssetsInputs class
             //_input.attackCanHit = false; 
         }
-        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit) //harvest item 
+        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit && weaponType == "Axe") //harvest item 
         {
             harvestableObject.DamageHarvestable(weaponDamage);
 
