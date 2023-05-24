@@ -36,9 +36,21 @@ public class SpawnWallSpell : MonoBehaviour
     private Vector3[] end;
 
 
+    private void Awake()
+    {
+        
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        spellIcon = GameObject.FindGameObjectWithTag("ImageWallSpell");
+
+
+        ////
+
+
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
 

@@ -16,9 +16,9 @@ public class InventoryUI : MonoBehaviour
 
     public LayerMask panelLayerMask;
 
-    private void Awake()
+    private void Start()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        
     }
 
 
@@ -53,6 +53,10 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+
+        inventory.inventoryUI = gameObject;
+
         for (int i = 0; i < inventory.items.Count; i++)
         {
             InventoryItem inventoryItem;

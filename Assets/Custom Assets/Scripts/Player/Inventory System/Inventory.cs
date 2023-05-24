@@ -12,12 +12,12 @@ public class Inventory : MonoBehaviour
     public List<InventoryItemData> items = new List<InventoryItemData>(); // List to store the items
     public GameObject inventorySlotPrefab;
 
-    private GameObject inventoryUI;
+    [HideInInspector] public GameObject inventoryUI;
 
 
-    private void Awake()
+    private void Start()
     {
-        inventoryUI = GameObject.FindGameObjectWithTag("Inventory");
+        //inventoryUI = GameObject.FindGameObjectWithTag("Inventory");
 
         for (int i = 0; i < baseCapacity; i++)
         {
@@ -32,11 +32,10 @@ public class Inventory : MonoBehaviour
             inventoryItem.Initialize(items[j]);
 
             inventoryItem.DisplayIconInInventory();
-        }        
+        }
     }
+
     
-
-
     // Function to add an item to the inventory
     public bool AddItem(ItemDrop item)
     {
@@ -81,7 +80,7 @@ public class Inventory : MonoBehaviour
 
             item.quantity -= Mathf.Min(item.quantity, item.maxStack);
         }
-        Debug.Log("Item Added " + items[0]);
+        
         if (item.quantity <= 0)
         {
             return true;

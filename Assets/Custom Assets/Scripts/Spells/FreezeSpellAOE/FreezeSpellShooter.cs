@@ -22,9 +22,22 @@ public class FreezeSpellShooter : MonoBehaviour
     private Animator anim;
 
 
+    private void Awake()
+    {
+        
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        spellIcon = GameObject.FindGameObjectWithTag("ImageFreezeSpell");
+
+
+        ////
+
+
+
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
 

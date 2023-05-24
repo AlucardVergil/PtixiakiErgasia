@@ -40,9 +40,21 @@ public class PlayerStats : MonoBehaviour
 
 
 
+    private void Awake()
+    {
+        
+    }
+
+
 
     void Start()
     {
+        PlayerHPbar = GameObject.FindGameObjectWithTag("PlayerHealthBar").GetComponent<Slider>();
+        PlayerStaminabar = GameObject.FindGameObjectWithTag("PlayerStaminaBar").GetComponent<Slider>();
+        hpText = PlayerHPbar.transform.GetChild(2).GetComponent<TMP_Text>();
+
+        ////
+
         animator = GetComponent<Animator>();
 
         PlayerHPbar.maxValue = hp; //Automatically change the max value of the slider to match HP of the player

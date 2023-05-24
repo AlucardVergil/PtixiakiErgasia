@@ -111,10 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be52e2ba4e1af45438a1129d9d174775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: cube
+  itemName: Apple
   itemType: 1
   icon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
-  quantity: 5
+  quantity: 20
   maxStack: 2
   ingredients: []
   itemDropPrefab: {fileID: 4094512573400092050, guid: 1e98108c846284948901c6a7348f8661, type: 3}

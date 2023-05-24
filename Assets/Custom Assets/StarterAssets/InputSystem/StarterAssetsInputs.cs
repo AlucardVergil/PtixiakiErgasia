@@ -46,12 +46,23 @@ namespace StarterAssets
         public Camera cam;
 
 
+        private void Awake()
+        {
+            
+        }
+
 
         private void Start()
         {
-			//for upgrades menu
-			menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
-			inventory = GameObject.FindGameObjectWithTag("Inventory");
+            cam = Camera.main;
+
+
+			////
+
+
+            //for upgrades menu
+            menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
+			inventory = GameObject.FindGameObjectWithTag("Inventory"); //to items panel
 
             inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
             inventory.SetActive(false);

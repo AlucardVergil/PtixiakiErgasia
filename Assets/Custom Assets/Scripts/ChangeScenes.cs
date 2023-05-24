@@ -25,7 +25,7 @@ public class ChangeScenes : MonoBehaviour
         //function in CharacterCustomization class
         characterCustomization.GetComponent<CustomizeCharacterParts>().SaveAppearance();
         characterCustomization.GetComponent<SwitchArmorEquipment>().SaveArmor();
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("TestGameScene");
     }
 
 

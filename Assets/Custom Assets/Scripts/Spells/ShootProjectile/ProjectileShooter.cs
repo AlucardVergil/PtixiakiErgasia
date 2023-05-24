@@ -48,9 +48,25 @@ public class ProjectileShooter : MonoBehaviour
 
 
 
+    private void Awake()
+    {
+        
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        playerFollowCamera = GameObject.FindGameObjectWithTag("PlayerFollowCamera");
+        playerAimCamera = GameObject.FindGameObjectWithTag("PlayerAimCamera");
+        cam = Camera.main;
+        spellIcon = GameObject.FindGameObjectWithTag("ImageProjectileSpell");
+
+
+        ////
+
+
+
         audioSource = GetComponent<AudioSource>();
         //volume.profile.TryGet<ChromaticAberration>(out chromatic);
         anim = GetComponent<Animator>();

@@ -68,5 +68,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Custom Assets/Scenes/ArmorEquipmentScenes/HumanArmorEquipmentScene.unity
     guid: 9010681aa4d3fa74bb600e5955826eb6
+  - enabled: 1
+    path: Assets/Custom Assets/Scenes/TestGameScene.unity
+    guid: b36105512740c3347bac48b80eb1c86c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

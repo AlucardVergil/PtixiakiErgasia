@@ -19,6 +19,13 @@ TagManager:
   - MenuTabPanels
   - Inventory
   - PlayerCanvas
+  - PlayerHealthBar
+  - PlayerStaminaBar
+  - PlayerFollowCamera
+  - PlayerAimCamera
+  - ImageProjectileSpell
+  - ImageFreezeSpell
+  - ImageWallSpell
   layers:
   - Default
   - TransparentFX
