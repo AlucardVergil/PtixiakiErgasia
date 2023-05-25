@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using Unity.Netcode;
 
-public class DissolvingController : MonoBehaviour
+
+public class DissolvingController : NetworkBehaviour
 {
     public Animator animator;
     public SkinnedMeshRenderer[] skmrArray;

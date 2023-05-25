@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class FreezeSpellShooter : MonoBehaviour
+
+
+public class FreezeSpellShooter : NetworkBehaviour
 {
     [Header("FREEZE SPELL")]
     public GameObject freezeSpell;
@@ -31,13 +34,6 @@ public class FreezeSpellShooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spellIcon = GameObject.FindGameObjectWithTag("ImageFreezeSpell");
-
-
-        ////
-
-
-
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
 

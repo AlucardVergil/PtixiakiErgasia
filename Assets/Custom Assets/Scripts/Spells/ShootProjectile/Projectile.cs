@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Projectile : MonoBehaviour
+
+public class Projectile : NetworkBehaviour
 {
     public int spellDamage;
     public GameObject impactVFX;

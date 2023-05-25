@@ -4,18 +4,19 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class Inventory : MonoBehaviour
+public class Inventory : NetworkBehaviour
 {
     public int baseCapacity = 20; // Initial capacity of the inventory
     public int maxCapacity = 50; // Maximum capacity of the inventory
     public List<InventoryItemData> items = new List<InventoryItemData>(); // List to store the items
     public GameObject inventorySlotPrefab;
 
-    [HideInInspector] public GameObject inventoryUI;
+    public GameObject inventoryUI;
 
 
-    private void Start()
+    private void Awake()
     {
         //inventoryUI = GameObject.FindGameObjectWithTag("Inventory");
 

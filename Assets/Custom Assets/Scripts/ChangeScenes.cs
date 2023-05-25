@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
-public class ChangeScenes : MonoBehaviour
+public class ChangeScenes : NetworkBehaviour
 {
     //public static ChangeScenes instance;
 
@@ -25,7 +26,7 @@ public class ChangeScenes : MonoBehaviour
         //function in CharacterCustomization class
         characterCustomization.GetComponent<CustomizeCharacterParts>().SaveAppearance();
         characterCustomization.GetComponent<SwitchArmorEquipment>().SaveArmor();
-        SceneManager.LoadScene("TestGameScene");
+        SceneManager.LoadScene("PreloadGameScene");
     }
 
 

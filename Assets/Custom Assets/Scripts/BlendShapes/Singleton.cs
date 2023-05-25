@@ -1,4 +1,6 @@
 using UnityEngine;
+using Unity.Netcode;
+
 
 //Generic Singleton
 //The T is a generic type that is replaced with any type. In this case T is replaced with CharacterCustomization
@@ -8,7 +10,7 @@ using UnityEngine;
 //MonoBehaviour, then CharacterCustomization class is also MonoBehaviour, but the constraint still needs to exist because in order to pass
 //the generic T in the component methods like .GetComponent<T>, we need to state that the T is MonoBehaviour using the constraint.
 //If not then it doesn't know what the T is and it throws an error
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour 
+public class Singleton<T> : NetworkBehaviour where T : NetworkBehaviour 
 {
     //Static variables are the same in all instances. So since singleton should have only one instance, i made this variable static
     //so that it's value will be universal for the class

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using Unity.Netcode;
 
 
 //This class is not added as a component. It is only used as an inherited class for ThirdPersonController, in order to separate 
 //the code for the Camera Lock On inside a different script, for orgazination purposes
-public class CameraLockOnHandler : MonoBehaviour
+public class CameraLockOnHandler : NetworkBehaviour
 {
     public Transform targetTransform;
     public float maximumLockOnDistance = 30;    
@@ -17,7 +18,7 @@ public class CameraLockOnHandler : MonoBehaviour
     [HideInInspector] public Transform rightLockTarget;
 
     protected List<CharacterManager> availableTargets = new List<CharacterManager>();
-    protected GameObject _mainCamera;
+    [SerializeField] protected GameObject _mainCamera;
     protected StarterAssetsInputs _input;    
 
     [Header("Player Camera Root to rotate for lock on target, \nbecause you can't rotate the maincamera directly.")]
@@ -28,10 +29,10 @@ public class CameraLockOnHandler : MonoBehaviour
     protected void Awake()
     {
         // get a reference to our main camera
-        if (_mainCamera == null)
-        {
-            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        }
+        //if (_mainCamera == null)
+        //{
+        //    _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        //}
     }
 
 

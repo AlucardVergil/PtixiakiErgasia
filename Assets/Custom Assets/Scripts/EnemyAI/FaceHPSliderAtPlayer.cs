@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class FaceHPSliderAtPlayer : MonoBehaviour
+
+public class FaceHPSliderAtPlayer : NetworkBehaviour
 {
     private Transform playerCamera;
 

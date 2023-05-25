@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
-public class SecondaryCustomizationHelper : MonoBehaviour
+
+public class SecondaryCustomizationHelper : NetworkBehaviour
 {
     //This is a helper script inserted into the secondaryCustomizationHelper game object, in order to call functions from
     //the main characterCustomization, because the main required to insert objects in the fields and i couldn't do that in

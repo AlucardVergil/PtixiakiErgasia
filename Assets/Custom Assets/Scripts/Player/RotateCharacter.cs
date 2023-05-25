@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class RotateCharacter : MonoBehaviour
+public class RotateCharacter : NetworkBehaviour
 {
     
     Vector3 mouseLastPosition = Vector3.zero; 

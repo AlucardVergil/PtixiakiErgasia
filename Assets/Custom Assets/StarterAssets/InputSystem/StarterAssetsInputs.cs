@@ -3,9 +3,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+using Unity.Netcode;
+
 namespace StarterAssets
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class StarterAssetsInputs : NetworkBehaviour
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
@@ -34,8 +36,10 @@ namespace StarterAssets
 		public bool lockOnRightInput;
 		public bool lockOnLeftInput;
 
-		[HideInInspector] public GameObject menu;
-        [HideInInspector] public GameObject inventory;
+		[Header("Menu Panel")]
+		public GameObject menu;
+        [Header("Inventory Panel")]
+        public GameObject inventory; //to items panel
 
         public PlayerControls playerControls;
 
@@ -54,16 +58,6 @@ namespace StarterAssets
 
         private void Start()
         {
-            cam = Camera.main;
-
-
-			////
-
-
-            //for upgrades menu
-            menu = GameObject.FindGameObjectWithTag("MenuTabPanels");
-			inventory = GameObject.FindGameObjectWithTag("Inventory"); //to items panel
-
             inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
             inventory.SetActive(false);
             menu.SetActive(false);			

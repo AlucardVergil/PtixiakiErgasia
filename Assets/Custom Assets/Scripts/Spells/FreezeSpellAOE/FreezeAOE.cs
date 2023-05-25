@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class FreezeAOE : MonoBehaviour
+
+public class FreezeAOE : NetworkBehaviour
 {
     public List<AudioClip> impactSFX;
     public int freezeDuration = 10;

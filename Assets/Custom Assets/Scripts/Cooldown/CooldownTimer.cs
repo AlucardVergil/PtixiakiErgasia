@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Netcode;
 
-public class CooldownTimer : MonoBehaviour
+
+public class CooldownTimer : NetworkBehaviour
 {
     [SerializeField] private Image cooldownImage;
     [SerializeField] private TMP_Text cooldownText;

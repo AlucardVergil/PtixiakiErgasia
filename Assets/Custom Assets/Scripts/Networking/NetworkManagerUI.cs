@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class NetworkManagerUI : MonoBehaviour
+public class NetworkManagerUI : NetworkBehaviour
 {
     [SerializeField] private Button serverBtn;
     [SerializeField] private Button hostBtn;

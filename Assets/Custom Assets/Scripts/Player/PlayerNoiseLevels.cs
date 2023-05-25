@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using Unity.Netcode;
 
-public class PlayerNoiseLevels : MonoBehaviour
+
+public class PlayerNoiseLevels : NetworkBehaviour
 {
     public float walkNoiseVolume;
     public float runNoiseVolume;

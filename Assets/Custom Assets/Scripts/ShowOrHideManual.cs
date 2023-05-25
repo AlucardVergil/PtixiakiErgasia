@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class ShowOrHideManual : MonoBehaviour
+
+public class ShowOrHideManual : NetworkBehaviour
 {    
     GameObject helpBtn;
     GameObject helpPanel;

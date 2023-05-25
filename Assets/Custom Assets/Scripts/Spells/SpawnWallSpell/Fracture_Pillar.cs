@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class Fracture_Pillar : MonoBehaviour
+
+public class Fracture_Pillar : NetworkBehaviour
 {
     public GameObject fractured;
 

@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.Netcode;
 
 
-
-public class InventoryItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItemDragHandler : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform itemTransform;
     private CanvasGroup canvasGroup;

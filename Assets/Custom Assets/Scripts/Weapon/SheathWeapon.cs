@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class SheathWeapon : MonoBehaviour
+
+public class SheathWeapon : NetworkBehaviour
 {
     public Transform[] sheathBoneArray;
     public Transform[] drawBoneArray;

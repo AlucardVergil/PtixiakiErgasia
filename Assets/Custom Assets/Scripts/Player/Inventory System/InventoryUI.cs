@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.Netcode;
 
-public class InventoryUI : MonoBehaviour
+
+public class InventoryUI : NetworkBehaviour
 {
-    private Inventory inventory;
+    [SerializeField] private Inventory inventory;
 
     [Header("Item name panel prefab that displays the name of the inventory item.")]
     public GameObject itemNamePanelPrefab; // Reference to the item details panel prefab
@@ -53,9 +55,8 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        inventory = GetComponentInParent<Inventory>();
 
-        inventory.inventoryUI = gameObject;
 
         for (int i = 0; i < inventory.items.Count; i++)
         {

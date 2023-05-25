@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 //Could add below 2 lines but i will need to also set the settings for these components
 //[RequireComponent(typeof(BoxCollider))]
 //[RequireComponent (typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     public int hp; //Health of enemy
     public Animator animator; //Enemy animator component

@@ -155,7 +155,6 @@
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Networking\RpcTest.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Networking\NetworkManagerUI.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Networking\EnablePlayerComponents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

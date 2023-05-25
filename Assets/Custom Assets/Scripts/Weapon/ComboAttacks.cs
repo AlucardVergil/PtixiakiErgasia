@@ -4,8 +4,10 @@ using UnityEngine;
 using StarterAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using Unity.Netcode;
 
-public class ComboAttacks : MonoBehaviour
+
+public class ComboAttacks : NetworkBehaviour
 {
     public static int numOfClicks = 0;
     public string animationName;

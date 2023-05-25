@@ -6,8 +6,10 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
 using StarterAssets;
+using Unity.Netcode;
 
-public class ProjectileShooter : MonoBehaviour
+
+public class ProjectileShooter : NetworkBehaviour
 {
     //Normal & Aim Camera
     public GameObject playerFollowCamera;
@@ -57,16 +59,6 @@ public class ProjectileShooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerFollowCamera = GameObject.FindGameObjectWithTag("PlayerFollowCamera");
-        playerAimCamera = GameObject.FindGameObjectWithTag("PlayerAimCamera");
-        cam = Camera.main;
-        spellIcon = GameObject.FindGameObjectWithTag("ImageProjectileSpell");
-
-
-        ////
-
-
-
         audioSource = GetComponent<AudioSource>();
         //volume.profile.TryGet<ChromaticAberration>(out chromatic);
         anim = GetComponent<Animator>();

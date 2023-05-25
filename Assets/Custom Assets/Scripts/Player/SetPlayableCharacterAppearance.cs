@@ -1,7 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-
-public class SetPlayableCharacterAppearance : MonoBehaviour
+public class SetPlayableCharacterAppearance : NetworkBehaviour
 {
 
     GameObject characterCustomization;
@@ -13,6 +13,8 @@ public class SetPlayableCharacterAppearance : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsOwner) return;
+
         //Load Character Customized Body Parts
         characterCustomization = GameObject.Find("CharacterCustomization");
         characterCustomization.GetComponent<CustomizeCharacterParts>().LoadAppearance();

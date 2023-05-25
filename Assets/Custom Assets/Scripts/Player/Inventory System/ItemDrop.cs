@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 
-public class ItemDrop : MonoBehaviour
+
+public class ItemDrop : NetworkBehaviour
 {
     private GameObject player;
     private Inventory inventory;
