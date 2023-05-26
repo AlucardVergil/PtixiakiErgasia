@@ -2646,8 +2646,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14806}
     - Class: 114
-      Script: {instanceID: 46772}
-    - Class: 114
       Script: {instanceID: 1011948}
     - Class: 114
       Script: {instanceID: 1175016}
@@ -2858,8 +2856,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14380}
     - Class: 114
       Script: {instanceID: 14806}
-    - Class: 114
-      Script: {instanceID: 46772}
     - Class: 114
       Script: {instanceID: 166842}
     - Class: 114
@@ -3842,7 +3838,7 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerWidget
   - hash:
       serializedVersion: 2
-      Hash: 829eaf7e44cf95f60be10aef8fc688a0
+      Hash: 334782482637e846ecaef4219d2f3f21
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerStats
@@ -6194,7 +6190,7 @@ ScriptsOnlyBuild:
     className: ClientNetworkTransform
   - hash:
       serializedVersion: 2
-      Hash: 5606210e4f18dcb7440115a620bc8260
+      Hash: e58c592ead7951415ddcc7a1d7dccd9c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkPlayerCamera

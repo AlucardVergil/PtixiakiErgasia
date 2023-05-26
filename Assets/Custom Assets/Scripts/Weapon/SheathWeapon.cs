@@ -63,6 +63,7 @@ public class SheathWeapon : NetworkBehaviour
         weaponIdleTime += Time.deltaTime;
         */
 
+        if (!IsOwner) return; // For NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {

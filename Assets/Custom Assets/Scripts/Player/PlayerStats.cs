@@ -13,18 +13,22 @@ public class PlayerStats : NetworkBehaviour
     Animator animator; //Player animator component
     public Slider PlayerHPbar; //Player health bar
     public Slider PlayerStaminabar; //Player stamina bar
+
+    [Header("The Fill gameobject in the PlayerHealthBar hierarchy")]
+    [SerializeField] private GameObject playerSliderFill;
+
     private float slowMoTimer = 0;
     private bool canExecuteSlowMo = true;
 
     public Gradient HPgradient;
-    GameObject deathMenu;
-    GameObject pauseMenu;
+    [SerializeField] GameObject deathMenu;
+    [SerializeField] GameObject pauseMenu;
 
     public TMP_Text hpText;
     private float hpPercentage;
     [HideInInspector] public bool dead;
 
-    GameObject helpPanel;
+    [SerializeField] GameObject helpPanel;
 
     public float stamina = 300; //Stamina of player    
     public float refillStaminaDelay = 2;
@@ -43,29 +47,29 @@ public class PlayerStats : NetworkBehaviour
 
     void Start()
     {
+        if (!IsLocalPlayer) return;
+
         animator = GetComponent<Animator>();
 
         PlayerHPbar.maxValue = hp; //Automatically change the max value of the slider to match HP of the player
-        GameObject.FindGameObjectWithTag("PlayerSliderFill").GetComponent<Image>().color = HPgradient.Evaluate(1f);
-        deathMenu = GameObject.Find("DeathMenu");
+        playerSliderFill.GetComponent<Image>().color = HPgradient.Evaluate(1f);
+        
         deathMenu.SetActive(false);
-        pauseMenu = GameObject.Find("PauseMenu");
+        
         pauseMenu.SetActive(false);
         GetComponent<PlayerInput>().enabled = false;
 
-        helpPanel = GameObject.Find("HelpPanel");
+        
 
         PlayerStaminabar.maxValue = stamina;
     }
 
     void Update()
     {
-        if (!IsOwner) return; // For NetworkBehaviour
-
         //Health
         PlayerHPbar.value = hp; //Change the HP slider based on the remaining HP of the player
         HPgradient.Evaluate(PlayerHPbar.normalizedValue);
-        GameObject.FindGameObjectWithTag("PlayerSliderFill").GetComponent<Image>().color = HPgradient.Evaluate(PlayerHPbar.normalizedValue);
+        playerSliderFill.GetComponent<Image>().color = HPgradient.Evaluate(PlayerHPbar.normalizedValue);
 
         hpPercentage = hp * 100 / PlayerHPbar.maxValue;
         hpText.text = hp + " / " + PlayerHPbar.maxValue + " (" + (int)hpPercentage + "%)";
@@ -124,7 +128,8 @@ public class PlayerStats : NetworkBehaviour
         }
         #endregion
 
-        
+        Debug.Log(OwnerClientId + " Update PlayerHPbar = " + PlayerHPbar.maxValue);
+        Debug.Log(OwnerClientId + " Update HP = " + hp);
     }
 
 
@@ -162,6 +167,8 @@ public class PlayerStats : NetworkBehaviour
     {
         PlayerHPbar.maxValue += health;
         hp = (int)PlayerHPbar.maxValue;
+        Debug.Log(OwnerClientId + " method PlayerHPbar = " + PlayerHPbar.maxValue);
+        Debug.Log(OwnerClientId + " method HP = " + hp);
     }
 
 

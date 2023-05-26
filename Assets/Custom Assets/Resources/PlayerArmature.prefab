@@ -6835,7 +6835,6 @@ GameObject:
   - component: {fileID: 2559987317647163557}
   - component: {fileID: 2559987317647163563}
   - component: {fileID: 2559987317647163562}
-  - component: {fileID: 922070528540808227}
   - component: {fileID: 2739557958261705976}
   - component: {fileID: 2245263350451516549}
   m_Layer: 8
@@ -7176,6 +7175,7 @@ MonoBehaviour:
   hp: 150
   PlayerHPbar: {fileID: 7275303702277536540}
   PlayerStaminabar: {fileID: 7275303701765771752}
+  playerSliderFill: {fileID: 7275303702588447300}
   HPgradient:
     serializedVersion: 2
     key0: {r: 0.9245283, g: 0, b: 0, a: 1}
@@ -7205,8 +7205,11 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  deathMenu: {fileID: 7275303701592193707}
+  pauseMenu: {fileID: 7275303701585015630}
   hpText: {fileID: 7275303701194736961}
   dead: 0
+  helpPanel: {fileID: 7275303701752852394}
   stamina: 300
   refillStaminaDelay: 2
   staminaRefillRate: 80
@@ -7501,22 +7504,10 @@ MonoBehaviour:
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
-  ActiveSceneSynchronization: 1
+  ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &922070528540808227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2559987317647163573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ccfd2afa0c45a44a8b1cea53432ca05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2739557958261705976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33948,7 +33939,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9320883, y: 1}
+    m_SensorSize: {x: 2.1154857, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34193,7 +34184,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9320883, y: 1}
+    m_SensorSize: {x: 2.1154857, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34427,6 +34418,7 @@ MonoBehaviour:
   player: {fileID: 2739557958261705976}
   followCamera: {fileID: 8667869746666035211}
   aimCamera: {fileID: 8667869745805974621}
+  playerCanvas: {fileID: 7275303701654370112}
 --- !u!20 &1790102680750207110 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}

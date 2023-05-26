@@ -11,11 +11,21 @@ public class NetworkPlayerCamera : NetworkBehaviour
     [SerializeField] private CinemachineVirtualCamera followCamera; // Prefab for the player object
     [SerializeField] private CinemachineVirtualCamera aimCamera; // Prefab for the player object
 
+    [SerializeField] private GameObject playerCanvas; // Prefab for the player object
+
     //static int playerIndex = 0;
 
 
     private void Start()
-    {    
+    {
+        SetMainCameraForNetworkPlayer();
+
+        DisableOtherPlayerCanvas();
+    }
+
+
+    public void SetMainCameraForNetworkPlayer()
+    {
         // Assign the camera component of the player object as the main camera for this player
         if (player.GetLocalPlayerStatus())
         {
@@ -30,17 +40,23 @@ public class NetworkPlayerCamera : NetworkBehaviour
             followCamera.Priority = 0;
             aimCamera.Priority = 1;
         }
-            
+
 
         // The players who are NOT the owner set their follow camera cinemachine to true
         //because when a new cinemachine is enabled all the previous are disabled
         if (!player.GetPlayerOwnershipStatus())
         {
             followCamera.enabled = false;
-            followCamera.enabled = true;   
+            followCamera.enabled = true;
         }
+    }
 
 
-        
+    public void DisableOtherPlayerCanvas()
+    {
+        if (!player.GetPlayerOwnershipStatus())
+        {
+            playerCanvas.SetActive(false);
+        }
     }
 }
