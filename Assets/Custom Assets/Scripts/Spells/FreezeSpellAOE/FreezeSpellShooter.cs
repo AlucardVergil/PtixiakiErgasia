@@ -43,6 +43,8 @@ public class FreezeSpellShooter : NetworkBehaviour
     // Update is called once per frame
     public void ExecuteFreezeSpell()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         if (Time.time >= timeToFire)
         {
             anim.SetTrigger("freezeSpell");

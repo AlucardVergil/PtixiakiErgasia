@@ -26,6 +26,7 @@ TagManager:
   - ImageProjectileSpell
   - ImageFreezeSpell
   - ImageWallSpell
+  - CharacterCustomization
   layers:
   - Default
   - TransparentFX

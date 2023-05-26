@@ -19,7 +19,7 @@ public class CameraLockOnHandler : NetworkBehaviour
 
     protected List<CharacterManager> availableTargets = new List<CharacterManager>();
     [SerializeField] protected GameObject _mainCamera;
-    protected StarterAssetsInputs _input;    
+    [SerializeField] protected StarterAssetsInputs _input;    
 
     [Header("Player Camera Root to rotate for lock on target, \nbecause you can't rotate the maincamera directly.")]
     public Transform playerCameraRoot;
@@ -36,9 +36,11 @@ public class CameraLockOnHandler : NetworkBehaviour
     }
 
 
+
+
     protected void Start()
     {
-        _input = GetComponent<StarterAssetsInputs>();
+        //_input = GetComponent<StarterAssetsInputs>();
     }
 
 

@@ -58,7 +58,7 @@ namespace StarterAssets
 
         private void Start()
         {
-            inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
+			inventory.GetComponent<InventoryUI>().itemDetailsPanel.SetActive(false);
             inventory.SetActive(false);
             menu.SetActive(false);			
 		}
@@ -66,8 +66,9 @@ namespace StarterAssets
 
         private void OnEnable()
         {
-			if (playerControls == null)
+            if (playerControls == null)
 				playerControls = new PlayerControls();
+
 
             #region Player Action Map
 
@@ -209,18 +210,24 @@ namespace StarterAssets
 
 		public void MoveInput(InputAction.CallbackContext context)
 		{
-			if (!Input.GetKey(KeyCode.LeftControl)) //for dodge
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            if (!Input.GetKey(KeyCode.LeftControl)) //for dodge
 				move = context.ReadValue<Vector2>();
 		}
 
 		public void LookInput(InputAction.CallbackContext context)
 		{
-			if (cursorInputForLook)
-				look = context.ReadValue<Vector2>();			
+            if (!IsOwner) return; // For NetworkBehaviour
+			
+            if (cursorInputForLook)
+				look = context.ReadValue<Vector2>();
 		}
 
 		public void JumpInput(InputAction.CallbackContext context)
 		{
+			if (!IsOwner) return; // For NetworkBehaviour
+
 			//when jumping drain 15 stamina
 			if (GetComponent<PlayerStats>().stamina > 15 && GetComponent<ThirdPersonController>().Grounded)
 			{
@@ -233,6 +240,8 @@ namespace StarterAssets
 		//changed this from sprint = !sprint to fix sprint bug when opening and closing menus
 		public void SprintInput(InputAction.CallbackContext context)
 		{
+            if (!IsOwner) return; // For NetworkBehaviour
+
             if (context.phase == InputActionPhase.Performed)
             {
                 // Button pressed
@@ -258,7 +267,9 @@ namespace StarterAssets
         //Lock On
         public void LockOnInput(InputAction.CallbackContext context)
         {
-			lockOnInput = context.performed; 
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            lockOnInput = context.performed; 
 			 var cameraHandler = GetComponent<ThirdPersonController>();
 
 			if (lockOnInput && !lockOnFlag)
@@ -305,21 +316,27 @@ namespace StarterAssets
 
 		public void LockOnInputRight(InputAction.CallbackContext context)
         {
-			lockOnRightInput = context.performed;
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            lockOnRightInput = context.performed;
 			LockOnInput(context);
 		}
 
 
 		public void LockOnInputLeft(InputAction.CallbackContext context)
 		{
-			lockOnLeftInput = context.performed;
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            lockOnLeftInput = context.performed;
 			LockOnInput(context);
 		}
 
 
 		public void OpenGameMenu()
         {
-			if (menu.activeSelf)
+            if (!IsOwner) return;
+
+            if (menu.activeSelf)
 			{
 				Time.timeScale = 1f;
 				menu.SetActive(false);
@@ -345,6 +362,8 @@ namespace StarterAssets
 
 		public void ToggleInventory()
 		{
+			if (!IsOwner) return;
+
             if (inventory.activeSelf)
             {
 				//Close inventory item menu panel and item name panel when closing inventory
@@ -374,6 +393,8 @@ namespace StarterAssets
 
 		public void InteractWithObject()
 		{
+            if (!IsOwner) return; // For NetworkBehaviour
+
             // Raycast from the crosshair position forward
             //Ray ray = new Ray(crosshair.position, crosshair.forward);
             Ray ray = cam.ViewportPointToRay(new Vector3(0.51f, 0.5f, 0));
@@ -402,7 +423,9 @@ namespace StarterAssets
         //false right after it finishes the swing in the attack animation so that it won't play again.
         public void CanAttackHit(AnimationEvent animationEvent)
         {
-			if (animationEvent.intParameter == 0)
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            if (animationEvent.intParameter == 0)
             {
 				attackCanHit = false;
 				//GetComponent<ComboAttacks>().maxComboDelay = animationEvent.floatParameter;				
@@ -420,12 +443,16 @@ namespace StarterAssets
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            SetCursorState(cursorLocked);
 		}
 
 		private void SetCursorState(bool newState)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 	

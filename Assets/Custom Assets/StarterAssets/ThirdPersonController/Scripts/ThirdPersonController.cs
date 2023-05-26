@@ -201,12 +201,13 @@ namespace StarterAssets
             currentLockOnTarget = null;            
         }
         */
+                   
 
-        
+
         private new void Awake()
         {      
             base.Awake();
-
+            
             /*
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -215,9 +216,14 @@ namespace StarterAssets
             }
             */
         }
+
         
         private new void Start()
         {
+            if (!IsOwner) return; // For NetworkBehaviour
+
+            //_mainCamera.SetActive(true);
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -239,6 +245,8 @@ namespace StarterAssets
 
         private void Update()
         {
+            if (!IsOwner) return; // For NetworkBehaviour
+
             _hasAnimator = TryGetComponent(out _animator);
 
 
@@ -265,6 +273,8 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
+            if (!IsOwner) return; // For NetworkBehaviour
+
             CameraRotation();
         }
 

@@ -54,6 +54,13 @@ public class CustomizeCharacterParts : MonoBehaviour
     }
 
 
+    public void SetNewFaceAndNewTailBone(GameObject face, GameObject tail)
+    {
+        newFace = face;
+        newTailBone = tail;
+    }
+
+
     //Randomizes some default models for when the scene loads. Checks if models exist and chooses a random one
     public void Randomize()
     {
@@ -271,8 +278,9 @@ public class CustomizeCharacterParts : MonoBehaviour
         //appearance details it destroys the generic rig copy and loads the saved details on the humanoid copy.
         //So the generic rig copy's face bone is Untagged and the humanoid rig copy's face bone has the GameSceneFaceBone tag that i created.
         //Same with Tail bone.
-        newFace = GameObject.FindGameObjectWithTag("GameSceneFaceBone");
-        newTailBone = GameObject.FindGameObjectWithTag("GameSceneTailBone");
+        //EDIT: this is now done from SetPlayableCharacterAppearance script in a set() method
+        //newFace = GameObject.FindGameObjectWithTag("GameSceneFaceBone");
+        //newTailBone = GameObject.FindGameObjectWithTag("GameSceneTailBone");
 
         if (activeEars != null)
             GameObject.Destroy(activeEars);

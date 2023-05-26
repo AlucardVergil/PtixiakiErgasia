@@ -14,7 +14,7 @@ public class ProjectileShooter : NetworkBehaviour
     //Normal & Aim Camera
     public GameObject playerFollowCamera;
     public GameObject playerAimCamera;
-    GameObject crosshair;
+    [SerializeField] GameObject crosshair;
 
     [Space]
     [Header("SHOOT SPELL PROJECTILE")]
@@ -62,7 +62,7 @@ public class ProjectileShooter : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         //volume.profile.TryGet<ChromaticAberration>(out chromatic);
         anim = GetComponent<Animator>();
-        crosshair = GameObject.FindGameObjectWithTag("CrossHair");
+        //crosshair = GameObject.FindGameObjectWithTag("CrossHair");
 
         _input = GetComponent<StarterAssetsInputs>();
     }
@@ -70,6 +70,8 @@ public class ProjectileShooter : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         //Change to aim camera if right mouse click is held down
         if (Input.GetMouseButton(1) && _input.playerControls.Player.enabled)
         {

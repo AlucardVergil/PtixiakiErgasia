@@ -17,7 +17,7 @@ public class SecondaryCustomizationHelper : NetworkBehaviour
     {
         if (characterCustomization == null)
         {
-            characterCustomization = GameObject.Find("CharacterCustomization"); //Get CharacterCustomization object from scene
+            characterCustomization = GameObject.FindGameObjectWithTag("CharacterCustomization"); //Get CharacterCustomization object from scene
         }
     }
 

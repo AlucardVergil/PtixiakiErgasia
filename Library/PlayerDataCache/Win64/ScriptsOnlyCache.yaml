@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     - ChangeScenes
     - CharacterCustomization
     - ChasingState
+    - ClientNetworkTransform
     - ComboAttacks
     - CooldownTimer
     - CustomizeCharacterColors
@@ -31,6 +32,8 @@ ScriptsOnlyBuild:
     - InventoryUI
     - ItemDrop
     - NetworkManagerUI
+    - NetworkPlayerCamera
+    - NetworkPlayerOwnership
     - PlayerManager
     - PlayerNoiseLevels
     - PlayerStats
@@ -337,6 +340,21 @@ ScriptsOnlyBuild:
     fullTypeName: ShowOrHideManual
     methodName: GameSceneTip
   - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockRoundAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockSprintAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockDash
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeHealth
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeStamina
+  - assembly: Assembly-CSharp
     fullTypeName: ShowOrHideManual
     methodName: ShowHideManual
   - assembly: Assembly-CSharp
@@ -417,6 +435,21 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ShowOrHideManual
     methodName: GameSceneTip
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockRoundAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockSprintAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockDash
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeHealth
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeStamina
   - assembly: Assembly-CSharp
     fullTypeName: ShowOrHideManual
     methodName: ShowHideManual
@@ -1098,6 +1131,21 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ShowOrHideManual
     methodName: GameSceneTip
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockRoundAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockSprintAttack
+  - assembly: Assembly-CSharp
+    fullTypeName: ComboAttacks
+    methodName: UnlockDash
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeHealth
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerStats
+    methodName: UpgradeStamina
   sceneClasses:
     Assets/Custom Assets/Scenes/ArmorEquipmentScenes/BeastmenArmorEquipmentScene.unity:
     - Class: 1
@@ -2599,6 +2647,12 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14806}
     - Class: 114
       Script: {instanceID: 46772}
+    - Class: 114
+      Script: {instanceID: 1011948}
+    - Class: 114
+      Script: {instanceID: 1175016}
+    - Class: 114
+      Script: {instanceID: 1387444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -2808,6 +2862,12 @@ ScriptsOnlyBuild:
       Script: {instanceID: 46772}
     - Class: 114
       Script: {instanceID: 166842}
+    - Class: 114
+      Script: {instanceID: 1011948}
+    - Class: 114
+      Script: {instanceID: 1175016}
+    - Class: 114
+      Script: {instanceID: 1387444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -3507,6 +3567,12 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14936}
     - Class: 114
       Script: {instanceID: 46772}
+    - Class: 114
+      Script: {instanceID: 1011948}
+    - Class: 114
+      Script: {instanceID: 1175016}
+    - Class: 114
+      Script: {instanceID: 1387444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -3818,7 +3884,7 @@ ScriptsOnlyBuild:
     className: CinemachineInputProvider
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: cf69e7cd34512ad197b127a028e9222f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ShowOrHideManual
@@ -4580,7 +4646,7 @@ ScriptsOnlyBuild:
     className: UNetTransport
   - hash:
       serializedVersion: 2
-      Hash: e97d6abf3be6841120519b5f4d06097e
+      Hash: faf566e452d1bc918fc7cb1d95bc4ff9
     assemblyName: Assembly-CSharp.dll
     namespaceName: StarterAssets
     className: ThirdPersonController
@@ -5384,7 +5450,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: bb96f6617ea071e02a3fc14100a2cd29
+      Hash: 9b553eec1665c490685ec81a0c3f6dc7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraLockOnHandler
@@ -5750,7 +5816,7 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerHBox
   - hash:
       serializedVersion: 2
-      Hash: f27c63cb0cff22561ab8a9b926df1898
+      Hash: 737a1ecde43769ccee2422814ac95ab3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ProjectileShooter
@@ -5966,7 +6032,7 @@ ScriptsOnlyBuild:
     className: WalkingState
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 907dfb214fb88e8d668e1568efd8d764
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SetPlayableCharacterAppearance
@@ -6114,6 +6180,24 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Multiplayer.Tools.NetStatsReporting.dll
     namespaceName: Unity.Multiplayer.Tools.NetStatsReporting
     className: TestDataGeneratorComponent
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NetworkPlayerOwnership
+  - hash:
+      serializedVersion: 2
+      Hash: 49818a37623a3aeb7e0d8ea9c6a0142b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ClientNetworkTransform
+  - hash:
+      serializedVersion: 2
+      Hash: 5606210e4f18dcb7440115a620bc8260
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NetworkPlayerCamera
   platform: 19
   scenePathNames:
   - Assets/Custom Assets/Scenes/RaceSelectionScenes/HumanRaceSelectionScene.unity

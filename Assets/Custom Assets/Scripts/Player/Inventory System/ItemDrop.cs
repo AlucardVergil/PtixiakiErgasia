@@ -10,6 +10,7 @@ using Unity.Netcode;
 
 public class ItemDrop : NetworkBehaviour
 {
+    private GameObject[] playersArray;
     private GameObject player;
     private Inventory inventory;
 
@@ -57,7 +58,16 @@ public class ItemDrop : NetworkBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        // Get all player gameobjects in the scene to loop through
+        playersArray = GameObject.FindGameObjectsWithTag("Player");
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            if (p.GetComponent<NetworkPlayerOwnership>().GetPlayerOwnershipStatus())
+                player = p;
+        }
+
 
         inventory = player.GetComponent<Inventory>();
 

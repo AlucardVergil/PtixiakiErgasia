@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
+using System.Globalization;
+using Unity.Netcode;
 
-public class SpawnWallSpell : MonoBehaviour
+
+public class SpawnWallSpell : NetworkBehaviour
 {
     [Header("SPAWN WALL SPELL")]
     public GameObject[] wallSpellArray;
@@ -77,6 +80,8 @@ public class SpawnWallSpell : MonoBehaviour
     // Update is called once per frame
     public void ExecuteWallSpell()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         if (Time.time >= timeToFire)
         {
             //save raycast position before triggering animation because when animation plays it moves the raycast position

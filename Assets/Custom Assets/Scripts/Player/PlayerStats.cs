@@ -60,6 +60,8 @@ public class PlayerStats : NetworkBehaviour
 
     void Update()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         //Health
         PlayerHPbar.value = hp; //Change the HP slider based on the remaining HP of the player
         HPgradient.Evaluate(PlayerHPbar.normalizedValue);

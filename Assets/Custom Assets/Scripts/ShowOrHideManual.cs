@@ -11,26 +11,37 @@ public class ShowOrHideManual : NetworkBehaviour
     GameObject helpPanel;
     int helpPanelIndex = 0;
 
+    [SerializeField] NetworkPlayerOwnership player;
+    private bool playerIsOwner = true;
+
 
 
     private void Start()
     {
-        helpBtn = GameObject.Find("Help Button");
+        if (player != null) 
+            playerIsOwner = player.GetPlayerOwnershipStatus();
+
+
+        helpBtn = transform.parent.gameObject;
         if (helpBtn != null)
             helpPanel = helpBtn.transform.GetChild(0).gameObject;
 
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-            Time.timeScale = 0f;
+        //if (GameObject.FindGameObjectWithTag("Player") != null)
+            //Time.timeScale = 0f;
     }
 
 
     public void ShowHideManual()
-    {       
+    {
+        if (!player.GetPlayerOwnershipStatus()) return; // For NetworkBehaviour
+
         helpPanel.SetActive(!helpPanel.activeSelf);
     }
 
     public void NextTip()
     {
+        if (!player.GetPlayerOwnershipStatus()) return; // For NetworkBehaviour
+
         helpPanelIndex = helpPanel.transform.GetSiblingIndex() + 1;
         helpPanel.SetActive(false);
 
@@ -43,10 +54,13 @@ public class ShowOrHideManual : NetworkBehaviour
 
     public void GameSceneTip()
     {
-        Time.timeScale = 1f;
-        helpPanel = GameObject.Find("HelpPanel (1)");
+        if (!player.GetPlayerOwnershipStatus()) return; // For NetworkBehaviour
+
+        //Time.timeScale = 1f;
+
+        helpPanel = transform.parent.GetChild(1).gameObject; //GameObject.Find("HelpPanel (1)");
         helpPanel.SetActive(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>().enabled = true;
+        GetComponentInParent<PlayerInput>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
     }

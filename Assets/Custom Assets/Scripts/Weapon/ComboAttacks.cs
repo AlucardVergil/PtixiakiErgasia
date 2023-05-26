@@ -45,9 +45,11 @@ public class ComboAttacks : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         //Super speed dash forward 
         //if (Input.GetKeyDown(KeyCode.R) && dashUnlocked)
-            //DashSuperSpeedMove();
+        //DashSuperSpeedMove();
 
 
         if (Input.GetKey(KeyCode.LeftControl))
@@ -104,6 +106,8 @@ public class ComboAttacks : NetworkBehaviour
 
     public void ExecuteWeaponAttack(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;  // For NetworkBehaviour
+
         if (!GetComponent<SheathWeapon>().sheathBool && !Input.GetMouseButton(1))
         {
             if (context.interaction is HoldInteraction && roundAttackUnlocked)
@@ -179,6 +183,8 @@ public class ComboAttacks : NetworkBehaviour
     //Function for dashing forward
     public void DashSuperSpeedMove()
     {
+        if (!IsOwner) return; // For NetworkBehaviour
+
         if (dashUnlocked)
             GetComponent<CharacterController>().Move(transform.forward * dashDistance);
     }
