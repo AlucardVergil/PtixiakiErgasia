@@ -11,7 +11,7 @@ using Unity.Netcode;
 public class ItemDrop : NetworkBehaviour
 {
     private GameObject[] playersArray;
-    private GameObject player;
+    protected GameObject player;
     private Inventory inventory;
 
     public InventoryItemData inventoryItemData;
@@ -106,6 +106,7 @@ public class ItemDrop : NetworkBehaviour
     }
 
 
+
     public void PickUp()
     {
         // Handle the pickup logic here, such as adding the item to the player's inventory        
@@ -114,10 +115,20 @@ public class ItemDrop : NetworkBehaviour
             bool itemAdded = inventory.AddItem(this);
             if (itemAdded)
             {
+                Debug.Log("ItemDrop Is Spawned " + GetComponent<NetworkObject>().IsSpawned);
                 // Item added to inventory, destroy the item drop
-                Destroy(gameObject);
+                //player.GetComponent<NetworkPlayerOwnership>().SetNetworkGameObject(gameObject);
+                //player.GetComponent<NetworkPlayerOwnership>().DestroyServerRPC();
+
+                player.GetComponent<NetworkPlayerOwnership>().DestroyNetworkGameObject(gameObject);
             }
         }
     }
 
+
+    //[ServerRpc(RequireOwnership = false)]
+    //private void DestroyServerRPC(ulong networkObjectId)
+    //{        
+    //    Destroy(GetNetworkObject(networkObjectId).gameObject);
+    //}
 }

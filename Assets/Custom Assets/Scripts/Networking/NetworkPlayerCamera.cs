@@ -16,7 +16,7 @@ public class NetworkPlayerCamera : NetworkBehaviour
     //static int playerIndex = 0;
 
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
         SetMainCameraForNetworkPlayer();
 

@@ -59,10 +59,10 @@ public class PlayerStats : NetworkBehaviour
         pauseMenu.SetActive(false);
         GetComponent<PlayerInput>().enabled = false;
 
-        
-
         PlayerStaminabar.maxValue = stamina;
     }
+
+
 
     void Update()
     {

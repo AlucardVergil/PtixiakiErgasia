@@ -39,7 +39,7 @@ public class NetworkManagerUI : NetworkBehaviour
 
         DontDestroyOnLoad(GameObject.FindGameObjectWithTag("Player"));
 
-        SceneManager.LoadScene("GameScene");
+        NetworkManager.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
 }

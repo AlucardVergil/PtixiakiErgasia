@@ -133,12 +133,25 @@ public class Inventory : NetworkBehaviour
             GameObject itemDrop = Instantiate(item.itemDropPrefab, SpawnItemPosition(), transform.rotation); //Quaternion.identity
             itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
 
+            //GetComponent<NetworkPlayerOwnership>().SetNetworkGameObject(itemDrop);
+            //GetComponent<NetworkPlayerOwnership>().SpawnServerRPC();
+
+            GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDrop);
+            //itemDrop.GetComponent<NetworkObject>().Spawn(true);
+
             item.transform.GetChild(0).gameObject.SetActive(false);
             item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             items.Remove(item.inventoryItemData);
             Destroy(item); //remove only the component not the whole gameobject            
         }
     }
+
+
+    //[ServerRpc(RequireOwnership = false)]
+    //private void SpawnServerRPC(ulong networkObjectID)
+    //{
+    //    GetNetworkObject(networkObjectID).Spawn(true);
+    //}
 
 
     private Vector3 SpawnItemPosition()
@@ -204,7 +217,4 @@ public class Inventory : NetworkBehaviour
     {
 
     }
-
-
-
 }

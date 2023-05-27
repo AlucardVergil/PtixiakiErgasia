@@ -40,7 +40,6 @@ ScriptsOnlyBuild:
     - Projectile
     - ProjectileShooter
     - RotateCharacter
-    - RpcTest
     - SecondaryCustomizationHelper
     - SetPlayableCharacterAppearance
     - SheathWeapon
@@ -2777,6 +2776,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5152}
     - Class: 114
+      Script: {instanceID: 5382}
+    - Class: 114
       Script: {instanceID: 5434}
     - Class: 114
       Script: {instanceID: 6240}
@@ -2792,6 +2793,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 7312}
     - Class: 114
       Script: {instanceID: 7544}
+    - Class: 114
+      Script: {instanceID: 7762}
     - Class: 114
       Script: {instanceID: 8058}
     - Class: 114
@@ -3398,6 +3401,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5204}
     - Class: 114
+      Script: {instanceID: 5382}
+    - Class: 114
       Script: {instanceID: 5434}
     - Class: 114
       Script: {instanceID: 5516}
@@ -3429,6 +3434,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 7312}
     - Class: 114
       Script: {instanceID: 7544}
+    - Class: 114
+      Script: {instanceID: 7762}
     - Class: 114
       Script: {instanceID: 7918}
     - Class: 114
@@ -3561,8 +3568,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14806}
     - Class: 114
       Script: {instanceID: 14936}
-    - Class: 114
-      Script: {instanceID: 46772}
     - Class: 114
       Script: {instanceID: 1011948}
     - Class: 114
@@ -4714,7 +4719,7 @@ ScriptsOnlyBuild:
     className: CinemachineStoryboard
   - hash:
       serializedVersion: 2
-      Hash: 7aa5bbc70b9c88a0142dd1b41b2146eb
+      Hash: 7ef046cfcb7f6df94bf9bb1be32a4cd2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HarvestableObject
@@ -6218,4 +6223,4 @@ ScriptsOnlyBuild:
   - Assets/Custom Assets/Scenes/ArmorEquipmentScenes/FishmenArmorEquipmentScene.unity
   - Assets/Custom Assets/Scenes/ArmorEquipmentScenes/HumanArmorEquipmentScene.unity
   - Assets/Custom Assets/Scenes/PreloadGameScene.unity
-  playerPath: C:/Users/AlucardVergil/UnityProjects/PtixiakiErgasia/Builds/PtixiakiErgasia.exe
+  playerPath: C:/Users/AlucardVergil/UnityProjects/PtixiakiErgasia/Builds/NEW BUILD/PtixiakiErgasia.exe
