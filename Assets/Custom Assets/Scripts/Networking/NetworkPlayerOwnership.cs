@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class NetworkPlayerOwnership : NetworkBehaviour
 {
     [SerializeField] private GameObject[] prefabsArray;
-    [SerializeField] private Dictionary<int, GameObject> prefabsDictionary = new Dictionary<int, GameObject>();
+    public Dictionary<int, GameObject> prefabsDictionary = new Dictionary<int, GameObject>();
 
     GameObject[] tempPlayers;
     bool flag = false;
@@ -86,6 +86,8 @@ public class NetworkPlayerOwnership : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
+
         // NOTE: Temporary to disable HelpBtn
         GetComponentInParent<PlayerInput>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -164,7 +166,6 @@ public class NetworkPlayerOwnership : NetworkBehaviour
         //Debug.Log("NetworkPlayerObject " + GetNetworkObject(networkObjectID));
         //GetNetworkObject(networkObjectID).Spawn(true);
 
-        ulong senderID = serverRpcParams.Receive.SenderClientId;
 
         if (prefabsDictionary.TryGetValue(prefabID, out var prefab))
         {
@@ -191,7 +192,6 @@ public class NetworkPlayerOwnership : NetworkBehaviour
             ulong netObjID = itemDrop.GetComponent<NetworkObject>().NetworkObjectId;
             ulong senderID = serverRpcParams.Receive.SenderClientId;
 
-
             ResponseClientRpc(netObjID, senderID);
         }
     }
@@ -200,20 +200,27 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     [ClientRpc]
     private void ResponseClientRpc(ulong netObjID, ulong targetClientId)
     {
-        // Handle the response on the target client
-        if (NetworkManager.Singleton.LocalClientId == targetClientId)
-        {
-            // The current client is the target client, so handle the response here
-            if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
-            {
-                // Access the player GameObject associated with the targetClientId
-                targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+        //// Handle the response on the target client
+        //if (NetworkManager.Singleton.LocalClientId == targetClientId)
+        //{
+        //    // The current client is the target client, so handle the response here
+        //    if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+        //    {
+        //        // Access the player GameObject associated with the targetClientId
+        //        targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
 
-            }
+        //    }
+        //}
+        
+        // The current client is the target client, so handle the response here
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+        {
+            // Access the player GameObject associated with the targetClientId
+            targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
         }
     }
 
-
+    
 
     [ServerRpc(RequireOwnership = false)]
     public void DestroyServerRPC(ulong netObjID, ServerRpcParams serverRpcParams = default)

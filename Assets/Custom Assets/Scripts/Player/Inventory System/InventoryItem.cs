@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 
 [System.Serializable]
 public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -18,12 +20,24 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
 
     private Inventory inventory;
 
+    private GameObject[] playersArray;
+    private new GameObject player;
 
     private void Awake()
     {
-        inventoryUI = GameObject.FindGameObjectWithTag("Inventory").GetComponent<InventoryUI>();
-        canvas = GameObject.FindGameObjectWithTag("PlayerCanvas");
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        // Get all player gameobjects in the scene to loop through
+        playersArray = GameObject.FindGameObjectsWithTag("Player");
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            if (p.GetComponent<NetworkObject>().IsLocalPlayer)
+                player = p;
+        }
+
+        inventory = player.GetComponent<Inventory>();
+        inventoryUI = player.GetComponentInChildren<InventoryUI>();
+        canvas = player.GetComponentInChildren<Canvas>().gameObject;
     }
 
 

@@ -7,7 +7,7 @@ using Unity.Netcode;
 
 public class InventoryUI : NetworkBehaviour
 {
-    [SerializeField] private Inventory inventory;
+    private Inventory inventory;
 
     [Header("Item name panel prefab that displays the name of the inventory item.")]
     public GameObject itemNamePanelPrefab; // Reference to the item details panel prefab
@@ -16,7 +16,7 @@ public class InventoryUI : NetworkBehaviour
     [Header("The panel that will display the item options.")]
     public GameObject itemOptionsPanelPrefab;
 
-    public LayerMask panelLayerMask;
+    //public LayerMask panelLayerMask;
 
     private void Start()
     {
@@ -49,7 +49,7 @@ public class InventoryUI : NetworkBehaviour
 
             if (!clickedItemOptionsPanel)
                 Destroy(InventoryItem.itemOptionsStatic);
-        }
+        }                
     }
 
 

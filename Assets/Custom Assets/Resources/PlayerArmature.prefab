@@ -7615,7 +7615,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2559987317647163573}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1d031c69dba0ba47ac656ea45fabc29, type: 3}
   m_Name: 
@@ -7624,6 +7624,7 @@ MonoBehaviour:
   maxCapacity: 50
   inventorySlotPrefab: {fileID: 6218873508945959800, guid: db656c955b893294293cb236718ae66b, type: 3}
   inventoryUI: {fileID: 7275303701768670658}
+  netObjID: 0
 --- !u!114 &2559987317647163562
 MonoBehaviour:
   m_ObjectHideFlags: 0

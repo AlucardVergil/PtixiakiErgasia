@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using System.Collections;
 
 public class Inventory : NetworkBehaviour
 {
@@ -16,11 +17,12 @@ public class Inventory : NetworkBehaviour
     public GameObject inventoryUI;
 
     [HideInInspector] public ulong netObjID;
+    private bool netObjIdIsSetBool = false;
 
 
     private void Start()
     {
-        TestServerRPC();
+                
     }
 
 
@@ -44,7 +46,7 @@ public class Inventory : NetworkBehaviour
         }
     }
 
-    
+
     // Function to add an item to the inventory
     public bool AddItem(ItemDrop item)
     {
@@ -134,25 +136,23 @@ public class Inventory : NetworkBehaviour
     // Function to drop an item from the inventory
     public void DropItem(InventoryItem item)
     {
+        StartCoroutine(DropItemRoutine(item));
+    }
+
+
+    IEnumerator DropItemRoutine(InventoryItem item)
+    {
         item.DestroyOptionsMenuAndItemNamePanel();
 
         if (items.Contains(item.inventoryItemData))
         {
-            //GameObject itemDrop = Instantiate(item.itemDropPrefab, SpawnItemPosition(), transform.rotation); //Quaternion.identity
-            //itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
-                       
+            ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
+            //GetComponent<NetworkPlayerOwnership>().ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
 
-            ////GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDrop);
-            ////itemDrop.GetComponent<NetworkObject>().Spawn(true);
+            yield return new WaitUntil(() => netObjIdIsSetBool == true);
 
-            //item.transform.GetChild(0).gameObject.SetActive(false);
-            //item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
-            //items.Remove(item.inventoryItemData);
-            //Destroy(item); //remove only the component not the whole gameobject            
+            netObjIdIsSetBool = false;
 
-
-            GetComponent<NetworkPlayerOwnership>().ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
-            
             GetNetworkObject(netObjID).GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
 
             item.transform.GetChild(0).gameObject.SetActive(false);
@@ -160,16 +160,10 @@ public class Inventory : NetworkBehaviour
             items.Remove(item.inventoryItemData);
             Destroy(item); //remove only the component not the whole gameobject   
         }
+        else
+            yield return null;
     }
 
-
-
-
-    [ServerRpc(RequireOwnership = false)]
-    private void TestServerRPC()
-    {
-        Debug.Log("SERVER RPC INVENTORY");
-    }
 
 
     private Vector3 SpawnItemPosition()
@@ -231,8 +225,54 @@ public class Inventory : NetworkBehaviour
     }
 
 
-    public void MoveItemInInventory()
+    [ServerRpc(RequireOwnership = false)]
+    public void ItemDropSpawnServerRPC(int prefabID, Vector3 position, Quaternion rotation, ServerRpcParams serverRpcParams = default)
     {
+        if (GetComponent<NetworkPlayerOwnership>().prefabsDictionary.TryGetValue(prefabID, out var prefab))
+        {
+            // Instantiate the item drop at the gatherable object's position
+            GameObject itemDrop = Instantiate(prefab, position, rotation);
+
+            itemDrop.GetComponent<NetworkObject>().Spawn(true);
+
+            ulong netObjID = itemDrop.GetComponent<NetworkObject>().NetworkObjectId;
+            ulong senderID = serverRpcParams.Receive.SenderClientId;
+
+
+            ResponseClientRpc(netObjID, senderID);
+        }
+    }
+
+
+    [ClientRpc]
+    private void ResponseClientRpc(ulong netObjIDtemp, ulong targetClientId, ClientRpcParams clientRpcParams = default)
+    {
+        //// Handle the response on the target client
+        //if (NetworkManager.Singleton.LocalClientId == targetClientId)
+        //{
+        //    // The current client is the target client, so handle the response here
+        //    if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+        //    {
+        //        // Access the player GameObject associated with the targetClientId
+        //        targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+
+        //    }
+        //}
+
+
+        //// The current client is the target client, so handle the response here
+        //if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+        //{
+        //    // Access the player GameObject associated with the targetClientId
+        //    targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+        //}
+
+        if (NetworkManager.Singleton.LocalClientId == targetClientId)
+        {
+            netObjID = netObjIDtemp;
+            netObjIdIsSetBool = true;
+        }
+
 
     }
 }
