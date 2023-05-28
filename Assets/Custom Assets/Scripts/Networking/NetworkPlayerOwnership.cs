@@ -8,9 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class NetworkPlayerOwnership : NetworkBehaviour
 {
-    private GameObject currentNetworkGameObject;
+    [SerializeField] private GameObject[] prefabsArray;
+    [SerializeField] private Dictionary<int, GameObject> prefabsDictionary = new Dictionary<int, GameObject>();
+
     GameObject[] tempPlayers;
     bool flag = false;
+
 
     #region Just a template for NetworkVariable handling
 
@@ -62,6 +65,7 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     //}
     #endregion
 
+
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "GameScene" && !flag)
@@ -89,7 +93,14 @@ public class NetworkPlayerOwnership : NetworkBehaviour
 
         Debug.Log(OwnerClientId + "NetworkPlayerOwn spawn IsHost " + IsHost);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+
+        foreach (var prefab in prefabsArray)
+        {
+            // Add the prefab to the dictionary using its prefabID as the key
+            prefabsDictionary[prefab.GetComponent<ItemDrop>().prefabID] = prefab;
+        }
     }
 
 
@@ -129,62 +140,105 @@ public class NetworkPlayerOwnership : NetworkBehaviour
         return IsOwner;
     }
 
-    public bool GetLocalPlayerStatus()
-    {
-        return IsLocalPlayer;
-    }
-
-
-    public bool GetHostStatus()
-    {
-        return IsHost;
-    }
-
 
     [ServerRpc(RequireOwnership = false)]
-    public void SpawnServerRPC()
+    public void SpawnServerRPC(int prefabID, Vector3 position, ServerRpcParams serverRpcParams = default)
     {
+        //if (!GetNetworkObject(netObjID).IsOwner)
+        //{
+        //    GetNetworkObject(netObjID).ChangeOwnership(GetComponent<NetworkObject>().OwnerClientId);
+        //}
+        //Debug.Log("NetworkPlayer " + networkObjectID);
+        //Debug.Log("NetworkPlayerObject " + GetNetworkObject(networkObjectID));
+        //GetNetworkObject(networkObjectID).Spawn(true);
+        //Debug.Log("NetID " + netObjID);
+        //GetNetworkObject(netObjID).Spawn(true);
+
+
+
+        //if (!currentNetObj.GetComponent<NetworkObject>().IsOwner)
+        //{
+        //    currentNetObj.GetComponent<NetworkObject>().ChangeOwnership(GetComponent<NetworkObject>().OwnerClientId);
+        //}
         //Debug.Log("NetworkPlayer " + networkObjectID);
         //Debug.Log("NetworkPlayerObject " + GetNetworkObject(networkObjectID));
         //GetNetworkObject(networkObjectID).Spawn(true);
 
-        currentNetworkGameObject.GetComponent<NetworkObject>().Spawn(true);
+        ulong senderID = serverRpcParams.Receive.SenderClientId;
+
+        if (prefabsDictionary.TryGetValue(prefabID, out var prefab))
+        {
+            // Instantiate the item drop at the gatherable object's position
+            GameObject itemDrop = Instantiate(prefab, position, Quaternion.identity);
+
+            itemDrop.GetComponent<NetworkObject>().Spawn(true);
+        }        
     }
+
+
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void DestroyServerRPC()
+    public void ItemDropSpawnServerRPC(int prefabID, Vector3 position, Quaternion rotation, ServerRpcParams serverRpcParams = default)
+    {
+        if (prefabsDictionary.TryGetValue(prefabID, out var prefab))
+        {
+            // Instantiate the item drop at the gatherable object's position
+            GameObject itemDrop = Instantiate(prefab, position, rotation);
+
+            itemDrop.GetComponent<NetworkObject>().Spawn(true);
+
+            ulong netObjID = itemDrop.GetComponent<NetworkObject>().NetworkObjectId;
+            ulong senderID = serverRpcParams.Receive.SenderClientId;
+
+
+            ResponseClientRpc(netObjID, senderID);
+        }
+    }
+
+
+    [ClientRpc]
+    private void ResponseClientRpc(ulong netObjID, ulong targetClientId)
+    {
+        // Handle the response on the target client
+        if (NetworkManager.Singleton.LocalClientId == targetClientId)
+        {
+            // The current client is the target client, so handle the response here
+            if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+            {
+                // Access the player GameObject associated with the targetClientId
+                targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+
+            }
+        }
+    }
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DestroyServerRPC(ulong netObjID, ServerRpcParams serverRpcParams = default)
     {
         //Destroy(GetNetworkObject(networkObjectId).gameObject);
         //Destroy(currentNetworkGameObject);
-        currentNetworkGameObject.GetComponent<NetworkObject>().Despawn();
+        GetNetworkObject(netObjID).Despawn();
     }
 
 
-    public void SetNetworkGameObject(GameObject netObj)
+
+    public void SpawnNetworkGameObject(int prefabID, Vector3 position)
     {
-        if (!IsHost) return;
+        //if (!netObj.GetComponent<NetworkObject>().IsOwner)
+        //{
+        //    netObj.GetComponent<NetworkObject>().ChangeOwnership(GetComponent<NetworkObject>().OwnerClientId);
+        //}
+        
 
-        currentNetworkGameObject = netObj;
-    }
-
-
-    public void SpawnNetworkGameObject(GameObject netObj)
-    {
-        if (!IsHost) return;
-
-        currentNetworkGameObject = netObj;
-
-        SpawnServerRPC();
+        SpawnServerRPC(prefabID, position);//currentNetworkGameObject.GetComponent<NetworkObject>().NetworkObjectId);
     }
 
 
     public void DestroyNetworkGameObject(GameObject netObj)
     {
-        if (!IsHost) return;
-
-        currentNetworkGameObject = netObj;
-
-        DestroyServerRPC();
+        DestroyServerRPC(netObj.GetComponent<NetworkObject>().NetworkObjectId);
     }
 }

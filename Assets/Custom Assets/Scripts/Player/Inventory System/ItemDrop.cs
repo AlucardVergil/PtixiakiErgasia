@@ -10,6 +10,7 @@ using Unity.Netcode;
 
 public class ItemDrop : NetworkBehaviour
 {
+    public int prefabID;
     private GameObject[] playersArray;
     protected GameObject player;
     private Inventory inventory;
@@ -64,11 +65,11 @@ public class ItemDrop : NetworkBehaviour
         // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
         foreach (GameObject p in playersArray)
         {
-            if (p.GetComponent<NetworkPlayerOwnership>().GetPlayerOwnershipStatus())
+            if (p.GetComponent<NetworkObject>().IsLocalPlayer)
                 player = p;
         }
-
-
+        
+        
         inventory = player.GetComponent<Inventory>();
 
         AddUnityEventListeners(); //the new editor saves the variables directly in the ItemDrop class public variables so i can be called at Start()
@@ -115,11 +116,7 @@ public class ItemDrop : NetworkBehaviour
             bool itemAdded = inventory.AddItem(this);
             if (itemAdded)
             {
-                Debug.Log("ItemDrop Is Spawned " + GetComponent<NetworkObject>().IsSpawned);
                 // Item added to inventory, destroy the item drop
-                //player.GetComponent<NetworkPlayerOwnership>().SetNetworkGameObject(gameObject);
-                //player.GetComponent<NetworkPlayerOwnership>().DestroyServerRPC();
-
                 player.GetComponent<NetworkPlayerOwnership>().DestroyNetworkGameObject(gameObject);
             }
         }

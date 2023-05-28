@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be52e2ba4e1af45438a1129d9d174775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabID: 1
   itemName: Apple
   itemType: 1
   icon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}

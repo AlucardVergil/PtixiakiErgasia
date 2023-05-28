@@ -27,7 +27,7 @@ public class NetworkPlayerCamera : NetworkBehaviour
     public void SetMainCameraForNetworkPlayer()
     {
         // Assign the camera component of the player object as the main camera for this player
-        if (player.GetLocalPlayerStatus())
+        if (IsLocalPlayer)
         {
             GetComponent<Camera>().tag = "MainCamera";
 
@@ -44,7 +44,7 @@ public class NetworkPlayerCamera : NetworkBehaviour
 
         // The players who are NOT the owner set their follow camera cinemachine to true
         //because when a new cinemachine is enabled all the previous are disabled
-        if (!player.GetPlayerOwnershipStatus())
+        if (!IsOwner)
         {
             followCamera.enabled = false;
             followCamera.enabled = true;
@@ -54,7 +54,7 @@ public class NetworkPlayerCamera : NetworkBehaviour
 
     public void DisableOtherPlayerCanvas()
     {
-        if (!player.GetPlayerOwnershipStatus())
+        if (!IsOwner)
         {
             playerCanvas.SetActive(false);
         }

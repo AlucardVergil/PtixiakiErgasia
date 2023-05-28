@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using Unity.Netcode;
 
 
 //Could add below 2 lines but i will need to also set the settings for these components
 //[RequireComponent (typeof(Rigidbody))]
 //[RequireComponent(typeof(BoxCollider))]
-public class WeaponCollider : MonoBehaviour
+public class WeaponCollider : NetworkBehaviour
 {
     GameObject playerObject;
     StarterAssetsInputs _input;

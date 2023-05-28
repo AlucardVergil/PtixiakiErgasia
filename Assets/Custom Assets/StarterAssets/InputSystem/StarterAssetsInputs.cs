@@ -393,7 +393,7 @@ namespace StarterAssets
 
 		public void InteractWithObject()
 		{
-            if (!IsOwner) return; // For NetworkBehaviour
+            if (!IsLocalPlayer) return; // For NetworkBehaviour
 
             // Raycast from the crosshair position forward
             //Ray ray = new Ray(crosshair.position, crosshair.forward);

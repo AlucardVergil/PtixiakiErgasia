@@ -4281,7 +4281,7 @@ ScriptsOnlyBuild:
     className: VFXPositionBinder
   - hash:
       serializedVersion: 2
-      Hash: dbcbd32a70475f0f9b294f69751ee8fb
+      Hash: a7575fdc43c9f9f04188d09c5a9aff05
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ItemDrop
@@ -4719,7 +4719,7 @@ ScriptsOnlyBuild:
     className: CinemachineStoryboard
   - hash:
       serializedVersion: 2
-      Hash: 7ef046cfcb7f6df94bf9bb1be32a4cd2
+      Hash: b79395e5787584c1d9cf48594a390d77
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HarvestableObject
@@ -5133,7 +5133,7 @@ ScriptsOnlyBuild:
     className: Door
   - hash:
       serializedVersion: 2
-      Hash: 421e52172c097b683750413231669d6d
+      Hash: ed0091bf4d861f4ae3cbfa416fc28c5d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Inventory
@@ -5709,7 +5709,7 @@ ScriptsOnlyBuild:
     className: UnityOnBecameInvisibleMessageListener
   - hash:
       serializedVersion: 2
-      Hash: d70e0ea6a0a0e16efca850a60b1e850d
+      Hash: ed15ded8f257c5856b6005f2eab8b081
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InventoryItem
@@ -6183,7 +6183,7 @@ ScriptsOnlyBuild:
     className: TestDataGeneratorComponent
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: e6e8a9219e9f0cbd390b11fb432c50aa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NetworkPlayerOwnership

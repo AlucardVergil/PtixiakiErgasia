@@ -128,8 +128,6 @@ public class PlayerStats : NetworkBehaviour
         }
         #endregion
 
-        Debug.Log(OwnerClientId + " Update PlayerHPbar = " + PlayerHPbar.maxValue);
-        Debug.Log(OwnerClientId + " Update HP = " + hp);
     }
 
 
@@ -167,8 +165,6 @@ public class PlayerStats : NetworkBehaviour
     {
         PlayerHPbar.maxValue += health;
         hp = (int)PlayerHPbar.maxValue;
-        Debug.Log(OwnerClientId + " method PlayerHPbar = " + PlayerHPbar.maxValue);
-        Debug.Log(OwnerClientId + " method HP = " + hp);
     }
 
 

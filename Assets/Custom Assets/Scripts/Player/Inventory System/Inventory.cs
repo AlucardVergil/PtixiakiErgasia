@@ -15,6 +15,14 @@ public class Inventory : NetworkBehaviour
 
     public GameObject inventoryUI;
 
+    [HideInInspector] public ulong netObjID;
+
+
+    private void Start()
+    {
+        TestServerRPC();
+    }
+
 
     private void Awake()
     {
@@ -130,28 +138,38 @@ public class Inventory : NetworkBehaviour
 
         if (items.Contains(item.inventoryItemData))
         {
-            GameObject itemDrop = Instantiate(item.itemDropPrefab, SpawnItemPosition(), transform.rotation); //Quaternion.identity
-            itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
+            //GameObject itemDrop = Instantiate(item.itemDropPrefab, SpawnItemPosition(), transform.rotation); //Quaternion.identity
+            //itemDrop.GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
+                       
 
-            //GetComponent<NetworkPlayerOwnership>().SetNetworkGameObject(itemDrop);
-            //GetComponent<NetworkPlayerOwnership>().SpawnServerRPC();
+            ////GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDrop);
+            ////itemDrop.GetComponent<NetworkObject>().Spawn(true);
 
-            GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDrop);
-            //itemDrop.GetComponent<NetworkObject>().Spawn(true);
+            //item.transform.GetChild(0).gameObject.SetActive(false);
+            //item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+            //items.Remove(item.inventoryItemData);
+            //Destroy(item); //remove only the component not the whole gameobject            
+
+
+            GetComponent<NetworkPlayerOwnership>().ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
+            
+            GetNetworkObject(netObjID).GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
 
             item.transform.GetChild(0).gameObject.SetActive(false);
             item.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
             items.Remove(item.inventoryItemData);
-            Destroy(item); //remove only the component not the whole gameobject            
+            Destroy(item); //remove only the component not the whole gameobject   
         }
     }
 
 
-    //[ServerRpc(RequireOwnership = false)]
-    //private void SpawnServerRPC(ulong networkObjectID)
-    //{
-    //    GetNetworkObject(networkObjectID).Spawn(true);
-    //}
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void TestServerRPC()
+    {
+        Debug.Log("SERVER RPC INVENTORY");
+    }
 
 
     private Vector3 SpawnItemPosition()
