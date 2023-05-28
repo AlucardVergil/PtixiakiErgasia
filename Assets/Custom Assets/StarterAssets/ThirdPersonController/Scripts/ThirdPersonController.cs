@@ -312,7 +312,6 @@ namespace StarterAssets
                 // if there is an input and camera position is not fixed
                 if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
                 {
-                    Debug.Log(OwnerClientId + " = " + IsCurrentDeviceMouse);
                     //Don't multiply mouse input by Time.deltaTime;
                     //float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
                     float deltaTimeMultiplier = 1.0f; // NOTE: i changed this to fix camera rotation for client player because the bool was false for client

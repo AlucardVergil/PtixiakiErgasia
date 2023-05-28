@@ -70,7 +70,6 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     {
         if (SceneManager.GetActiveScene().name == "GameScene" && !flag)
         {
-            Debug.Log("Client ID " + OwnerClientId);
             tempPlayers = GameObject.FindGameObjectsWithTag("Player");
 
             if (tempPlayers.Length > 1)
@@ -92,8 +91,6 @@ public class NetworkPlayerOwnership : NetworkBehaviour
         GetComponentInParent<PlayerInput>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        Debug.Log(OwnerClientId + "NetworkPlayerOwn spawn IsHost " + IsHost);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 

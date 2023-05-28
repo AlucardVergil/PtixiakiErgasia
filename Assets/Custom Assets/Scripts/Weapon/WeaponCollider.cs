@@ -10,8 +10,9 @@ using Unity.Netcode;
 //[RequireComponent(typeof(BoxCollider))]
 public class WeaponCollider : NetworkBehaviour
 {
-    GameObject playerObject;
-    StarterAssetsInputs _input;
+    private GameObject[] playersArray;
+    private GameObject playerObject;
+    private StarterAssetsInputs _input;
 
     public int weaponDamage;
     public string weaponType;
@@ -27,7 +28,17 @@ public class WeaponCollider : NetworkBehaviour
 
     void Start()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        // Get all player gameobjects in the scene to loop through
+        playersArray = GameObject.FindGameObjectsWithTag("Player");
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            if (p.GetComponent<NetworkObject>().IsLocalPlayer)
+                playerObject = p;
+        }
+
+        
         _input = playerObject.GetComponent<StarterAssetsInputs>();
         
         playerObject.GetComponent<SheathWeapon>().SetWeaponAndBoneVariables(sheathWeapon, sheathBone);
@@ -57,9 +68,9 @@ public class WeaponCollider : NetworkBehaviour
             //StarterAssetsInputs class
             //_input.attackCanHit = false; 
         }
-        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit && weaponType == "Axe") //harvest item 
+        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit)// && weaponType == "Axe") //harvest item 
         {
-            harvestableObject.DamageHarvestable(weaponDamage);
+            harvestableObject.DamageHarvestableServerRpc(weaponDamage);
 
             // Highlight the harvestable resource or provide visual feedback
 

@@ -107,6 +107,21 @@ public class ItemDrop : NetworkBehaviour
     }
 
 
+    [ClientRpc]
+    public void InitializeClientRpc(int quantityTemp, string itemDescriptionTemp, int attackPowerTemp, int defensePowerTemp, int effectsDropdownIndexTemp, int effectsValueTemp)
+    {
+        Debug.Log(OwnerClientId + " CLIENT RPC InitializeClientRpc");
+        quantity = quantityTemp;
+        itemDescription = itemDescriptionTemp;
+
+        attackPower = attackPowerTemp;
+        defensePower = defensePowerTemp;
+
+        effectsDropdownIndex = effectsDropdownIndexTemp;
+        effectsValue = effectsValueTemp;
+    }
+
+
 
     public void PickUp()
     {

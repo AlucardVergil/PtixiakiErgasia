@@ -79,10 +79,11 @@ public class HarvestableObject : ItemDrop
     }
 
 
-    public void DamageHarvestable(float damage)
+    [ServerRpc(RequireOwnership = false)]
+    public void DamageHarvestableServerRpc(float damage)
     {
         hp.Value -= damage;
-        if (hp.Value <= 0) 
+        if (hp.Value <= 0)
         {
             Harvest();
         }
