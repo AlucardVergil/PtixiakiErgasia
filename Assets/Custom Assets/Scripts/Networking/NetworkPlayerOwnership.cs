@@ -11,8 +11,8 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     [SerializeField] private GameObject[] prefabsArray;
     public Dictionary<int, GameObject> prefabsDictionary = new Dictionary<int, GameObject>();
 
-    GameObject[] tempPlayers;
-    bool flag = false;
+    //GameObject[] tempPlayers;
+    //bool flag = false;
 
 
     #region Just a template for NetworkVariable handling
@@ -66,20 +66,20 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     #endregion
 
 
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "GameScene" && !flag)
-        {
-            tempPlayers = GameObject.FindGameObjectsWithTag("Player");
+    //private void Update()
+    //{
+    //    if (SceneManager.GetActiveScene().name == "GameScene" && !flag)
+    //    {
+    //        tempPlayers = GameObject.FindGameObjectsWithTag("Player");
 
-            if (tempPlayers.Length > 1)
-            {
-                flag = true;
-                //SpawnAllNetworkObjects();
-            }
+    //        if (tempPlayers.Length > 1)
+    //        {
+    //            flag = true;
+    //            //SpawnAllNetworkObjects();
+    //        }
                 
-        }
-    }
+    //    }
+    //}
 
 
 
@@ -92,7 +92,7 @@ public class NetworkPlayerOwnership : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
 
 
         foreach (var prefab in prefabsArray)
@@ -104,34 +104,34 @@ public class NetworkPlayerOwnership : NetworkBehaviour
 
 
     //Spawn all network objects in the scene when the main scene is loaded
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Check if the loaded scene is the actual game scene
-        if (SceneManager.GetActiveScene().name == "GameScene")
-        {
-            // This code will only execute when the actual game scene is loaded
-            //SpawnAllNetworkObjects();            
+    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    // Check if the loaded scene is the actual game scene
+    //    if (SceneManager.GetActiveScene().name == "GameScene")
+    //    {
+    //        // This code will only execute when the actual game scene is loaded
+    //        //SpawnAllNetworkObjects();            
 
-            // Unsubscribe from the scene loaded event after performing the initialization
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-    }
+    //        // Unsubscribe from the scene loaded event after performing the initialization
+    //        SceneManager.sceneLoaded -= OnSceneLoaded;
+    //    }
+    //}
 
 
-    private void SpawnAllNetworkObjects()
-    {
-        if (!IsHost) return;
+    //private void SpawnAllNetworkObjects()
+    //{
+    //    if (!IsHost) return;
 
-        // Get all the NetworkObjects in the scene
-        NetworkObject[] networkObjects = FindObjectsOfType<NetworkObject>();
+    //    // Get all the NetworkObjects in the scene
+    //    NetworkObject[] networkObjects = FindObjectsOfType<NetworkObject>();
 
-        // Register each NetworkObject as spawned
-        foreach (NetworkObject networkObject in networkObjects)
-        {
-            if (!networkObject.IsSpawned)
-                networkObject.Spawn(true);
-        }
-    }
+    //    // Register each NetworkObject as spawned
+    //    foreach (NetworkObject networkObject in networkObjects)
+    //    {
+    //        if (!networkObject.IsSpawned)
+    //            networkObject.Spawn(true);
+    //    }
+    //}
 
 
     public bool GetPlayerOwnershipStatus()
@@ -176,46 +176,46 @@ public class NetworkPlayerOwnership : NetworkBehaviour
 
 
 
-    [ServerRpc(RequireOwnership = false)]
-    public void ItemDropSpawnServerRPC(int prefabID, Vector3 position, Quaternion rotation, ServerRpcParams serverRpcParams = default)
-    {
-        if (prefabsDictionary.TryGetValue(prefabID, out var prefab))
-        {
-            // Instantiate the item drop at the gatherable object's position
-            GameObject itemDrop = Instantiate(prefab, position, rotation);
+    //[ServerRpc(RequireOwnership = false)]
+    //public void ItemDropSpawnServerRPC(int prefabID, Vector3 position, Quaternion rotation, ServerRpcParams serverRpcParams = default)
+    //{
+    //    if (prefabsDictionary.TryGetValue(prefabID, out var prefab))
+    //    {
+    //        // Instantiate the item drop at the gatherable object's position
+    //        GameObject itemDrop = Instantiate(prefab, position, rotation);
 
-            itemDrop.GetComponent<NetworkObject>().Spawn(true);
+    //        itemDrop.GetComponent<NetworkObject>().Spawn(true);
 
-            ulong netObjID = itemDrop.GetComponent<NetworkObject>().NetworkObjectId;
-            ulong senderID = serverRpcParams.Receive.SenderClientId;
+    //        ulong netObjID = itemDrop.GetComponent<NetworkObject>().NetworkObjectId;
+    //        ulong senderID = serverRpcParams.Receive.SenderClientId;
 
-            ResponseClientRpc(netObjID, senderID);
-        }
-    }
+    //        ResponseClientRpc(netObjID, senderID);
+    //    }
+    //}
 
 
-    [ClientRpc]
-    private void ResponseClientRpc(ulong netObjID, ulong targetClientId)
-    {
-        //// Handle the response on the target client
-        //if (NetworkManager.Singleton.LocalClientId == targetClientId)
-        //{
-        //    // The current client is the target client, so handle the response here
-        //    if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
-        //    {
-        //        // Access the player GameObject associated with the targetClientId
-        //        targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+    //[ClientRpc]
+    //private void ResponseClientRpc(ulong netObjID, ulong targetClientId)
+    //{
+    //    //// Handle the response on the target client
+    //    //if (NetworkManager.Singleton.LocalClientId == targetClientId)
+    //    //{
+    //    //    // The current client is the target client, so handle the response here
+    //    //    if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+    //    //    {
+    //    //        // Access the player GameObject associated with the targetClientId
+    //    //        targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
 
-        //    }
-        //}
+    //    //    }
+    //    //}
         
-        // The current client is the target client, so handle the response here
-        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
-        {
-            // Access the player GameObject associated with the targetClientId
-            targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
-        }
-    }
+    //    // The current client is the target client, so handle the response here
+    //    if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out NetworkClient targetClient))
+    //    {
+    //        // Access the player GameObject associated with the targetClientId
+    //        targetClient.PlayerObject.GetComponent<Inventory>().netObjID = netObjID;
+    //    }
+    //}
 
     
 

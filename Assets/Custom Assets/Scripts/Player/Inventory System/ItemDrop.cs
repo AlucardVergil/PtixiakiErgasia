@@ -121,6 +121,12 @@ public class ItemDrop : NetworkBehaviour
     }
 
 
+    [ServerRpc(RequireOwnership = false)]
+    public void InitializeServerRpc(int quantityTemp, string itemDescriptionTemp, int attackPowerTemp, int defensePowerTemp, int effectsDropdownIndexTemp, int effectsValueTemp)
+    {
+        InitializeClientRpc(quantityTemp, itemDescriptionTemp, attackPowerTemp, defensePowerTemp, effectsDropdownIndexTemp, effectsValueTemp);
+    }
+
 
     public void PickUp()
     {

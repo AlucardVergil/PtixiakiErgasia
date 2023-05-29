@@ -157,7 +157,7 @@ public class Inventory : NetworkBehaviour
             netObjIdIsSetBool = false;
 
             //GetNetworkObject(netObjID).GetComponent<ItemDrop>().Initialize(item.inventoryItemData);
-            GetNetworkObject(netObjID).GetComponent<ItemDrop>().InitializeClientRpc(item.quantity, item.itemDescription, item.attackPower, 
+            GetNetworkObject(netObjID).GetComponent<ItemDrop>().InitializeServerRpc(item.quantity, item.itemDescription, item.attackPower, 
                 item.defensePower, item.effectsDropdownIndex, item.effectsValue);
 
             item.transform.GetChild(0).gameObject.SetActive(false);
@@ -168,6 +168,7 @@ public class Inventory : NetworkBehaviour
         else
             yield return null;
     }
+       
 
 
     private Vector3 SpawnItemPosition()
