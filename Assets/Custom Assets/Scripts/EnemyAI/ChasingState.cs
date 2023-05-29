@@ -37,7 +37,7 @@ public class ChasingState : StateMachineBehaviour
     {
         navAgent = animator.GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        playerSkmrs = playerTransform.GetChild(1).transform.GetChild(0).GetComponentsInChildren<SkinnedMeshRenderer>();
+        playerSkmrs = playerTransform.GetChild(2).transform.GetChild(0).GetComponentsInChildren<SkinnedMeshRenderer>();
         afterImageMat = playerTransform.GetComponent<PlayerStats>().afterImageMaterial;
 
         navAgent.speed = enemySpeed;

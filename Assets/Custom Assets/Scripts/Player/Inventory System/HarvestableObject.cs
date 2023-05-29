@@ -15,7 +15,6 @@ public class HarvestableObject : ItemDrop
 
     private NetworkVariable<float> hp = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    private GameObject[] playersArray2;
     private GameObject player2;
 
     // I used start instead of OnNetworkSpawn() because this harvestable is already in the scene and does not spawn 
@@ -23,12 +22,12 @@ public class HarvestableObject : ItemDrop
     {
         hp = new NetworkVariable<float>(health, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        
-        
+
+
         //if (!IsHost) return;
 
         // Get all player gameobjects in the scene to loop through
-        playersArray2 = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] playersArray2 = GameObject.FindGameObjectsWithTag("Player");
 
         // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
         foreach (GameObject p in playersArray2)

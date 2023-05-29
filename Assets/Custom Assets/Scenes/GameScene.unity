@@ -248,13 +248,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8267655782216925319, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3592359092
+      objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271054, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271055, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1339789562355928615, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
@@ -266,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_LocalPosition.x
@@ -342,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015379084, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015379086, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
@@ -494,7 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401249853886665999, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
@@ -700,13 +704,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8267655782216925319, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1760770962
+      objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271054, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271055, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1339789562355928615, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
@@ -718,7 +726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_LocalPosition.x
@@ -794,7 +802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015379084, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015379086, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
@@ -946,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401249853886665999, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
@@ -963,7 +971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1028,7 +1036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1259,7 +1267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 674730265013053034, guid: c149ddf93fd3b4641969b5e8bec107c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3352,7 +3360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7343238716437561921, guid: c78c3e5fc52b52f469322b7cb45dc4d0, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7343238716437561921, guid: c78c3e5fc52b52f469322b7cb45dc4d0, type: 3}
       propertyPath: m_LocalScale.x
@@ -3991,6 +3999,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8267655782216925319, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2200383247
+      objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271054, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -4009,7 +4021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4440,6 +4452,10 @@ PrefabInstance:
       propertyPath: damageValue
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4986098308347932630, guid: 5a88aff09c8573248a9dfa85ecf9eb98, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3873346281
+      objectReference: {fileID: 0}
     - target: {fileID: 5283550857905052421, guid: 5a88aff09c8573248a9dfa85ecf9eb98, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -4534,7 +4550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7688063278141156588, guid: 5a88aff09c8573248a9dfa85ecf9eb98, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7688063278141156588, guid: 5a88aff09c8573248a9dfa85ecf9eb98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4921,6 +4937,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8267655782216925319, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4145809080
+      objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271054, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -4939,7 +4959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1339789563015013548, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5178,6 +5198,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8267655782216925319, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4091555120
+      objectReference: {fileID: 0}
     - target: {fileID: 1339789562002271054, guid: cf3bbcf4676a7a048bf1eff76e61e553, type: 3}
       propertyPath: m_Layer
       value: 2

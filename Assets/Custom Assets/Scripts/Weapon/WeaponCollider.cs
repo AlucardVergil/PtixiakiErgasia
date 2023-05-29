@@ -10,7 +10,6 @@ using Unity.Netcode;
 //[RequireComponent(typeof(BoxCollider))]
 public class WeaponCollider : NetworkBehaviour
 {
-    private GameObject[] playersArray;
     private GameObject playerObject;
     private StarterAssetsInputs _input;
 
@@ -29,7 +28,7 @@ public class WeaponCollider : NetworkBehaviour
     void Start()
     {
         // Get all player gameobjects in the scene to loop through
-        playersArray = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] playersArray = GameObject.FindGameObjectsWithTag("Player");
 
         // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
         foreach (GameObject p in playersArray)
@@ -68,7 +67,7 @@ public class WeaponCollider : NetworkBehaviour
             //StarterAssetsInputs class
             //_input.attackCanHit = false; 
         }
-        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit)// && weaponType == "Axe") //harvest item 
+        else if (other.TryGetComponent<HarvestableObject>(out var harvestableObject) && _input.attackCanHit && weaponType == "Axe") //harvest item 
         {
             harvestableObject.DamageHarvestableServerRpc(weaponDamage);
 

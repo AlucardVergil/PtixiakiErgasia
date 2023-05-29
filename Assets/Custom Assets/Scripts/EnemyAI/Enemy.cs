@@ -41,7 +41,15 @@ public class Enemy : NetworkBehaviour
         HPbar.maxValue = hp; //Automatically change the max value of the slider to match HP of the enemy
         enemySpawn = GameObject.Find("EnemySpawn"); //Find empty gameobject to spawn enemy
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] playersArray = GameObject.FindGameObjectsWithTag("Player");
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            if (p.GetComponent<NetworkObject>().IsLocalPlayer)
+                player = p;
+        }
+
         playerStats = player.GetComponent<PlayerStats>();
         playerNoise = player.GetComponent<PlayerNoiseLevels>();
 

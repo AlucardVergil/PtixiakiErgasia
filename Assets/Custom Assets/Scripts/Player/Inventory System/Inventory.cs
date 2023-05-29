@@ -134,6 +134,7 @@ public class Inventory : NetworkBehaviour
     }
 
 
+    #region Drop Item Functions
 
     // Function to drop an item from the inventory
     public void DropItem(InventoryItem item)
@@ -214,6 +215,8 @@ public class Inventory : NetworkBehaviour
             netObjIdIsSetBool = true;
         }
     }
+
+    #endregion
 
 
     // Function to completely erase an item from the inventory

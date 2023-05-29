@@ -15,7 +15,15 @@ public class Fracture_Pillar : NetworkBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] playersArray = GameObject.FindGameObjectsWithTag("Player");
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            if (p.GetComponent<NetworkObject>().IsLocalPlayer)
+                player = p;
+        }
+
         anim = player.GetComponent<Animator>();        
     }
 

@@ -20,13 +20,12 @@ public class InventoryItem : ItemDrop, IPointerEnterHandler, IPointerExitHandler
 
     private Inventory inventory;
 
-    private GameObject[] playersArray;
     private new GameObject player;
 
     private void Awake()
     {
         // Get all player gameobjects in the scene to loop through
-        playersArray = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] playersArray = GameObject.FindGameObjectsWithTag("Player");
 
         // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
         foreach (GameObject p in playersArray)
