@@ -37,7 +37,7 @@ public class FreezeAOE : NetworkBehaviour
         if (collision != null)
             collision.gameObject.GetComponent<Animator>().enabled = true; //re-enable animator after duration of freeze spell
 
-        if (IsOwner)
+        if (IsHost)
         {
             GetComponent<NetworkObject>().Despawn();
             Destroy(gameObject);
