@@ -15,14 +15,15 @@ public class FreezeAOE : NetworkBehaviour
     {        
         if (collision.CompareTag("Enemy")) //check if collided with enemy and take damage
         {
-            StartCoroutine(FreezeEnemies(collision));         
+            ulong netObjID = collision.GetComponent<NetworkObject>().NetworkObjectId;
+
+            FreezeEnemiesServerRpc(netObjID);
         }
     }
 
     IEnumerator FreezeEnemies(Collider collision)
     {
-        //set destination to current position in order to stop enemy from moving
-        collision.GetComponent<NavMeshAgent>().SetDestination(collision.GetComponent<NavMeshAgent>().transform.position);
+        
         collision.gameObject.GetComponent<Animator>().enabled = false; //disable animator of enemy to freeze them
 
         var num = Random.Range(0, impactSFX.Count);
@@ -36,6 +37,31 @@ public class FreezeAOE : NetworkBehaviour
         if (collision != null)
             collision.gameObject.GetComponent<Animator>().enabled = true; //re-enable animator after duration of freeze spell
 
-        Destroy(gameObject);
+        if (IsOwner)
+        {
+            GetComponent<NetworkObject>().Despawn();
+            Destroy(gameObject);
+        }        
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void FreezeEnemiesServerRpc(ulong networkObjID)
+    {
+        Collider collision = GetNetworkObject(networkObjID).GetComponent<Collider>();
+
+        //set destination to current position in order to stop enemy from moving
+        collision.GetComponent<NavMeshAgent>().SetDestination(collision.GetComponent<NavMeshAgent>().transform.position);
+
+        FreezeEnemiesClientRpc(networkObjID);
+    }
+
+
+    [ClientRpc]
+    private void FreezeEnemiesClientRpc(ulong networkObjID)
+    {
+        Collider collision = GetNetworkObject(networkObjID).GetComponent<Collider>();
+
+        StartCoroutine(FreezeEnemies(collision));
     }
 }

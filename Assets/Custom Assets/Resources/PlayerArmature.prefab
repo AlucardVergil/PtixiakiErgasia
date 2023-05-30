@@ -6972,6 +6972,7 @@ GameObject:
   - component: {fileID: 2559987317647163562}
   - component: {fileID: 2739557958261705976}
   - component: {fileID: 2245263350451516549}
+  - component: {fileID: 1326203375683598533}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -7658,6 +7659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabsArray:
   - {fileID: 814934791436195049, guid: aab6addd9f563ed42bc8bfb2df140ceb, type: 3}
+  - {fileID: 6569472080170692497, guid: cd076851b82e9e44a8e98a3b1dd11f13, type: 3}
 --- !u!114 &2245263350451516549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7688,6 +7690,55 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &1326203375683598533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559987317647163573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45d17537028a374298f0da1d281c47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 723624365
+    DestinationState: -1092128709
+    TransitionDuration: 0.25
+    TriggerNameHash: 76336846
+    TransitionIndex: 2
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 723624365
+    DestinationState: 1352290673
+    TransitionDuration: 0.25
+    TriggerNameHash: 1490946511
+    TransitionIndex: 3
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 723624365
+    DestinationState: -289121847
+    TransitionDuration: 0.25
+    TriggerNameHash: 1750652446
+    TransitionIndex: 4
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 723624365
+    DestinationState: -1897802659
+    TransitionDuration: 0.25
+    TriggerNameHash: 202397438
+    TransitionIndex: 5
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 723624365
+    DestinationState: -1081239226
+    TransitionDuration: 0.25
+    TriggerNameHash: 837774015
+    TransitionIndex: 6
+  m_Animator: {fileID: 2559987317647163583}
 --- !u!1 &2559987317648621343
 GameObject:
   m_ObjectHideFlags: 0
@@ -18421,13 +18472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8089ed47eccc7f4abb0ce27836b4cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
   itemNamePanelPrefab: {fileID: 6027077431095555566, guid: 668363b0474eae44fa5109c9853c0934, type: 3}
   itemDetailsPanel: {fileID: 7275303702384257485}
   itemOptionsPanelPrefab: {fileID: 4165910522956666869, guid: 4ffeedd6d974ac84098d9e6cfb4b28ac, type: 3}
-  panelLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &7275303701772296499
 GameObject:
   m_ObjectHideFlags: 0
@@ -34041,7 +34088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8667869745805974947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8580002, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34078,7 +34125,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.8879457, y: 1}
+    m_SensorSize: {x: 2.1393034, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34286,7 +34333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8667869746666035701}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8580002, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34323,7 +34370,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.8879457, y: 1}
+    m_SensorSize: {x: 2.1393034, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34468,7 +34515,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_Name
@@ -34488,7 +34535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000005
+      value: -0.6580002
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y

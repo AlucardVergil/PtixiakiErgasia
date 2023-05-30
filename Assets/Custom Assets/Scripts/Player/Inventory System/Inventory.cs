@@ -149,7 +149,7 @@ public class Inventory : NetworkBehaviour
 
         if (items.Contains(item.inventoryItemData))
         {
-            ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
+            ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<NetworkPrefabIdentification>().prefabID, SpawnItemPosition(), transform.rotation);
             //GetComponent<NetworkPlayerOwnership>().ItemDropSpawnServerRPC(item.itemDropPrefab.GetComponent<ItemDrop>().prefabID, SpawnItemPosition(), transform.rotation);
 
             yield return new WaitUntil(() => netObjIdIsSetBool == true);

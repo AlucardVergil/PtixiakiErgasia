@@ -98,7 +98,7 @@ public class NetworkPlayerOwnership : NetworkBehaviour
         foreach (var prefab in prefabsArray)
         {
             // Add the prefab to the dictionary using its prefabID as the key
-            prefabsDictionary[prefab.GetComponent<ItemDrop>().prefabID] = prefab;
+            prefabsDictionary[prefab.GetComponent<NetworkPrefabIdentification>().prefabID] = prefab;
         }
     }
 
@@ -224,9 +224,12 @@ public class NetworkPlayerOwnership : NetworkBehaviour
     {
         //Destroy(GetNetworkObject(networkObjectId).gameObject);
         //Destroy(currentNetworkGameObject);
+        GameObject networkObj = GetNetworkObject(netObjID).gameObject;
         GetNetworkObject(netObjID).Despawn();
+        Destroy(networkObj);
     }
 
+    //OnStartClient
 
 
     public void SpawnNetworkGameObject(int prefabID, Vector3 position)

@@ -34,6 +34,8 @@ ScriptsOnlyBuild:
     - NetworkManagerUI
     - NetworkPlayerCamera
     - NetworkPlayerOwnership
+    - NetworkPrefabIdentification
+    - OwnerNetworkAnimator
     - PlayerManager
     - PlayerNoiseLevels
     - PlayerStats
@@ -69,6 +71,9 @@ ScriptsOnlyBuild:
     - UnityEngine.InputSystem.InputSystemObject
     - UnityEngine.InputSystem.PlayerInput
     - UnityEngine.InputSystem.RemoteInputPlayerConnection
+    Unity.Netcode.Components.dll:
+    - Unity.Netcode.Components.NetworkRigidbody
+    - Unity.Netcode.Components.NetworkTransform
     Unity.Netcode.Runtime.dll:
     - Unity.Netcode.NetworkManager
     - Unity.Netcode.NetworkObject
@@ -175,6 +180,8 @@ ScriptsOnlyBuild:
     - UnityEngine.InputSystem.PlayerInput/DeviceLostEvent
     - UnityEngine.InputSystem.PlayerInput/DeviceRegainedEvent
     - UnityEngine.InputSystem.iOS.PrivacyDataUsage
+    Unity.Netcode.Components:
+    - Unity.Netcode.Components.NetworkAnimator/TransitionStateinfo
     Unity.Netcode.Runtime:
     - Unity.Netcode.NetworkConfig
     - Unity.Netcode.NetworkPrefab
@@ -2525,6 +2532,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6508}
     - Class: 114
+      Script: {instanceID: 6900}
+    - Class: 114
       Script: {instanceID: 7126}
     - Class: 114
       Script: {instanceID: 7438}
@@ -2605,6 +2614,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13230}
     - Class: 114
+      Script: {instanceID: 13232}
+    - Class: 114
       Script: {instanceID: 13240}
     - Class: 114
       Script: {instanceID: 13264}
@@ -2626,6 +2637,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15616}
     - Class: 114
       Script: {instanceID: 15668}
+    - Class: 114
+      Script: {instanceID: 290550}
+    - Class: 114
+      Script: {instanceID: 366188}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -2699,6 +2714,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 72
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
@@ -2756,7 +2773,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5654}
     - Class: 114
+      Script: {instanceID: 5902}
+    - Class: 114
       Script: {instanceID: 6508}
+    - Class: 114
+      Script: {instanceID: 6900}
     - Class: 114
       Script: {instanceID: 7126}
     - Class: 114
@@ -2782,11 +2803,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8842}
     - Class: 114
+      Script: {instanceID: 9056}
+    - Class: 114
+      Script: {instanceID: 9116}
+    - Class: 114
       Script: {instanceID: 9304}
     - Class: 114
       Script: {instanceID: 9452}
     - Class: 114
       Script: {instanceID: 9540}
+    - Class: 114
+      Script: {instanceID: 9582}
     - Class: 114
       Script: {instanceID: 9648}
     - Class: 114
@@ -2802,15 +2829,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10210}
     - Class: 114
+      Script: {instanceID: 10364}
+    - Class: 114
       Script: {instanceID: 10492}
     - Class: 114
       Script: {instanceID: 10694}
+    - Class: 114
+      Script: {instanceID: 10878}
     - Class: 114
       Script: {instanceID: 11018}
     - Class: 114
       Script: {instanceID: 11084}
     - Class: 114
       Script: {instanceID: 11096}
+    - Class: 114
+      Script: {instanceID: 11614}
     - Class: 114
       Script: {instanceID: 11814}
     - Class: 114
@@ -2828,13 +2861,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13230}
     - Class: 114
+      Script: {instanceID: 13232}
+    - Class: 114
+      Script: {instanceID: 13240}
+    - Class: 114
       Script: {instanceID: 13264}
     - Class: 114
       Script: {instanceID: 13374}
     - Class: 114
+      Script: {instanceID: 13472}
+    - Class: 114
       Script: {instanceID: 13512}
     - Class: 114
       Script: {instanceID: 13762}
+    - Class: 114
+      Script: {instanceID: 14844}
     - Class: 114
       Script: {instanceID: 14854}
     - Class: 114
@@ -2843,17 +2884,25 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15616}
     - Class: 114
       Script: {instanceID: 15668}
+    - Class: 114
+      Script: {instanceID: 290550}
+    - Class: 114
+      Script: {instanceID: 366188}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 135
       Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
     - Class: 143
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 195
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
@@ -2880,6 +2929,12 @@ ScriptsOnlyBuild:
     - Class: 328
       Script: {instanceID: 0}
     - Class: 329
+      Script: {instanceID: 0}
+    - Class: 73398921
+      Script: {instanceID: 0}
+    - Class: 2058629509
+      Script: {instanceID: 0}
+    - Class: 2083052967
       Script: {instanceID: 0}
     Assets/Custom Assets/Scenes/RaceSelectionScenes/BeastmenRaceSelectionScene.unity:
     - Class: 1
@@ -3399,6 +3454,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6778}
     - Class: 114
+      Script: {instanceID: 6900}
+    - Class: 114
       Script: {instanceID: 7126}
     - Class: 114
       Script: {instanceID: 7218}
@@ -3509,6 +3566,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13230}
     - Class: 114
+      Script: {instanceID: 13232}
+    - Class: 114
       Script: {instanceID: 13240}
     - Class: 114
       Script: {instanceID: 13264}
@@ -3550,6 +3609,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15668}
     - Class: 114
       Script: {instanceID: 15754}
+    - Class: 114
+      Script: {instanceID: 290550}
+    - Class: 114
+      Script: {instanceID: 366188}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -4275,7 +4338,7 @@ ScriptsOnlyBuild:
     className: VFXPositionBinder
   - hash:
       serializedVersion: 2
-      Hash: a7575fdc43c9f9f04188d09c5a9aff05
+      Hash: dbcbd32a70475f0f9b294f69751ee8fb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ItemDrop
@@ -4713,7 +4776,7 @@ ScriptsOnlyBuild:
     className: CinemachineStoryboard
   - hash:
       serializedVersion: 2
-      Hash: b79395e5787584c1d9cf48594a390d77
+      Hash: 7ef046cfcb7f6df94bf9bb1be32a4cd2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HarvestableObject
@@ -5721,7 +5784,7 @@ ScriptsOnlyBuild:
     className: UnityOnBecameInvisibleMessageListener
   - hash:
       serializedVersion: 2
-      Hash: ed15ded8f257c5856b6005f2eab8b081
+      Hash: d70e0ea6a0a0e16efca850a60b1e850d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InventoryItem
@@ -6175,6 +6238,18 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RotateCharacter
+  - hash:
+      serializedVersion: 2
+      Hash: 0d675633a8e2841144c62b70ff786fe5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NetworkPrefabIdentification
+  - hash:
+      serializedVersion: 2
+      Hash: d60b5378035cdad2fef282d3fef09069
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: OwnerNetworkAnimator
   platform: 19
   scenePathNames:
   - Assets/Custom Assets/Scenes/RaceSelectionScenes/HumanRaceSelectionScene.unity

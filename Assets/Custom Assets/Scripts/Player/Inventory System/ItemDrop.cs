@@ -10,7 +10,6 @@ using Unity.Netcode;
 
 public class ItemDrop : NetworkBehaviour
 {
-    public int prefabID;
     protected GameObject player;
     private Inventory inventory;
 
@@ -109,7 +108,6 @@ public class ItemDrop : NetworkBehaviour
     [ClientRpc]
     public void InitializeClientRpc(int quantityTemp, string itemDescriptionTemp, int attackPowerTemp, int defensePowerTemp, int effectsDropdownIndexTemp, int effectsValueTemp)
     {
-        Debug.Log(OwnerClientId + " CLIENT RPC InitializeClientRpc");
         quantity = quantityTemp;
         itemDescription = itemDescriptionTemp;
 

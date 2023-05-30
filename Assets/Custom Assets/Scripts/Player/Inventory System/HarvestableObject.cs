@@ -69,7 +69,7 @@ public class HarvestableObject : ItemDrop
             isHarvested = true;
 
             // Instantiate the item drop at the gatherable object's position
-            player2.GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDropPrefab.GetComponent<ItemDrop>().prefabID, transform.position + transform.up);
+            player2.GetComponent<NetworkPlayerOwnership>().SpawnNetworkGameObject(itemDropPrefab.GetComponent<NetworkPrefabIdentification>().prefabID, transform.position + transform.up);
 
             // Destroy the gatherable object
             player2.GetComponent<NetworkPlayerOwnership>().DestroyNetworkGameObject(gameObject);

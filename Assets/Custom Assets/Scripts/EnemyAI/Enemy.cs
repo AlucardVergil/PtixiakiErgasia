@@ -9,6 +9,8 @@ using Unity.Netcode;
 //[RequireComponent (typeof(NavMeshAgent))]
 public class Enemy : NetworkBehaviour
 {
+    private NetworkVariable<float> networkHP = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
     public int hp; //Health of enemy
     public Animator animator; //Enemy animator component
     public Slider HPbar; //Enemy health bar slider above enemy's head
@@ -35,9 +37,63 @@ public class Enemy : NetworkBehaviour
     private float timer;
 
 
+    [ServerRpc(RequireOwnership = false)]
+    public void TakeDamageServerRpc(int damageValue)
+    {
+        
+
+        TakeDamageClientRpc(damageValue);
+
+
+        //Spawn enemy at spawn position
+        GameObject Enemy = Instantiate(Resources.Load("EnemySkeleton (4)", typeof(GameObject))) as GameObject;
+
+        Enemy.transform.position = enemySpawn.transform.position;
+
+        Enemy.GetComponent<NetworkObject>().Spawn(true);
+    }
+
+
+    [ClientRpc]
+    public void TakeDamageClientRpc(int damageValue)
+    {
+        Debug.Log("OwnerClientId " + OwnerClientId + " LocalPlayer " + NetworkManager.Singleton.LocalClientId + " networkHP " + networkHP.Value);
+
+
+        //get random between 0-100 and if it is smaller than the crit chance of the player, multiply damage value with crit damage
+        var rnd = Random.Range(0, 100);
+        damageValue = (int)Mathf.Round(rnd > playerStats.critChance ? damageValue : damageValue * playerStats.critDamage);
+
+
+        networkHP.Value -= damageValue;//Decrease enemy health based on the damage dealt by the player
+
+        
+        if (networkHP.Value <= 0)
+        {
+            //set the trigger parameter in state machine so that the enemy will transition to the death animation
+            //animator.SetTrigger("die");
+            //Disable enemy's collider so that take damage function won't trigger again if player hits a dead enemy
+            GetComponent<Collider>().enabled = false;
+            HPbar.gameObject.SetActive(false);
+
+            StartCoroutine(GetComponent<DissolvingController>().Dissolve());            
+        }
+        else
+        {
+            //set the trigger parameter in state machine so that the enemy will transition to the takeDamage animation when hit.
+            //Also no need to add transition condition from TakeDamage to Run. It is done automatically when you hit the enemy
+            //with just an empty transition, so that the enemy starts chasing the player when he takes damage
+            animator.SetBool("isChasing", true);
+            animator.SetTrigger("damage");
+        }
+    }
+
+
 
     void Start()
     {
+        networkHP = new NetworkVariable<float>(hp, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         HPbar.maxValue = hp; //Automatically change the max value of the slider to match HP of the enemy
         enemySpawn = GameObject.Find("EnemySpawn"); //Find empty gameobject to spawn enemy
 
@@ -54,44 +110,86 @@ public class Enemy : NetworkBehaviour
         playerNoise = player.GetComponent<PlayerNoiseLevels>();
 
         audioSource = GetComponent<AudioSource>();
-    }
 
 
-    void Update()
-    {
-        HPbar.value = hp; //Change the HP slider based on the remaining HP of the enemy
+        HPbar.value = networkHP.Value;
 
-        //Slow Motion Effect When Enemy Dies
-        if (hp <= 0 && canExecuteSlowMo)
+        networkHP.OnValueChanged += (float previousValue, float newValue) =>
         {
-            slowMoTimer += Time.deltaTime;
+            Debug.Log("OwnerClientId " + OwnerClientId + " LocalPlayer " + NetworkManager.Singleton.LocalClientId + " old " + previousValue);
+            Debug.Log("OwnerClientId " + OwnerClientId + " LocalPlayer " + NetworkManager.Singleton.LocalClientId + " new " + newValue);
 
-            if (slowMoTimer < 2 * Time.timeScale) // DeltaTime is affected by timescale so i multiply it with the current timescale so that i get the real-time
-                Time.timeScale = 0.5f;
-            else
+            HPbar.value = newValue; //Change the HP slider based on the remaining HP of the enemy
+
+            //Slow Motion Effect When Enemy Dies
+            if (newValue <= 0 && canExecuteSlowMo)
             {
-                Time.timeScale = 1f;
-                slowMoTimer = 0;
-                canExecuteSlowMo = false;                
+                slowMoTimer += Time.deltaTime;
+
+                if (slowMoTimer < 2 * Time.timeScale) // DeltaTime is affected by timescale so i multiply it with the current timescale so that i get the real-time
+                    Time.timeScale = 0.5f;
+                else
+                {
+                    Time.timeScale = 1f;
+                    slowMoTimer = 0;
+                    canExecuteSlowMo = false;
+                }
             }
-        }
 
-        PlayerNoiseMade();
+            PlayerNoiseMade();
 
-        if (!alertImage.gameObject.activeSelf)
-            timer = 0;
+            if (!alertImage.gameObject.activeSelf)
+                timer = 0;
 
-        timer += Time.deltaTime;
+            timer += Time.deltaTime;
 
-        if (timer > 3)
-            alertImage.gameObject.SetActive(false);
+            if (timer > 3)
+                alertImage.gameObject.SetActive(false);
+        };
     }
+
+
+    //void Update()
+    //{
+    //    HPbar.value = networkHP.Value; //Change the HP slider based on the remaining HP of the enemy
+
+    //    //Slow Motion Effect When Enemy Dies
+    //    if (networkHP.Value <= 0 && canExecuteSlowMo)
+    //    {
+    //        slowMoTimer += Time.deltaTime;
+
+    //        if (slowMoTimer < 2 * Time.timeScale) // DeltaTime is affected by timescale so i multiply it with the current timescale so that i get the real-time
+    //            Time.timeScale = 0.5f;
+    //        else
+    //        {
+    //            Time.timeScale = 1f;
+    //            slowMoTimer = 0;
+    //            canExecuteSlowMo = false;                
+    //        }
+    //    }
+
+    //    PlayerNoiseMade();
+
+    //    if (!alertImage.gameObject.activeSelf)
+    //        timer = 0;
+
+    //    timer += Time.deltaTime;
+
+    //    if (timer > 3)
+    //        alertImage.gameObject.SetActive(false);
+    //}
 
     
 
     //Function called when player's weapon hits the enemy in order for the enemy to take damage
+
     public void TakeDamage(int damageValue)
     {
+        TakeDamageServerRpc(damageValue);
+
+        return;
+
+
         //get random between 0-100 and if it is smaller than the crit chance of the player, multiply damage value with crit damage
         var rnd = Random.Range(0, 100);
         damageValue = (int)Mathf.Round(rnd > playerStats.critChance ? damageValue : damageValue * playerStats.critDamage);
