@@ -29,7 +29,7 @@ public class Enemy : NetworkBehaviour
     [HideInInspector] public bool investigatingNoise;
     [HideInInspector] public Vector3 investigateNoiseLocation;
     private GameObject player;
-    private PlayerStats playerStats;
+    //private PlayerStats playerStats;
     private PlayerNoiseLevels playerNoise;
     private AudioSource audioSource;
     public List<AudioClip> alertSFX;
@@ -124,19 +124,19 @@ public class Enemy : NetworkBehaviour
             HPbar.value = newValue; //Change the HP slider based on the remaining HP of the enemy
 
             //Slow Motion Effect When Enemy Dies
-            if (newValue <= 0 && canExecuteSlowMo)
-            {
-                slowMoTimer += Time.deltaTime;
+            //if (newValue <= 0 && canExecuteSlowMo)
+            //{
+            //    slowMoTimer += Time.deltaTime;
 
-                if (slowMoTimer < 2 * Time.timeScale) // DeltaTime is affected by timescale so i multiply it with the current timescale so that i get the real-time
-                    Time.timeScale = 0.5f;
-                else
-                {
-                    Time.timeScale = 1f;
-                    slowMoTimer = 0;
-                    canExecuteSlowMo = false;
-                }
-            }
+            //    if (slowMoTimer < 2 * Time.timeScale) // DeltaTime is affected by timescale so i multiply it with the current timescale so that i get the real-time
+            //        Time.timeScale = 0.5f;
+            //    else
+            //    {
+            //        Time.timeScale = 1f;
+            //        slowMoTimer = 0;
+            //        canExecuteSlowMo = false;
+            //    }
+            //}
             
         };
     }
