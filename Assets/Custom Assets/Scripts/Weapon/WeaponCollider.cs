@@ -22,7 +22,11 @@ public class WeaponCollider : NetworkBehaviour
     public int sheathBone;
     [Header("0 = Right Hand, 1 = Left Hand")]
     public int drawBone;
-    
+
+    private PlayerStats playerStats;
+    private PlayerNoiseLevels playerNoise;
+
+
 
 
     void Start()
@@ -43,6 +47,10 @@ public class WeaponCollider : NetworkBehaviour
         playerObject.GetComponent<SheathWeapon>().SetWeaponAndBoneVariables(sheathWeapon, sheathBone);
         playerObject.GetComponent<ComboAttacks>().animationWeaponPrefix = weaponType;
         playerObject.GetComponent<ComboAttacks>().weaponWeight = weight;
+
+
+        playerStats = playerObject.GetComponent<PlayerStats>();
+        playerNoise = playerObject.GetComponent<PlayerNoiseLevels>();
     }
 
 
@@ -58,7 +66,7 @@ public class WeaponCollider : NetworkBehaviour
         {
             //call function to deal damage to the enemy
             //DamageValue is added inside float parameter in each attack's animation event. Not here!
-            other.GetComponent<Enemy>().TakeDamage(_input.damageValue + weaponDamage);
+            other.GetComponent<Enemy>().TakeDamageServerRpc(_input.damageValue + weaponDamage, playerStats.critDamage, playerStats.critChance);
 
             //make it false so it doesn't take damage more than once with only one swing if collider accidentally hits
             //the enemy multiple times with one swing

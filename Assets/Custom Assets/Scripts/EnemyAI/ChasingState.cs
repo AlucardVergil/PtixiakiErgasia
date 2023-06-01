@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
+using static ChasingState;
 
 public class ChasingState : StateMachineBehaviour
 {
@@ -18,6 +21,7 @@ public class ChasingState : StateMachineBehaviour
     [SerializeField] float attackRange;
 
     NavMeshAgent navAgent;
+    GameObject[] playersArray;
     Transform playerTransform;
 
     bool canSeePlayer;
@@ -35,10 +39,12 @@ public class ChasingState : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        playersArray = GameObject.FindGameObjectsWithTag("Player");
+
         navAgent = animator.GetComponent<NavMeshAgent>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        playerSkmrs = playerTransform.GetChild(2).transform.GetChild(0).GetComponentsInChildren<SkinnedMeshRenderer>();
-        afterImageMat = playerTransform.GetComponent<PlayerStats>().afterImageMaterial;
+        
+        //playerSkmrs = playerTransform.GetChild(2).transform.GetChild(0).GetComponentsInChildren<SkinnedMeshRenderer>();
+        //afterImageMat = playerTransform.GetComponent<PlayerStats>().afterImageMaterial;
 
         navAgent.speed = enemySpeed;
 
@@ -61,12 +67,26 @@ public class ChasingState : StateMachineBehaviour
         //Sets destination to the player location so that the enemy chases the player
         //navAgent.SetDestination(playerPosition);
 
-        //Get the distance between the player and the enemy
-        float distance = Vector3.Distance(playerTransform.position, animator.transform.position);
-        canSeePlayer = !navAgent.Raycast(playerTransform.position, out NavMeshHit hitObstacle);
-        
+        float minDistance = Mathf.Infinity;
 
-        if (distance < chaseRange && canSeePlayer) //if player is within enemy's visible distance without obstractions
+        for (int j = 0; j < playersArray.Length; j++)
+        {
+            //Get the distance between the player and the enemy
+            float currentDistance = Vector3.Distance(playersArray[j].transform.position, animator.transform.position);
+            canSeePlayer = !navAgent.Raycast(playersArray[j].transform.position, out NavMeshHit hitObstacle);
+
+            if (canSeePlayer && currentDistance < minDistance)
+            {
+                minDistance = currentDistance;
+                playerTransform = playersArray[j].transform;
+            }
+        }
+
+       
+
+        // I removed canSeePlayer from this if statement because is already checked in the for loop above. The minDistance will only be less than infinity
+        // (and thus less than the chaseRange), if a player is found so that has the canSeePlayer bool true else the minDistance will be infinity.
+        if (minDistance < chaseRange) //if player is within enemy's visible distance without obstractions
         {
             //Sets destination to the player location so that the enemy chases the player
             navAgent.SetDestination(playerTransform.position);
@@ -79,11 +99,11 @@ public class ChasingState : StateMachineBehaviour
         {
             //if last known position is the same as before, means that enemy no longer hears the player and thus make enemyAlerted to false.
             //If player makes a noise again enemyAlerted becomes true again from Enemy class
-            if (lastKnownPlayerPosition == animator.GetComponent<Enemy>().investigateNoiseLocation)            
+            if (lastKnownPlayerPosition == animator.GetComponent<Enemy>().investigateNoiseLocation)
                 animator.GetComponent<Enemy>().enemyAlerted = false;
 
             lastKnownPlayerPosition = animator.GetComponent<Enemy>().investigateNoiseLocation;
-            
+
             navAgent.SetDestination(lastKnownPlayerPosition);
 
             searchTimeTemp = searchTime;
@@ -91,6 +111,10 @@ public class ChasingState : StateMachineBehaviour
         }
         else //else create after image at last known location and go there and search
         {
+            playerSkmrs = playerTransform.GetChild(2).transform.GetChild(0).GetComponentsInChildren<SkinnedMeshRenderer>();
+            afterImageMat = playerTransform.GetComponent<PlayerStats>().afterImageMaterial;
+
+
             #region AfterImage of Player's Last Known Location
             //Leave an AfterImage of the player at last known location when enemy loses sight of him
             if (doOnceAfterImage) //do this only once
@@ -123,7 +147,7 @@ public class ChasingState : StateMachineBehaviour
                     }
 
                     afterImage.GetComponent<MeshRenderer>().sharedMaterials = tempMaterials;
-                    
+
                     afterImage.transform.SetPositionAndRotation(playerSkmrs[i].transform.position, playerSkmrs[i].transform.rotation);
                 }
                 doOnceAfterImage = false;
@@ -131,40 +155,42 @@ public class ChasingState : StateMachineBehaviour
                 //Go to last known location where after image is
                 navAgent.SetDestination(lastKnownPlayerPosition);
             }
-            #endregion
-
-
-            #region Search Player At Random Location Within A Radius
-
-            searchTimeTemp -= Time.deltaTime;
-
-            if (navAgent.remainingDistance <= 2)
-            {
-                if (afterImageGroup != null)
-                    Destroy(afterImageGroup);
-
-                if (searchTimeTemp > 0)
-                {                    
-                    //get random point inside shpere with radius 1 and then multiplied to increase radius
-                    Vector3 randomDirection = Random.insideUnitSphere * searchRadius;
-                    randomDirection += animator.transform.position; //add random spot to enemy transform so that it the search radius move with enemy
-
-                    //find nearest point from randomDirection, inside navmesh
-                    NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, searchRadius, 1);
-                    Vector3 randomDestination = hit.position;
-                    navAgent.SetDestination(randomDestination);
-                }
-                else
-                {
-                    animator.SetBool("isChasing", false);
-                }                
-            }
-            #endregion
         }
+
+        #endregion
+
+
+        #region Search Player At Random Location Within A Radius
+
+        searchTimeTemp -= Time.deltaTime;
+
+        if (navAgent.remainingDistance <= 2)
+        {
+            if (afterImageGroup != null)
+                Destroy(afterImageGroup);
+
+            if (searchTimeTemp > 0)
+            {
+                //get random point inside shpere with radius 1 and then multiplied to increase radius
+                Vector3 randomDirection = Random.insideUnitSphere * searchRadius;
+                randomDirection += animator.transform.position; //add random spot to enemy transform so that it the search radius move with enemy
+
+                //find nearest point from randomDirection, inside navmesh
+                NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, searchRadius, 1);
+                Vector3 randomDestination = hit.position;
+                navAgent.SetDestination(randomDestination);
+            }
+            else
+            {
+                animator.SetBool("isChasing", false);
+            }
+        }
+        #endregion
+
 
 
         //When enemy moves close enough to the player it starts attacking and enters the attack state
-        if (distance < attackRange)
+        if (minDistance < attackRange)
             animator.SetBool("isAttacking", true);
     }
 

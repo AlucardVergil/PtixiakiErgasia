@@ -36,33 +36,36 @@ public class Enemy : NetworkBehaviour
     public Image alertImage;
     private float timer;
 
+    GameObject[] playersArray;
+    float maxNoiseMade;
 
+
+    //Function called when player's weapon hits the enemy in order for the enemy to take damage
     [ServerRpc(RequireOwnership = false)]
-    public void TakeDamageServerRpc(int damageValue)
-    {
-        
+    public void TakeDamageServerRpc(int damageValue, float critDamage, int critChance)
+    {        
 
-        TakeDamageClientRpc(damageValue);
+        TakeDamageClientRpc(damageValue, critDamage, critChance);
 
 
         //Spawn enemy at spawn position
-        GameObject Enemy = Instantiate(Resources.Load("EnemySkeleton (4)", typeof(GameObject))) as GameObject;
+        //GameObject Enemy = Instantiate(Resources.Load("EnemySkeleton (4)", typeof(GameObject))) as GameObject;
 
-        Enemy.transform.position = enemySpawn.transform.position;
+        //Enemy.transform.position = enemySpawn.transform.position;
 
-        Enemy.GetComponent<NetworkObject>().Spawn(true);
+        //Enemy.GetComponent<NetworkObject>().Spawn(true);
     }
 
 
     [ClientRpc]
-    public void TakeDamageClientRpc(int damageValue)
+    public void TakeDamageClientRpc(int damageValue, float critDamage, int critChance)
     {
         Debug.Log("OwnerClientId " + OwnerClientId + " LocalPlayer " + NetworkManager.Singleton.LocalClientId + " networkHP " + networkHP.Value);
 
 
         //get random between 0-100 and if it is smaller than the crit chance of the player, multiply damage value with crit damage
         var rnd = Random.Range(0, 100);
-        damageValue = (int)Mathf.Round(rnd > playerStats.critChance ? damageValue : damageValue * playerStats.critDamage);
+        damageValue = (int)Mathf.Round(rnd > critChance ? damageValue : damageValue * critDamage);
 
 
         networkHP.Value -= damageValue;//Decrease enemy health based on the damage dealt by the player
@@ -106,7 +109,6 @@ public class Enemy : NetworkBehaviour
                 player = p;
         }
 
-        playerStats = player.GetComponent<PlayerStats>();
         playerNoise = player.GetComponent<PlayerNoiseLevels>();
 
         audioSource = GetComponent<AudioSource>();
@@ -135,16 +137,7 @@ public class Enemy : NetworkBehaviour
                     canExecuteSlowMo = false;
                 }
             }
-
-            PlayerNoiseMade();
-
-            if (!alertImage.gameObject.activeSelf)
-                timer = 0;
-
-            timer += Time.deltaTime;
-
-            if (timer > 3)
-                alertImage.gameObject.SetActive(false);
+            
         };
     }
 
@@ -179,56 +172,43 @@ public class Enemy : NetworkBehaviour
     //        alertImage.gameObject.SetActive(false);
     //}
 
-    
 
-    //Function called when player's weapon hits the enemy in order for the enemy to take damage
-
-    public void TakeDamage(int damageValue)
+    private void Update()
     {
-        TakeDamageServerRpc(damageValue);
+        PlayerNoiseMade();
 
-        return;
+        if (!alertImage.gameObject.activeSelf)
+            timer = 0;
 
+        timer += Time.deltaTime;
 
-        //get random between 0-100 and if it is smaller than the crit chance of the player, multiply damage value with crit damage
-        var rnd = Random.Range(0, 100);
-        damageValue = (int)Mathf.Round(rnd > playerStats.critChance ? damageValue : damageValue * playerStats.critDamage);
-
-
-        hp -= damageValue;//Decrease enemy health based on the damage dealt by the player
-        if (hp <= 0)
-        {
-            //set the trigger parameter in state machine so that the enemy will transition to the death animation
-            //animator.SetTrigger("die");
-            //Disable enemy's collider so that take damage function won't trigger again if player hits a dead enemy
-            GetComponent<Collider>().enabled = false;
-            HPbar.gameObject.SetActive(false);
-
-            StartCoroutine(GetComponent<DissolvingController>().Dissolve());
-
-            //Spawn enemy at spawn position
-            GameObject Enemy = Instantiate(Resources.Load("EnemySkeleton (4)", typeof(GameObject))) as GameObject;
-            Enemy.transform.position = enemySpawn.transform.position;
-        }
-        else
-        {
-            //set the trigger parameter in state machine so that the enemy will transition to the takeDamage animation when hit.
-            //Also no need to add transition condition from TakeDamage to Run. It is done automatically when you hit the enemy
-            //with just an empty transition, so that the enemy starts chasing the player when he takes damage
-            animator.SetBool("isChasing", true);
-            animator.SetTrigger("damage");
-        }
-
+        if (timer > 3)
+            alertImage.gameObject.SetActive(false);
     }
+
 
 
     void PlayerNoiseMade()
     {
-        //Player noise level based on player action perform divided by distance to the enemy
-        float distance = Vector3.Distance(player.transform.position, animator.transform.position);
-        float noiseMade = playerNoise.noiseLevel / distance;
+        playersArray = GameObject.FindGameObjectsWithTag("Player");
 
-        if (noiseMade > noiseThreshold)
+        maxNoiseMade = 0;
+
+        // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+        foreach (GameObject p in playersArray)
+        {
+            playerNoise = p.GetComponent<PlayerNoiseLevels>();
+
+            //Player noise level based on player action perform divided by distance to the enemy
+            float distance = Vector3.Distance(p.transform.position, animator.transform.position);
+            float noiseMade = playerNoise.noiseLevel / distance;
+
+            if (noiseMade > maxNoiseMade)
+                maxNoiseMade = noiseMade;
+        }        
+
+
+        if (maxNoiseMade > noiseThreshold)
         {
             investigateNoiseLocation = player.transform.position;
 

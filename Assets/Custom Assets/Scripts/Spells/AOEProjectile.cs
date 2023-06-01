@@ -19,7 +19,7 @@ public class AOEProjectile : NetworkBehaviour
             if (collision.gameObject.CompareTag("Enemy")) //check if collided with enemy and take damage
             {                
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-                enemy.TakeDamage(100);
+                enemy.TakeDamageServerRpc(100, 0, 0);
             }
 
             collided = true;

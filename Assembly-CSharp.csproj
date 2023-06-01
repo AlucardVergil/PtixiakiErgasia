@@ -74,6 +74,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\Game Menus\UpgradeManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\TabGroup.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\SwitchArmorEquipment.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Networking\NetworkPrefabIdentification.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\ItemDrop.cs" />
     <Compile Include="Assets\Sun_Temple\Scripts\Doors\CircularLerp.cs" />
     <Compile Include="Assets\Custom Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Assets\Custom Assets\Scripts\BlendShapes\BlendShapeSlider.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SecondaryCustomizationHelper.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\SwitchArmor\Buttons Base Classes\ButtonsGroupManager.cs" />
+    <Compile Include="Assets\Custom Assets\Scripts\Networking\OwnerNetworkAnimator.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\Inventory System\InventoryItem.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Game Menus\InventoryManager.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Networking\NetworkPlayerOwnership.cs" />
@@ -158,8 +160,6 @@
     <Compile Include="Assets\Custom Assets\Scripts\Spells\SpawnWallSpell\Fracture_Pillar.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Networking\ClientNetworkTransform.cs" />
     <Compile Include="Assets\Custom Assets\Scripts\Player\RotateCharacter.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Networking\NetworkPrefabIdentification.cs" />
-    <Compile Include="Assets\Custom Assets\Scripts\Networking\OwnerNetworkAnimator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

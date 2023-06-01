@@ -12,17 +12,30 @@ public class Projectile : NetworkBehaviour
 
     private bool collided;
 
+    private PlayerStats playerStats;
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Spell") && !collision.gameObject.CompareTag("Player") 
             && !collision.gameObject.CompareTag("PlayerWeapon") && !collided)
         {
             if (collision.gameObject.CompareTag("Enemy")) //check if collided with enemy and take damage
-            {                
-                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-                enemy.TakeDamage(spellDamage);
-            }
+            {
+                GameObject[] playersArray = GameObject.FindGameObjectsWithTag("Player");
 
+                // Assign the correct player gameobject for each player by checking if they are owner of the player gameobject
+                foreach (GameObject p in playersArray)
+                {
+                    if (p.GetComponent<NetworkObject>().IsOwner)
+                        playerStats = p.GetComponent<PlayerStats>();
+                }
+
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                enemy.TakeDamageServerRpc(spellDamage, playerStats.critDamage, playerStats.critChance);
+            }
+            
             collided = true;
 
             if (impactVFX != null)
