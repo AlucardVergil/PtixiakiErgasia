@@ -70,15 +70,17 @@ public class FreezeSpellShooter : NetworkBehaviour
             //the moment the actual spell is created and fired
             if (freezeWarmUp != null)
             {
-                var warmUpObjLeft = Instantiate(freezeWarmUp, targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Left.position, Quaternion.identity);
-                warmUpObjLeft.GetComponent<NetworkObject>().Spawn(true);
-                //warmUpObjLeft.transform.parent = targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Left.transform;
-                Destroy(warmUpObjLeft, freezeWarmUpDelay);
+                SpellWarmUpClientRpc(targetClient.PlayerObject.NetworkObjectId);
 
-                var warmUpObjRight = Instantiate(freezeWarmUp, targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Right.position, Quaternion.identity);
-                warmUpObjRight.GetComponent<NetworkObject>().Spawn(true);
-                //warmUpObjRight.transform.parent = targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Right.transform;                
-                Destroy(warmUpObjRight, freezeWarmUpDelay);
+                //var warmUpObjLeft = Instantiate(freezeWarmUp, targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Left.position, Quaternion.identity);
+                //warmUpObjLeft.GetComponent<NetworkObject>().Spawn(true);
+                ////warmUpObjLeft.transform.parent = targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Left.transform;
+                //Destroy(warmUpObjLeft, freezeWarmUpDelay);
+
+                //var warmUpObjRight = Instantiate(freezeWarmUp, targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Right.position, Quaternion.identity);
+                //warmUpObjRight.GetComponent<NetworkObject>().Spawn(true);
+                ////warmUpObjRight.transform.parent = targetClient.PlayerObject.GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Right.transform;                
+                //Destroy(warmUpObjRight, freezeWarmUpDelay);
             }
 
             if (audioSource != null && freezeSFX.Count > 0)
@@ -107,6 +109,24 @@ public class FreezeSpellShooter : NetworkBehaviour
     public void SpawnFreezeSpellServerRPC(ServerRpcParams serverRpcParams = default)
     {
         StartCoroutine(InstantiateFreezeSpell(serverRpcParams.Receive.SenderClientId));
+    }
+
+
+    // This a workaround that is used to spawn the spell warnUp to each client individually without netcode's Spawn() because i can't parent
+    // the spell to the hand bones, so instead i Instantiate the spell to each client separately
+    [ClientRpc]
+    private void SpellWarmUpClientRpc(ulong targetNetPlayerObjId)
+    {
+        Transform senderFirepointLeft = GetNetworkObject(targetNetPlayerObjId).GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Left;
+        Transform senderFirepointRight = GetNetworkObject(targetNetPlayerObjId).GetComponent<FreezeSpellShooter>().freezeWarmUpPoint_Right;
+
+        var warmUpObjLeft = Instantiate(freezeWarmUp, senderFirepointLeft.position, Quaternion.identity);
+        warmUpObjLeft.transform.parent = senderFirepointLeft;
+        Destroy(warmUpObjLeft, freezeWarmUpDelay);
+
+        var warmUpObjRight = Instantiate(freezeWarmUp, senderFirepointRight.position, Quaternion.identity);
+        warmUpObjRight.transform.parent = senderFirepointRight;                
+        Destroy(warmUpObjRight, freezeWarmUpDelay);
     }
 
 

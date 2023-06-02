@@ -74,6 +74,8 @@ ScriptsOnlyBuild:
     Unity.Netcode.Components.dll:
     - Unity.Netcode.Components.NetworkRigidbody
     - Unity.Netcode.Components.NetworkTransform
+    Unity.Netcode.Editor.dll:
+    - Unity.Netcode.Editor.NetworkPrefabsEditor
     Unity.Netcode.Runtime.dll:
     - Unity.Netcode.NetworkManager
     - Unity.Netcode.NetworkObject

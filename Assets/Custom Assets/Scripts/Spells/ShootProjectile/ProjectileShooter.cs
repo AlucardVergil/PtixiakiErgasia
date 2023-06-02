@@ -115,44 +115,49 @@ public class ProjectileShooter : NetworkBehaviour
         
         GetComponent<PlayerInput>().enabled = false; //disable player inputs when firing spell        
 
-        ShootProjectileServerRPC(destination, firePoint.position); //instantiate spell on left hand of player
+        ShootProjectileServerRPC(destination); //instantiate spell on left hand of player
     }
 
 
-    IEnumerator InstantiateProjectile(ulong senderClientId, Vector3 destination, Vector3 firePointPosition)
+    IEnumerator InstantiateProjectile(ulong senderClientId, Vector3 destination)
     {
-        //create the spell warmup in hand and parent it to hand to move along with it and destroy
-        //the moment the actual spell is created and fired
-        if (warmUp != null)
-        {
-            var warmUpObj = Instantiate(warmUp, firePointPosition, Quaternion.identity);
-            warmUpObj.GetComponent<NetworkObject>().Spawn(true);
-            //warmUpObj.transform.parent = firePoint.transform;
-            Destroy(warmUpObj, warmUpDelay);
-        }
-        //play sound effect from array
-        if (audioSource != null && shootSFX.Count > 0)
-        {
-            var index = Random.Range(0, shootSFX.Count);
-            audioSource.PlayOneShot(shootSFX[index]);
-        }
-        //suspend execution of function for given secs
-        yield return new WaitForSeconds(warmUpDelay);
-
         //The current client is the target client, so handle the response here
         if (NetworkManager.Singleton.ConnectedClients.TryGetValue(senderClientId, out NetworkClient targetClient))
         {
+            //create the spell warmup in hand and parent it to hand to move along with it and destroy
+            //the moment the actual spell is created and fired
+            if (warmUp != null)
+            {
+                SpellWarmUpClientRpc(targetClient.PlayerObject.NetworkObjectId);
+
+                //var warmUpObj = Instantiate(warmUp, firePointPosition, Quaternion.identity);
+                ////warmUpObj.GetComponent<NetworkObject>().Spawn(true);
+                //warmUpObj.transform.parent = firePoint.transform;
+                //Destroy(warmUpObj, warmUpDelay);
+            }
+            //play sound effect from array
+            if (audioSource != null && shootSFX.Count > 0)
+            {
+                var index = Random.Range(0, shootSFX.Count);
+                audioSource.PlayOneShot(shootSFX[index]);
+            }
+
+            //suspend execution of function for given secs
+            yield return new WaitForSeconds(warmUpDelay);
+
             // Access the player GameObject associated with the targetClientId            
             if (!targetClient.PlayerObject.GetComponent<PlayerStats>().dead)
             {
                 //ShakeCameraWithImpulse();
                 //StartCoroutine(ChromaticAberrationPunch());
 
-                var projectileObj = Instantiate(projectile, firePointPosition, Quaternion.identity); //create spell in hand
+                Transform senderFirepoint = targetClient.PlayerObject.GetComponent<ProjectileShooter>().firePoint;
+
+                var projectileObj = Instantiate(projectile, senderFirepoint.position, Quaternion.identity); //create spell in hand
 
                 projectileObj.GetComponent<NetworkObject>().Spawn(true);
 
-                var distance = destination - firePointPosition; //get distance between hand and destination of ray
+                var distance = destination - senderFirepoint.position; //get distance between hand and destination of ray
                                                                  //set the speed of spell based on the variable and the distance normalized
                 projectileObj.GetComponent<Rigidbody>().velocity = distance.normalized * projectileSpeed;
 
@@ -166,9 +171,23 @@ public class ProjectileShooter : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void ShootProjectileServerRPC(Vector3 destination, Vector3 firePointPosition, ServerRpcParams serverRpcParams = default)
+    public void ShootProjectileServerRPC(Vector3 destination, ServerRpcParams serverRpcParams = default)
     {
-        StartCoroutine(InstantiateProjectile(serverRpcParams.Receive.SenderClientId, destination, firePointPosition)); //instantiate spell on left hand of player
+        StartCoroutine(InstantiateProjectile(serverRpcParams.Receive.SenderClientId, destination)); //instantiate spell on left hand of player
+    }
+
+
+
+    // This a workaround that is used to spawn the spell warnUp to each client individually without netcode's Spawn() because i can't parent
+    // the spell to the hand bones, so instead i Instantiate the spell to each client separately
+    [ClientRpc]
+    private void SpellWarmUpClientRpc(ulong targetNetPlayerObjId)
+    {
+        Transform senderFirepoint = GetNetworkObject(targetNetPlayerObjId).GetComponent<ProjectileShooter>().firePoint;
+
+        var warmUpObj = Instantiate(warmUp, senderFirepoint.position, Quaternion.identity);
+        warmUpObj.transform.parent = senderFirepoint;
+        Destroy(warmUpObj, warmUpDelay);
     }
 
 
