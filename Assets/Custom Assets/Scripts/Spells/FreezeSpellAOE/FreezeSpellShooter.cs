@@ -89,7 +89,7 @@ public class FreezeSpellShooter : NetworkBehaviour
 
             yield return new WaitForSeconds(freezeWarmUpDelay);
 
-            if (!GetComponent<PlayerStats>().dead)
+            if (!targetClient.PlayerObject.GetComponent<PlayerStats>().dead)
             {
                 var freezeObj = Instantiate(freezeSpell, freezeFirePoint.position, Quaternion.identity);
                 freezeObj.GetComponent<NetworkObject>().SpawnWithOwnership(senderClientId);

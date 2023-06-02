@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
 using StarterAssets;
 using Unity.Netcode;
-
+using Unity.Netcode.Components;
 
 public class ProjectileShooter : NetworkBehaviour
 {
@@ -102,7 +102,7 @@ public class ProjectileShooter : NetworkBehaviour
 
 
     void ShootProjectile()
-    {        
+    {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.51f, 0.5f, 0)); //return ray from middle of viewport        
         
         //if ray hits a collider set destination to the hit point else set destination to 1000 units along the ray
@@ -115,18 +115,19 @@ public class ProjectileShooter : NetworkBehaviour
         
         GetComponent<PlayerInput>().enabled = false; //disable player inputs when firing spell        
 
-        StartCoroutine(InstantiateProjectile(firePoint)); //instantiate spell on left hand of player
+        ShootProjectileServerRPC(destination, firePoint.position); //instantiate spell on left hand of player
     }
 
 
-    IEnumerator InstantiateProjectile(Transform firepoint)
+    IEnumerator InstantiateProjectile(ulong senderClientId, Vector3 destination, Vector3 firePointPosition)
     {
         //create the spell warmup in hand and parent it to hand to move along with it and destroy
         //the moment the actual spell is created and fired
         if (warmUp != null)
         {
-            var warmUpObj = Instantiate(warmUp, firepoint.position, Quaternion.identity);
-            warmUpObj.transform.parent = firepoint.transform;
+            var warmUpObj = Instantiate(warmUp, firePointPosition, Quaternion.identity);
+            warmUpObj.GetComponent<NetworkObject>().Spawn(true);
+            //warmUpObj.transform.parent = firePoint.transform;
             Destroy(warmUpObj, warmUpDelay);
         }
         //play sound effect from array
@@ -138,19 +139,46 @@ public class ProjectileShooter : NetworkBehaviour
         //suspend execution of function for given secs
         yield return new WaitForSeconds(warmUpDelay);
 
-        if (!GetComponent<PlayerStats>().dead)
+        //The current client is the target client, so handle the response here
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(senderClientId, out NetworkClient targetClient))
         {
-            //ShakeCameraWithImpulse();
-            //StartCoroutine(ChromaticAberrationPunch());
+            // Access the player GameObject associated with the targetClientId            
+            if (!targetClient.PlayerObject.GetComponent<PlayerStats>().dead)
+            {
+                //ShakeCameraWithImpulse();
+                //StartCoroutine(ChromaticAberrationPunch());
 
-            var projectileObj = Instantiate(projectile, firepoint.position, Quaternion.identity); //create spell in hand
-            var distance = destination - firepoint.position; //get distance between hand and destination of ray
-                                                             //set the speed of spell based on the variable and the distance normalized
-            projectileObj.GetComponent<Rigidbody>().velocity = distance.normalized * projectileSpeed;
+                var projectileObj = Instantiate(projectile, firePointPosition, Quaternion.identity); //create spell in hand
 
-            yield return new WaitForSeconds(1); //wait 1 sec after firing spell to finish casting animation
+                projectileObj.GetComponent<NetworkObject>().Spawn(true);
 
-            GetComponent<PlayerInput>().enabled = true; //re-enable player inputs after firing spell
-        } 
+                var distance = destination - firePointPosition; //get distance between hand and destination of ray
+                                                                 //set the speed of spell based on the variable and the distance normalized
+                projectileObj.GetComponent<Rigidbody>().velocity = distance.normalized * projectileSpeed;
+
+                yield return new WaitForSeconds(1); //wait 1 sec after firing spell to finish casting animation
+
+                DisablePlayerInputClientRpc(senderClientId, true); //re-enable player inputs after firing spell
+            }
+        }                
+    }
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ShootProjectileServerRPC(Vector3 destination, Vector3 firePointPosition, ServerRpcParams serverRpcParams = default)
+    {
+        StartCoroutine(InstantiateProjectile(serverRpcParams.Receive.SenderClientId, destination, firePointPosition)); //instantiate spell on left hand of player
+    }
+
+
+
+    [ClientRpc]
+    private void DisablePlayerInputClientRpc(ulong targetClientId, bool playerInputBool)
+    {
+        if (NetworkManager.Singleton.LocalClientId == targetClientId)
+        {
+            GetComponent<PlayerInput>().enabled = playerInputBool;
+        }
     }
 }
